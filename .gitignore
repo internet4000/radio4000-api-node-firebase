@@ -1,0 +1,29 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/dist
+/tmp
+/build
+/electron-builds
+/dist-electron
+
+# dependencies
+/node_modules
+/bower_components
+
+# misc
+yarn.lock
+/.sass-cache
+/connect.lock
+/coverage/*
+/libpeerconnection.log
+npm-debug.log*
+testem.log
+
+# sublime text
+*.sublime-project
+*.sublime-workspace
+
+# vs studio code
+jsconfig.json
+typings/

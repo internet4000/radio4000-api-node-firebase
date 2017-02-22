@@ -1,0 +1,17 @@
+{
+  "name": "radio4000-api",
+  "version": "0.0.1",
+  "description": "Public API for radio4000",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.1",
+    "firebase": "^3.6.10",
+    "nodemon": "^1.11.0"
+  }
+}
