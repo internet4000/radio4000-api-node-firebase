@@ -1,16 +1,7 @@
 var express = require('express');
-var firebase = require('firebase');
 var {serializeChannel, serializeTrack} = require('./firebase-serializer.js')
+var {apiGet, apiQuery} = require('./firebase-adapter.js')
 var router = express.Router();
-// var cloudinary = require('cloudinary');
-
-var firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-  databaseURL: process.env.FIREBASE_DATABASE_URL
-};
-
-firebase.initializeApp(firebaseConfig);
 
 var notAnEndpoint = function (req, res) {
   res.status(500).json({ error: 'Impossible to request this endpoint' });
@@ -22,8 +13,7 @@ router.get('/', function (req, res) {
 
 router.get('/channels', function (req, res) {
   // TODO: remove tracks in reponse (impossible at firebase query)
-  var channels = firebase.database().ref('/channels');
-  channels.once('value').then(snapshot => {
+  apiGet('channels').then(snapshot => {
 		var val = snapshot.val();
 		var channels = Object.keys(val).map(channelId => serializeChannel(val[channelId], channelId));
 		res.json(channels);
@@ -35,9 +25,8 @@ router.get('/channels', function (req, res) {
 });
 
 router.get('/channels/:channelSlug', function (req, res) {
-  var ref = firebase.database().ref('channels');
-  var slug = req.params.channelSlug;
-  ref.orderByChild('slug').equalTo(slug).once('value').then(snapshot => {
+	var slug = req.params.channelSlug;
+	apiQuery('channels','slug', slug).then(snapshot => {
 		var val = snapshot.val();
 		var channelId = Object.keys(val)[0];
 		var channel = val[channelId];
@@ -52,8 +41,7 @@ router.get('/channels/:channelSlug', function (req, res) {
 router.get('/tracks', notAnEndpoint);
 
 router.get('/tracks/:trackId', function (req, res) {
-  var ref = firebase.database().ref(`tracks/${req.params.trackId}`);
-  ref.once('value').then(snapshot => {
+  apiGet(`tracks/${req.params.trackId}`).then(snapshot => {
 		var track = snapshot.val();
 		var trackId = Object.keys(track);
 		res.send(serializeTrack(track, req.params.trackId));

@@ -15,7 +15,6 @@ function serializeChannel (channel, channelId) {
 }
 
 function serializeTrack (track ,trackId) {
-	console.log(track, trackId);
 	track.id = trackId;
 	track.type = 'track';
 	return track;
