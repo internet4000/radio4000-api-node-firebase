@@ -5,7 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "xo",
+    "deploy": "now --dotenv",
+    "deploy-alias": "npm run deploy && now alias"
+  },
+  "now": {
+    "alias": "r4-api.now.sh"
   },
   "author": "",
   "license": "ISC",
@@ -16,5 +21,7 @@
     "nodemon": "^1.11.0",
     "type-is": "^1.6.14"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "xo": "^0.17.1"
+  }
 }
