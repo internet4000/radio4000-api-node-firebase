@@ -4,27 +4,26 @@ var express = require('express');
 var app = express();
 var apiV1 = require('./api/v1.js');
 
-app.use(function(req, res, next) {
-	// var hasAnyMediaType = is.is(mediaType, ['*']);
-	// var hasAcceptHeader = req.get('Accept');
+// app.use(function(req, res, next) {
+// 	var hasAnyMediaType = is.is(mediaType, ['*']);
+// 	var hasAcceptHeader = req.get('Accept');
 
-	// if (hasAnyMediaType) {
-	// 	// 415 Unsupported Media Type, if any media type in request
-	// 	res.status(415);
-	// } else if (hasAcceptHeader) {
-	// 	// 406 Not Acceptable
-	// 	res.status(406);
-	// }
+// 	if (hasAnyMediaType) {
+// 		// 415 Unsupported Media Type, if any media type in request
+// 		res.status(415);
+// 	} else if (hasAcceptHeader) {
+// 		// 406 Not Acceptable
+// 		res.status(406);
+// 	}
 
-  res.set('Content-Type', 'application/vnd.api+json');
-  next();
-});
+//   res.set('Content-Type', 'application/vnd.api+json');
+//   next();
+// });
 
 app.get('/', function (req, res) {
   res.json({
 		"documentationUrl": "https://github.com/internet4000/radio4000-api-docs",
-		"hello": "Welcome to the Radio4000 API.",
-		"tes": "tessst"
+		"hello": "Welcome to the Radio4000 API."
   });
 });
 
