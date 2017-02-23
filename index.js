@@ -22,6 +22,14 @@ var notAnEndpoint = function (req, res) {
     res.status(500).json({ error: 'Impossible to request this endpoint' });
 };
 
+app.get('/', function (req, res) {
+    // TODO: send some doczz
+    res.json({
+	"documentationUrl": "https://github.com/internet4000",
+	"hello": "Welcome to the Radio4000 API."
+    });
+});
+
 app.get('/channels', function (req, res) {
     // TODO: remove tracks in reponse (impossible at firebase query)
     var channels = firebase.database().ref('/channels');
