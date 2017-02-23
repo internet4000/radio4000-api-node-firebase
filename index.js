@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var firebase = require('firebase');
-var cloudinary = require('cloudinary');
+// var cloudinary = require('cloudinary');
 var env = require('./env.json');
 
 var firebaseConfig = {
