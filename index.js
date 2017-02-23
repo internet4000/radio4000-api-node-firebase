@@ -7,7 +7,7 @@ var env = require('./env.json');
 var firebaseConfig = {
     apiKey: env.firebaseApiKey,
     authDomain: env.firebaseAuthDomain,
-    databaseURL: env.firebase.databaseURL
+    databaseURL: env.firebaseDatabaseURL
 };
 
 var cloudinaryConfig = {
@@ -18,13 +18,17 @@ var cloudinaryConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
+var notAnEndpoint = function (req, res) {
+    res.status(500).json({ error: 'Impossible to request this endpoint' });
+};
+
 app.get('/channels', function (req, res) {
     // TODO: remove tracks in reponse (impossible at firebase query)
     var channels = firebase.database().ref('/channels');
     channels.once('value').then(snapshot => {
 	res.json(snapshot.val());
     });
-})
+});
 
 app.get('/channels/:channelSlug', function (req, res) {
     var ref = firebase.database().ref('channels');
@@ -35,7 +39,21 @@ app.get('/channels/:channelSlug', function (req, res) {
     }).catch(() => {
 	res.status(500).json({ error: 'Data does not exist' });
     });
-})
+});
+
+app.get('/tracks', notAnEndpoint);
+
+app.get('/tracks/:trackId', function (req, res) {
+    var ref = firebase.database().ref(`tracks/${req.params.trackId}`);
+    ref.once('value').then(snapshot => {
+	res.send(snapshot.val());
+    }).catch(() => {
+	res.status(500).json({ error: 'Data does not exist' });
+    });
+});
+
+app.get('/images', notAnEndpoint);
+
 app.get('/images/:imageId', function (req, res) {
     // TODO: make cloudinary request
     var ref = firebase.database().ref(`images/${req.params.imageId}`);
@@ -44,8 +62,7 @@ app.get('/images/:imageId', function (req, res) {
     }).catch(() => {
 	res.status(500).json({ error: 'Data does not exist' });
     });
-
-})
+});
 app.listen(3000, function () {
     console.log('Example app listening on port 3000!')
-})
+});
