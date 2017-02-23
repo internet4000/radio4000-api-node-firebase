@@ -1,14 +1,22 @@
 var express = require('express');
 var app = express();
 var firebase = require('firebase');
+var cloudinary = require('cloudinary');
+var env = require('./env.json');
 
-var config = {
-    apiKey: "AIzaSyDi6cxC167OWaliNMnZkE0BX1XP8ObwdnQ",
-    authDomain: "radio4000-staging.firebaseapp.com",
-    databaseURL: "https://radio4000-staging.firebaseio.com"
+var firebaseConfig = {
+    apiKey: env.firebaseApiKey,
+    authDomain: env.firebaseAuthDomain,
+    databaseURL: env.firebase.databaseURL
 };
 
-firebase.initializeApp(config);
+var cloudinaryConfig = {
+    firebaseDatabaseURL: env.firebaseDatabaseURL,
+    cloudinaryApiKey: env.cloudinaryApiKey,
+    cloudinaryApiSecret: env.cloudinaryApiSecret
+};
+
+firebase.initializeApp(firebaseConfig);
 
 app.get('/channels', function (req, res) {
     // TODO: remove tracks in reponse (impossible at firebase query)
