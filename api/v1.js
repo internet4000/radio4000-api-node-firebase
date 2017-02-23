@@ -1,17 +1,13 @@
 var express = require('express');
 var firebase = require('firebase');
-var router = express.Router()
+var serializeChannel = require('../serialize-channel.js')
+var router = express.Router();
 // var cloudinary = require('cloudinary');
 
 var firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
   authDomain: process.env.FIREBASE_AUTH_DOMAIN,
   databaseURL: process.env.FIREBASE_DATABASE_URL
-};
-
-var cloudinaryConfig = {
-  cloudinaryApiKey: process.env.CLOUDINARY_API_KEY,
-  cloudinaryApiSecret: process.env.CLOUDINARY_API_SECRET
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -35,10 +31,14 @@ router.get('/channels', function (req, res) {
 router.get('/channels/:channelSlug', function (req, res) {
   var ref = firebase.database().ref('channels');
   var slug = req.params.channelSlug;
-  console.log( "slug", slug );
   ref.orderByChild('slug').equalTo(slug).once('value').then(snapshot => {
-		res.send(snapshot.val());
-  }).catch(() => {
+		var val = snapshot.val();
+		var channelId = Object.keys(val)[0];
+		var channel = val[channelId];
+		res.send(serializeChannel(channel, channelId));
+  }).catch(e => {
+		console.log( e );
+
 		res.status(500).json({ error: 'Data does not exist' });
   });
 });
