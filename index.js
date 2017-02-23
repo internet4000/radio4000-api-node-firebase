@@ -1,19 +1,18 @@
+require('dotenv').config()
 var express = require('express');
 var app = express();
 var firebase = require('firebase');
 // var cloudinary = require('cloudinary');
-var env = require('./env.json');
 
 var firebaseConfig = {
-    apiKey: env.firebaseApiKey,
-    authDomain: env.firebaseAuthDomain,
-    databaseURL: env.firebaseDatabaseURL
+    apiKey: process.env.FIREBASE_API_KEY,
+    authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+    databaseURL: process.env.FIREBASE_DATABASE_URL
 };
 
 var cloudinaryConfig = {
-    firebaseDatabaseURL: env.firebaseDatabaseURL,
-    cloudinaryApiKey: env.cloudinaryApiKey,
-    cloudinaryApiSecret: env.cloudinaryApiSecret
+    cloudinaryApiKey: process.env.CLOUDINARY_API_KEY,
+    cloudinaryApiSecret: process.env.CLOUDINARY_API_SECRET
 };
 
 firebase.initializeApp(firebaseConfig);
