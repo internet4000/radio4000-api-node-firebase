@@ -1,21 +1,20 @@
 require('dotenv').config();
 var express = require('express');
-var is = require('type-is');
+// var is = require('type-is');
 var app = express();
 var apiV1 = require('./api/v1.js');
 
-
 app.use(function(req, res, next) {
-	var hasAnyMediaType = is.is(mediaType, ['*']);
-	var hasAcceptHeader = req.get('Accept');
+	// var hasAnyMediaType = is.is(mediaType, ['*']);
+	// var hasAcceptHeader = req.get('Accept');
 
-	if (hasAnyMediaType) {
-		// 415 Unsupported Media Type, if any media type in request
-		res.status(415);
-	} else if (hasAcceptHeader) {
-		// 406 Not Acceptable
-		res.status(406);
-	}
+	// if (hasAnyMediaType) {
+	// 	// 415 Unsupported Media Type, if any media type in request
+	// 	res.status(415);
+	// } else if (hasAcceptHeader) {
+	// 	// 406 Not Acceptable
+	// 	res.status(406);
+	// }
 
   res.set('Content-Type', 'application/vnd.api+json');
   next();
