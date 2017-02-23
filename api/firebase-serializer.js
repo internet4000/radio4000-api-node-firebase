@@ -1,3 +1,5 @@
+var {buildCloudinaryUrl} = require('./cloudinary-adapter.js');
+
 var convertHasMany = function (fromObject) {
 	if (!fromObject) {
 		return;
@@ -10,7 +12,7 @@ function serializeChannel (channel, channelId) {
 	channel.id = channelId;
 	channel.tracks = convertHasMany(channel.tracks);
 	channel.favoriteChannels = convertHasMany(channel.favoriteChannels);
-	channel.images = convertHasMany(channel.images);
+	channel.images = convertHasMany(channel.images).map();
 	return channel;
 }
 
@@ -20,4 +22,10 @@ function serializeTrack (track ,trackId) {
 	return track;
 }
 
-module.exports = {serializeChannel, serializeTrack};
+function serializeImage (image, imageId) {
+	image.src = buildCloudinaryUrl(image.src);
+	image.id = imageId;
+	return image;
+}
+
+module.exports = {serializeChannel, serializeTrack, serializeImage};
