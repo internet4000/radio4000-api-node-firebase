@@ -4,7 +4,6 @@ var express = require('express');
 var app = express();
 var apiV1 = require('./api/v1.js');
 
-
 app.use(function(req, res, next) {
 	// var hasAnyMediaType = is.is(mediaType, ['*']);
 	// var hasAcceptHeader = req.get('Accept');
