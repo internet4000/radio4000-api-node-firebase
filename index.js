@@ -25,7 +25,7 @@ var notAnEndpoint = function (req, res) {
 app.get('/', function (req, res) {
     // TODO: send some doczz
     res.json({
-	"documentationUrl": "https://github.com/internet4000",
+	"documentationUrl": "https://github.com/internet4000/radio4000-api-docs",
 	"hello": "Welcome to the Radio4000 API."
     });
 });
