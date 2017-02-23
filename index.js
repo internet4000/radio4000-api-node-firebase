@@ -22,8 +22,9 @@ var apiV1 = require('./api/v1.js');
 
 app.get('/', function (req, res) {
   res.json({
+		"hello": "Welcome to the Radio4000 API.",
 		"documentationUrl": "https://github.com/internet4000/radio4000-api-docs",
-		"hello": "Welcome to the Radio4000 API."
+		"latest": "v1"
   });
 });
 

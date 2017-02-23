@@ -20,6 +20,10 @@ var notAnEndpoint = function (req, res) {
   res.status(500).json({ error: 'Impossible to request this endpoint' });
 };
 
+router.get('/', function (req, res) {
+	res.redirect('/');
+});
+
 router.get('/channels', function (req, res) {
   // TODO: remove tracks in reponse (impossible at firebase query)
   var channels = firebase.database().ref('/channels');
