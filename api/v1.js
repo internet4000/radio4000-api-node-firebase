@@ -54,9 +54,14 @@ router.get('/images', notAnEndpoint);
 
 router.get('/images/:imageId', function (req, res) {
   // TODO: make cloudinary request
+	var rootUrl = 'https://res.cloudinary.com/radio4000/image/upload/q_50,w_200,h_200,c_thumb,c_fill,fl_lossy/';
   var ref = firebase.database().ref(`images/${req.params.imageId}`);
   ref.once('value').then(snapshot => {
-		res.send(snapshot.val());
+		var image = snapshot.val();
+		let src = image.src;
+		let newSrc = `${rootUrl}${src}`;
+		image.src = newSrc;
+		res.send(image);
   }).catch(() => {
 		res.status(500).json({ error: 'Data does not exist' });
   });
