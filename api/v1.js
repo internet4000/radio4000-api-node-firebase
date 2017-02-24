@@ -33,24 +33,26 @@ router.get('/channels/:channelSlug', function (req, res) {
 		res.send(serializeChannel(channel, channelId));
   }).catch(e => {
 		console.log( e );
-
 		res.status(500).json({ error: 'Data does not exist' });
   });
 });
 
-// router.get('/channels/:channelSlug', function (req, res) {
-// 	var slug = req.params.channelSlug;
-// 	apiQuery('channels','slug', slug).then(snapshot => {
-// 		var val = snapshot.val();
-// 		var channelId = Object.keys(val)[0];
-// 		var channel = val[channelId];
-// 		res.send(serializeChannel(channel, channelId));
-//   }).catch(e => {
-// 		console.log( e );
+router.get('/channels/:channelSlug/tracks', function (req, res) {
+	var slug = req.params.channelSlug;
+	apiQuery('channels','slug', slug).then(snapshot => {
+		var channel = snapshot.val();
+		var channelId = Object.keys(channel)[0];
+		apiQuery('tracks', 'channel', channelId).then(snapshot => {
+			var tracks = snapshot.val();
+			var serializedTracks = Object.keys(tracks).map(trackId => serializeTrack(tracks[trackId], trackId));
+			res.json(serializedTracks);
+		})
+  }).catch(e => {
+		console.log( e );
 
-// 		res.status(500).json({ error: 'Data does not exist' });
-//   });
-// });
+		res.status(500).json({ error: 'Data does not exist' });
+  });
+});
 
 router.get('/tracks', notAnEndpoint);
 
