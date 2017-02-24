@@ -59,7 +59,9 @@ router.get('/tracks/:trackId', function (req, res) {
 		var track = snapshot.val();
 		var trackId = Object.keys(track);
 		res.send(serializeTrack(track, req.params.trackId));
-  }).catch(() => {
+  }).catch(e => {
+		console.log( e );
+
 		res.status(500).json({ error: 'Data does not exist' });
   });
 });
