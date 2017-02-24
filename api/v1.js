@@ -19,7 +19,6 @@ router.get('/channels', function (req, res) {
 		res.json(channels);
   }).catch(e => {
 		console.log( e );
-
 		res.status(500).json({ error: 'Data does not exist' });
 	});
 });
