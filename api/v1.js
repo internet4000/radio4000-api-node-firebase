@@ -1,6 +1,6 @@
 var express = require('express');
 var {serializeChannel, serializeTrack, serializeImage} = require('./firebase-serializer.js')
-var {apiGet, apiQuery} = require('./firebase-adapter.js')
+var {apiGetImage, apiGetTrack, apiGetChannel, apiGetChannelTracks, apiGetChannels, apiGet, apiQuery} = require('./firebase-adapter.js')
 var router = express.Router();
 
 var notAnEndpoint = function (req, res) {
@@ -13,42 +13,31 @@ router.get('/', function (req, res) {
 
 router.get('/channels', function (req, res) {
   // TODO: remove tracks in reponse (impossible at firebase query)
-  apiGet('channels').then(snapshot => {
-		var val = snapshot.val();
-		var channels = Object.keys(val).map(channelId => serializeChannel(val[channelId], channelId));
+	apiGetChannels().then(channels => {
 		res.json(channels);
-  }).catch(e => {
+	}).catch(e => {
 		console.log( e );
 		res.status(500).json({ error: 'Data does not exist' });
 	});
 });
 
 router.get('/channels/:channelSlug', function (req, res) {
-	var slug = req.params.channelSlug;
-	apiQuery('channels','slug', slug).then(snapshot => {
-		var val = snapshot.val();
-		var channelId = Object.keys(val)[0];
-		var channel = val[channelId];
-		res.send(serializeChannel(channel, channelId));
-  }).catch(e => {
+	apiGetChannel(req.params.channelSlug).then(channel => {
+		res.json(channel);
+	}).catch(e => {
 		console.log( e );
-		res.status(500).json({ error: 'Data does not exist' });
-  });
+		res.status(500).json({
+			message: 'Data does not exist',
+			error: e.message
+		});
+	});
 });
 
 router.get('/channels/:channelSlug/tracks', function (req, res) {
-	var slug = req.params.channelSlug;
-	apiQuery('channels','slug', slug).then(snapshot => {
-		var channel = snapshot.val();
-		var channelId = Object.keys(channel)[0];
-		apiQuery('tracks', 'channel', channelId).then(snapshot => {
-			var tracks = snapshot.val();
-			var serializedTracks = Object.keys(tracks).map(trackId => serializeTrack(tracks[trackId], trackId));
-			res.json(serializedTracks);
-		})
-  }).catch(e => {
+	apiGetChannelTracks(req.params.channelSlug).then(tracks => {
+		res.json(tracks);
+	}).catch(e => {
 		console.log( e );
-
 		res.status(500).json({ error: 'Data does not exist' });
   });
 });
@@ -56,26 +45,18 @@ router.get('/channels/:channelSlug/tracks', function (req, res) {
 router.get('/tracks', notAnEndpoint);
 
 router.get('/tracks/:trackId', function (req, res) {
-  apiGet(`tracks/${req.params.trackId}`).then(snapshot => {
-		var track = snapshot.val();
-		var trackId = Object.keys(track);
-		res.send(serializeTrack(track, req.params.trackId));
-  }).catch(e => {
-		console.log( e );
-
-		res.status(500).json({ error: 'Data does not exist' });
-  });
+  apiGetTrack(req.params.trackId).then(track => res.json(track))
+		.catch(e => {
+			console.log( e );
+			res.status(500).json({ error: 'Data does not exist' });
+		});
 });
 
 router.get('/images', notAnEndpoint);
 
 router.get('/images/:imageId', function (req, res) {
-  apiGet(`images/${req.params.imageId}`).then(snapshot => {
-		var image = snapshot.val();
-		res.send(serializeImage(image, req.params.imageId));
-  }).catch(e => {
+	apiGetImage(req.params.imageId).then(image => res.json(image)).catch(e => {
 		console.log( e );
-
 		res.status(500).json({ error: 'Data does not exist' });
   });
 });
