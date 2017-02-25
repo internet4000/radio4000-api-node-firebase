@@ -2,7 +2,7 @@ require('dotenv').config();
 var express = require('express');
 // var is = require('type-is');
 var app = express();
-var apiV1 = require('./api/v1.js');
+var apiV1 = require('./v1/api.js');
 
 // app.use(function(req, res, next) {
 // 	var hasAnyMediaType = is.is(mediaType, ['*']);
@@ -28,7 +28,7 @@ app.get('/', function (req, res) {
   });
 });
 
-app.use('/api/v1', apiV1);
+app.use('/v1', apiV1);
 
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!')
