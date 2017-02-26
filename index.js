@@ -22,7 +22,7 @@ var apiV1 = require('./v1/api.js');
 
 app.get('/', function (req, res) {
   res.json({
-		"hello": "Welcome to the Radio4000 API.",
+		"message": "Welcome to the Radio4000 API.",
 		"documentationUrl": "https://github.com/internet4000/radio4000-api-docs",
 		"latest": "v1"
   });
@@ -31,5 +31,5 @@ app.get('/', function (req, res) {
 app.use('/v1', apiV1);
 
 app.listen(3000, function () {
-  console.log('Example app listening on port 3000!')
+  console.log('[+] Set up app on port 3000!');
 });

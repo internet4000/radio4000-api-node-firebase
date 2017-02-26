@@ -30,3 +30,5 @@ testem.log
 # vs studio code
 jsconfig.json
 typings/
+
+node_modules/

@@ -15,6 +15,7 @@ function apiGet(endpoint) {
 			.once('value')
 	)
 }
+
 function apiQuery(endpoint, prop, query) {
 	return (
 		firebase.database().ref(endpoint)
@@ -23,19 +24,20 @@ function apiQuery(endpoint, prop, query) {
 	)
 }
 
-
 function apiGetImage(imageId) {
 	return apiGet(`images/${imageId}`).then(snapshot => {
 		var image = snapshot.val();
 		return serializeImage(image, imageId);
   })
 }
+
 function apiGetTrack(trackId) {
 	return apiGet(`tracks/${trackId}`).then(snapshot => {
 		var track = snapshot.val();
 		return serializeTrack(track, trackId);
   })
 }
+
 // channel slug or id?
 function apiGetChannel(channelSlug) {
 	return apiQuery('channels','slug', channelSlug).then(snapshot => {
@@ -47,6 +49,7 @@ function apiGetChannel(channelSlug) {
 		console.log("apigGetChannel error", e);
   });
 }
+
 function apiGetChannelTracks(channelSlug) {
 	return apiGetChannel(channelSlug).then(channel => {
 		return apiQuery('tracks', 'channel', channel.id).then(snapshot => {
@@ -56,6 +59,7 @@ function apiGetChannelTracks(channelSlug) {
 		});
 	});
 };
+
 function apiGetChannels() {
   return apiGet('channels').then(snapshot => {
 		var val = snapshot.val();
