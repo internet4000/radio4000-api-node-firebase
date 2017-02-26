@@ -31,5 +31,5 @@ app.get('/', function (req, res) {
 app.use('/v1', apiV1);
 
 app.listen(3000, function () {
-  console.log('[+] Set up app on Port 3000!');
+  console.log('[+] Set up app on port 3000!');
 });
