@@ -20,7 +20,7 @@ router.get('/', function (req, res) {
 
 router.get('/channels', function (req, res) {
   // TODO: remove tracks in reponse (impossible at firebase query)
-	apiGetChannels().then(res.json).catch(handleErrpr(res));
+	apiGetChannels().then(res.json).catch(handleError(res));
 });
 
 router.get('/channels/:channelSlug', function (req, res) {
