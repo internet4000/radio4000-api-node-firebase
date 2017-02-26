@@ -14,33 +14,37 @@ function handleError(res) {
   };
 }
 
+function handleSuccess(res) {
+  return (data) => res.json(data);
+}
+
 router.get('/', function (req, res) {
 	res.redirect('/');
 });
 
 router.get('/channels', function (req, res) {
   // TODO: remove tracks in reponse (impossible at firebase query)
-	apiGetChannels().then(res.json).catch(handleError(res));
+	apiGetChannels().then(handleSuccess(res)).catch(handleError(res));
 });
 
 router.get('/channels/:channelSlug', function (req, res) {
-	apiGetChannel(req.params.channelSlug).then(res.json).catch(handleError(res));
+	apiGetChannel(req.params.channelSlug).then(handleSuccess(res)).catch(handleError(res));
 });
 
 router.get('/channels/:channelSlug/tracks', function (req, res) {
-	apiGetChannelTracks(req.params.channelSlug).then(res.json).catch(handleError(res));
+	apiGetChannelTracks(req.params.channelSlug).then(handleSuccess(res)).catch(handleError(res));
 });
 
 router.get('/tracks', notAnEndpoint);
 
 router.get('/tracks/:trackId', function (req, res) {
-  apiGetTrack(req.params.trackId).then(res.json).catch(handleError(res));
+  apiGetTrack(req.params.trackId).then(handleSuccess(res)).catch(handleError(res));
 });
 
 router.get('/images', notAnEndpoint);
 
 router.get('/images/:imageId', function (req, res) {
-	apiGetImage(req.params.imageId).then(res.json).catch(handleError(res));
+	apiGetImage(req.params.imageId).then(handleSuccess(res)).catch(handleError(res));
 });
 
 module.exports = router;
