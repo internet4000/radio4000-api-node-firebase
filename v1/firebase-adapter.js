@@ -68,6 +68,16 @@ function apiGetChannels() {
   })
 }
 
+function apiGetChannelsFiltered(filters) {
+	var filter = Object.keys(filters)[0];
+	var search = filters[filter];
+  return apiQuery('channels', filter, search).then(snapshot => {
+		var val = snapshot.val();
+		var channels = Object.keys(val).map(channelId => serializeChannel(val[channelId], channelId));
+		return channels;
+  })
+}
+
 module.exports = {
 	apiGet,
 	apiQuery,
@@ -75,5 +85,6 @@ module.exports = {
 	apiGetTrack,
 	apiGetChannel,
 	apiGetChannels,
-	apiGetChannelTracks
+	apiGetChannelTracks,
+	apiGetChannelsFiltered
 };

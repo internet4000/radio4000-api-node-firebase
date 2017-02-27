@@ -1,6 +1,6 @@
 var express = require('express');
 var {serializeChannel, serializeTrack, serializeImage} = require('./firebase-serializer.js')
-var {apiGetImage, apiGetTrack, apiGetChannel, apiGetChannelTracks, apiGetChannels, apiGet, apiQuery} = require('./firebase-adapter.js')
+var {apiGetImage, apiGetTrack, apiGetChannel, apiGetChannelTracks, apiGetChannels, apiGetChannelsFiltered, apiGet, apiQuery} = require('./firebase-adapter.js')
 var router = express.Router();
 
 function notAnEndpoint(req, res) {
@@ -24,7 +24,12 @@ router.get('/', function (req, res) {
 
 router.get('/channels', function (req, res) {
   // TODO: remove tracks in reponse (impossible at firebase query)
-	apiGetChannels().then(handleSuccess(res)).catch(handleError(res));
+	var query = req.query;
+	if (Object.keys(query).length) {
+		apiGetChannelsFiltered(query).then(handleSuccess(res)).catch(handleError(res));
+	} else {
+		apiGetChannels().then(handleSuccess(res)).catch(handleError(res));
+	}
 });
 
 router.get('/channels/:channelSlug', function (req, res) {
