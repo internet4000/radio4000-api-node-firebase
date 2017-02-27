@@ -70,6 +70,7 @@ function apiGetChannels() {
 
 var FILTERS = {
   "contains": (channel, val) => channel.indexOf(val) > -1,
+	"icontains": (channel, val) => channel.toLowerCase().indexOf(val.toLowerCase()) > -1,
   "starts_with": (channel, val) => channel.startsWith(val),
 }
 
