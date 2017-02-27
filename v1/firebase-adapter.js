@@ -68,14 +68,37 @@ function apiGetChannels() {
   })
 }
 
+var FILTERS = {
+  "contains": (channel, val) => channel.indexOf(val) > -1,
+  "starts_with": (channel, val) => channel.startsWith(val),
+}
+
 function apiGetChannelsFiltered(filters) {
-	var filter = Object.keys(filters)[0];
-	var search = filters[filter];
-  return apiQuery('channels', filter, search).then(snapshot => {
-		var val = snapshot.val();
-		var channels = Object.keys(val).map(channelId => serializeChannel(val[channelId], channelId));
-		return channels;
-  })
+  var filterFun = function(filter, val) {
+    return function(channel) {
+      var query = filter.split(".");
+
+      if (query.length == 1) {
+        return channel[filter] == val;
+      }
+
+      if (query.length == 2) {
+        var elem = channel[query[0]];
+
+        if (!elem) {
+          return false;
+        }
+
+        return FILTERS[query[1]](elem, val);
+      }
+      throw Error(`${filter} is not a valid filter.`);
+    }
+  }
+  return apiGetChannels().then(channels =>
+    Object.keys(filters).reduce(
+      (channels, filter) => channels.filter(filterFun(filter, filters[filter])),
+      channels)
+  );
 }
 
 module.exports = {
