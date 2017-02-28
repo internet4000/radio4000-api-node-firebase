@@ -1,7 +1,16 @@
 var express = require('express');
-var {serializeChannel, serializeTrack, serializeImage} = require('./firebase-serializer.js')
-var {apiGetImage, apiGetTrack, apiGetChannel, apiGetChannelTracks, apiGetChannels, apiGetChannelsFiltered, apiGet, apiQuery} = require('./firebase-adapter.js')
 var router = express.Router();
+var {serializeChannel,
+		 serializeTrack,
+		 serializeImage} = require('./firebase/serializer.js');
+var {apiGetImage,
+		 apiGetTrack,
+		 apiGetChannel,
+		 apiGetChannelTracks,
+		 apiGetChannels,
+		 apiGetChannelsFiltered,
+		 apiGet,
+		 apiQuery} = require('./firebase/adapter.js')
 
 function notAnEndpoint(req, res) {
   res.status(404).json({ message: 'Impossible to request this endpoint' });

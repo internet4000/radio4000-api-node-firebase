@@ -1,4 +1,4 @@
-var {buildCloudinaryUrl} = require('./cloudinary-adapter.js');
+var {buildCloudinaryUrl} = require('../cloudinary/adapter.js');
 
 function convertHasMany(fromObject) {
 	if (!fromObject) return;

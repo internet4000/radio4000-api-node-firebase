@@ -1,5 +1,5 @@
 var firebase = require('firebase');
-var {serializeChannel, serializeTrack, serializeImage} = require('./firebase-serializer.js');
+var {serializeChannel, serializeTrack, serializeImage} = require('./serializer.js');
 
 var firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
