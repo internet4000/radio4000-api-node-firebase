@@ -7,7 +7,6 @@ function convertHasMany(fromObject) {
 
 function serializeChannel (channel, channelId) {
 	if (!channel) return;
-	channel.type = 'channel';
 	channel.id = channelId;
 	channel.tracks = convertHasMany(channel.tracks);
 	channel.favoriteChannels = convertHasMany(channel.favoriteChannels);
@@ -20,7 +19,6 @@ function serializeChannel (channel, channelId) {
 function serializeTrack (track ,trackId) {
 	if (!track) return;
 	track.id = trackId;
-	track.type = 'track';
 	return track;
 }
 
