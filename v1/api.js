@@ -10,7 +10,7 @@ var {apiGetImage,
 		 apiGetChannels,
 		 apiGetChannelsFiltered,
 		 apiGet,
-		 apiQuery} = require('./firebase/adapter.js')
+		 apiQuery} = require('./firebase/adapter.js');
 
 function notAnEndpoint(req, res) {
   res.status(404).json({ message: 'Impossible to request this endpoint' });
