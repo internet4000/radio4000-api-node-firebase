@@ -41,12 +41,12 @@ router.get('/channels', function (req, res) {
 	}
 });
 
-router.get('/channels/:channelSlug', function (req, res) {
-	apiGetChannel(req.params.channelSlug).then(handleSuccess(res)).catch(handleError(res));
+router.get('/channels/:channelId', function (req, res) {
+	apiGetChannel(req.params.channelId).then(handleSuccess(res)).catch(handleError(res));
 });
 
-router.get('/channels/:channelSlug/tracks', function (req, res) {
-	apiGetChannelTracks(req.params.channelSlug).then(handleSuccess(res)).catch(handleError(res));
+router.get('/channels/:channelId/tracks', function (req, res) {
+	apiGetChannelTracks(req.params.channelId).then(handleSuccess(res)).catch(handleError(res));
 });
 
 router.get('/tracks', notAnEndpoint);

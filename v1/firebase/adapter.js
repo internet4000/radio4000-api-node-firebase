@@ -38,26 +38,18 @@ function apiGetTrack(trackId) {
   })
 }
 
-// channel slug or id?
-function apiGetChannel(channelSlug) {
-	return apiQuery('channels','slug', channelSlug).then(snapshot => {
-		var val = snapshot.val();
-		var channelId = Object.keys(val)[0];
-		var channel = val[channelId];
-		return serializeChannel(channel, channelId);
-  }).catch(e => {
-		console.log("apigGetChannel error", e);
+function apiGetChannel(channelId) {
+	return apiGet(`channels/${channelId}`).then(snapshot => {
+		return serializeChannel(snapshot.val(), channelId);
   });
 }
 
-function apiGetChannelTracks(channelSlug) {
-	return apiGetChannel(channelSlug).then(channel => {
-		return apiQuery('tracks', 'channel', channel.id).then(snapshot => {
+function apiGetChannelTracks(channelId) {
+		return apiQuery('tracks', 'channel', channelId).then(snapshot => {
 			var tracks = snapshot.val();
 			var serializedTracks = Object.keys(tracks).map(trackId => serializeTrack(tracks[trackId], trackId));
 			return serializedTracks;
 		});
-	});
 };
 
 function apiGetChannels() {
