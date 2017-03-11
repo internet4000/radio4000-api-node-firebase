@@ -84,7 +84,7 @@ function apiGetChannelsFiltered(filters) {
         }
 				var filterMode = query[1];
 				var filterModeFun = FILTERS[filterMode];
-				if(filterModeFun) {
+				if (filterModeFun) {
 					return filterModeFun(elem, val);
 				} else {
 					throw Error(`${filterMode} is not a valid filter mode.`);

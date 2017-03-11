@@ -10,6 +10,7 @@ function serializeChannel (channel, channelId) {
 	channel.id = channelId;
 	channel.tracks = convertHasMany(channel.tracks);
 	channel.favoriteChannels = convertHasMany(channel.favoriteChannels);
+	delete channel.channelPublic;
 	// var images = Object.keys(channel.images || {});
 	// channel.image = buildCloudinaryUrl(images[images.length -1]);
 	// delete channel.images;
