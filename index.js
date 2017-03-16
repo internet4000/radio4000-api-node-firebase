@@ -28,7 +28,7 @@ app.get('/', function (req, res) {
   res.json({
 		"message": "Welcome to the Radio4000 API.",
 		"documentationUrl": "https://github.com/internet4000/radio4000-api-docs",
-		"latest": "v1"
+		"latestVersion": "v1"
   });
 });
 
