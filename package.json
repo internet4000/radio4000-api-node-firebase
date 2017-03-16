@@ -6,8 +6,7 @@
   "scripts": {
     "start": "nodemon index.js",
     "test": "xo && ava",
-    "deploy": "now --dotenv",
-    "deploy-production": "npm run deploy; now alias"
+    "deploy": "now --dotenv"
   },
   "author": "Internet4000",
   "license": "ISC",
