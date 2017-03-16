@@ -3,3 +3,9 @@ node_js:
   - '7'
 cache:
   yarn: true
+
+deploy:
+  provider: script
+  script: npm run deploy-production
+  on:
+    branch: test-ci
