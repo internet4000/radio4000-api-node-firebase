@@ -1,30 +1,29 @@
 var express = require('express');
-var router = express.Router();
-var {serializeChannel,
-		 serializeTrack,
-		 serializeImage} = require('./firebase/serializer.js');
-var {apiGetImage,
-		 apiGetTrack,
-		 apiGetChannel,
-		 apiGetChannelTracks,
-		 apiGetChannels,
-		 apiGetChannelsFiltered,
-		 apiGet,
-		 apiQuery} = require('./firebase/adapter.js');
+
+var {
+	apiGetImage,
+	apiGetTrack,
+	apiGetChannel,
+	apiGetChannelTracks,
+	apiGetChannels,
+	apiGetChannelsFiltered
+} = require('./firebase/adapter.js');
+
+var router = new express.Router();
 
 function notAnEndpoint(req, res) {
-  res.status(404).json({ message: 'Impossible to request this endpoint' });
-};
+	res.status(404).json({message: 'Impossible to request this endpoint'});
+}
 
 function handleError(res) {
-  return (e) => {
+	return e => {
 		console.log(e);
-		res.status(404).json({ message: 'Data does not exist', error: e.message });
-  };
+		res.status(404).json({message: 'Data does not exist', error: e.message});
+	};
 }
 
 function handleSuccess(res) {
-  return (data) => res.json(data);
+	return data => res.json(data);
 }
 
 router.get('/', function (req, res) {
@@ -32,9 +31,8 @@ router.get('/', function (req, res) {
 });
 
 router.get('/channels', function (req, res) {
-  // TODO: remove tracks in reponse (impossible at firebase query)
 	var query = req.query;
-	if (Object.keys(query).length) {
+	if (Object.keys(query).length > 0) {
 		apiGetChannelsFiltered(query).then(handleSuccess(res)).catch(handleError(res));
 	} else {
 		apiGetChannels().then(handleSuccess(res)).catch(handleError(res));
@@ -52,7 +50,7 @@ router.get('/channels/:channelId/tracks', function (req, res) {
 router.get('/tracks', notAnEndpoint);
 
 router.get('/tracks/:trackId', function (req, res) {
-  apiGetTrack(req.params.trackId).then(handleSuccess(res)).catch(handleError(res));
+	apiGetTrack(req.params.trackId).then(handleSuccess(res)).catch(handleError(res));
 });
 
 router.get('/images', notAnEndpoint);
