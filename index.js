@@ -1,7 +1,6 @@
 require('dotenv').config();
 var express = require('express');
 var cors = require('cors');
-// var is = require('type-is');
 var apiV1 = require('./v1/api.js');
 
 var app = express();
@@ -21,3 +20,5 @@ app.use('/v1', apiV1);
 app.listen(3000, function () {
 	console.log('[+] Set up app on port 3000');
 });
+
+module.exports = app;

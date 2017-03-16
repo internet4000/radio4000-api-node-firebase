@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "ava": "^0.18.2",
+    "supertest": "^3.0.0",
     "xo": "^0.17.1"
   }
 }
