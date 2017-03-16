@@ -6,22 +6,6 @@ var apiV1 = require('./v1/api.js');
 
 var app = express();
 
-// app.use(function(req, res, next) {
-// 	var hasAnyMediaType = is.is(mediaType, ['*']);
-// 	var hasAcceptHeader = req.get('Accept');
-
-// 	if (hasAnyMediaType) {
-// 		// 415 Unsupported Media Type, if any media type in request
-// 		res.status(415);
-// 	} else if (hasAcceptHeader) {
-// 		// 406 Not Acceptable
-// 		res.status(406);
-// 	}
-
-//   res.set('Content-Type', 'application/vnd.api+json');
-//   next();
-// });
-
 app.use(cors())
 
 app.get('/', function (req, res) {
