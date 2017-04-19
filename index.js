@@ -10,15 +10,26 @@ function getIframe(slug) {
 		.replace('SLUGMENOT', slug)
 }
 
+function notAnEndpoint(req, res) {
+	res.status(404).json({message: 'NOT FOUND'});
+}
+
+app.get('/', function (req, res) {
+	res.json({
+		message: 'Welcome to the radio4000-embed-api.',
+		documentationUrl: 'https://github.com/Internet4000/radio4000-embed-api'
+	});
+})
+
 app.get('/iframe', function (req, res) {
 	const slug = req.query.slug
-	if (!slug) return res.send(666, 'nop')
+	if (!slug) return notAnEndpoint(req, res);
 	res.send(getIframe(slug))
 })
 
 app.get('/oembed', (req, res) => {
 	const slug = req.query.slug
-	if (!slug) return res.send(666, 'nop')
+	if (!slug) return notAnEndpoint(req, res);
 	const iframeHTML = `<iframe width="320" height"400" src="https://oembed.radio4000.com/iframe?slug=${slug}"></iframe>`
 	res.send({
 		"version": "1.0",
@@ -36,6 +47,8 @@ app.get('/oembed', (req, res) => {
 	})
 })
 
-app.listen(process.env.port || 3000, function () {})
+app.listen(process.env.port || 3000, function () {
+	console.log('[+] Set up app on port 3000');
+})
 
 module.exports = app
