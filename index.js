@@ -36,6 +36,6 @@ app.get('/oembed', (req, res) => {
 	})
 })
 
-app.listen(3000, function () {})
+app.listen(process.env.port || 3000, function () {})
 
 module.exports = app
