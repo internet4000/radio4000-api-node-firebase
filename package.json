@@ -1,0 +1,10 @@
+{
+  "name": "radio4000-embed",
+  "scripts": {
+    "start": "nodemon"
+  },
+  "dependencies": {
+    "express": "^4.15.2",
+    "nodemon": "^1.11.0"
+  }
+}
