@@ -1,5 +1,4 @@
 const fs = require('fs')
-const path = require('path')
 const express = require('express')
 const got = require('got')
 
@@ -37,7 +36,6 @@ app.get('/oembed', (req, res, next) => {
 		.then(response => {
 			const channel = JSON.parse(response.body)[0]
 			if (!channel) return notAnEndpoint(req, res)
-			console.log(req.headers.host)
 			res.send({
 				'version': '1.0',
 				'type': 'rich',
