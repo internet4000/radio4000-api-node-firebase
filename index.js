@@ -37,6 +37,7 @@ app.get('/oembed', (req, res, next) => {
 		.then(response => {
 			const channel = JSON.parse(response.body)[0]
 			if (!channel) return notAnEndpoint(req, res)
+			console.log(req.headers.host)
 			res.send({
 				'version': '1.0',
 				'type': 'rich',
@@ -47,7 +48,7 @@ app.get('/oembed', (req, res, next) => {
 				'title': channel.title,
 				'description': channel.body,
 				'thumbnail_url': `https://radio4000.com/apple-touch-icon.png`,
-				'html': `<iframe width='320' height'400' src='https://oembed.radio4000.com/iframe?slug=${slug}'></iframe>`,
+				'html': `<iframe width='320' height'400' src='//${req.headers.host}/iframe?slug=${slug}'></iframe>`,
 				'width': 320,
 				'height': 400
 			})
