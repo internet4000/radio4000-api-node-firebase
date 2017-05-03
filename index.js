@@ -42,7 +42,7 @@ app.get('/oembed', (req, res, next) => {
 				'version': '1.0',
 				'type': 'rich',
 				'provider_name': 'Radio4000',
-				'provider_url': 'https://radio4000.com.com/',
+				'provider_url': 'https://radio4000.com/',
 				'author_name': channel.title,
 				'author_url': `https://radio4000.com/${slug}/`,
 				'title': channel.title,
