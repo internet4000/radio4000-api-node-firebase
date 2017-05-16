@@ -47,7 +47,9 @@ function apiGetChannel(channelId) {
 function apiGetChannelTracks(channelId) {
 	return apiQuery('tracks', 'channel', channelId).then(snapshot => {
 		var tracks = snapshot.val();
-		if(!tracks) return []
+		if (!tracks) {
+			return [];
+		}
 		var serializedTracks = Object.keys(tracks).map(trackId => serializeTrack(tracks[trackId], trackId));
 		return serializedTracks;
 	});
