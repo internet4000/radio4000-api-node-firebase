@@ -1,4 +1,4 @@
-export default function (embedApiRoot, { slug, title, body }) {
+module.exports = function (embedApiRoot, { slug, title, body }) {
 	return ({
 		'version': '1.0',
 		'type': 'rich',

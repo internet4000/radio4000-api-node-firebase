@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-export default function (slug, R4PlayerScriptUrl) {
+module.exports = function (slug, R4PlayerScriptUrl) {
 	const path = process.cwd() + '/templates/embed.html'
 	const buffer = fs.readFileSync()
 
