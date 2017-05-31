@@ -18,27 +18,29 @@ const app = express()
  * when serving for `production` or `development` (localhost *)
  * */
 
-let HTTPPrefix;
-let R4ApiRoot;
+let HTTPPrefix,
+		R4ApiRoot;
+
+// default, overriden in RADIO4000_LOCAL
+let R4PlayerScriptUrl = 'https://rawgit.com/internet4000/radio4000-player-vue/master/dist/radio4000-player.min.js'
 
 const { RADIO4000_LOCAL,
-				RADIO4000_DEV,
 				RADIO4000_PROD } = process.env;
 
 if(RADIO4000_LOCAL) {
 	console.warn(`[+] api.radio400.com proxied: ${R4ApiRoot}`)
 	R4ApiRoot = 'http://localhost:4001/v1'
 	HTTPPrefix = 'http://'
-} else if (!RADIO4000_LOCAL && RADIO4000_DEV) {
-	R4ApiRoot = 'https://api.radio4000.com/v1'
-	HTTPPrefix = 'http://'
-} else {
+	R4PlayerScriptUrl = 'http://localhost:5000/dist/radio4000-player.js'
+} else if (RADIO4000_PROD) {
 	R4ApiRoot = 'https://api.radio4000.com/v1'
 	HTTPPrefix = 'https://'
+} else {
+	// defaults to dev, with remote api.r4 (ofc local embed.r4)
+	R4ApiRoot = 'https://api.radio4000.com/v1'
+	HTTPPrefix = 'http://'
 }
 
-console.log(R4ApiRoot)
-console.log(HTTPPrefix)
 
 /*
  * Create documentation
@@ -79,7 +81,7 @@ app.get('/iframe', function (req, res) {
 
 	if (!slug) return notEndpointPath(req, res, usage)
 
-	res.send(getIframe(slug))
+	res.send(getIframe(slug, R4PlayerScriptUrl))
 })
 
 app.get('/oembed', (req, res, next) => {

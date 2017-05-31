@@ -2,9 +2,10 @@
   "name": "radio4000-embed",
   "homepage": "https://github.com/internet4000/radio4000-embed-api",
   "scripts": {
-    "start": "RADIO4000_DEV=true nodemon",
+    "start": "nodemon",
     "start-local": "RADIO4000_LOCAL=true npm run-script start",
-    "deploy-production": "RADIO4000_PROD=true now; now alias"
+    "deploy": "now -e RADIO4000_PROD=true ",
+    "deploy-production": "now -e RADIO4000_PROD=true; now alias"
   },
   "dependencies": {
     "express": "^4.15.2",
