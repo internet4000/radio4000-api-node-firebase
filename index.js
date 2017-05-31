@@ -46,7 +46,7 @@ app.get('/oembed', (req, res, next) => {
 				'title': channel.title,
 				'description': channel.body,
 				'thumbnail_url': `https://radio4000.com/apple-touch-icon.png`,
-				'html': `<iframe width="320" height="400" src="//${req.headers.host}/iframe?slug=${slug}" frameborder="0"></iframe>`,
+				'html': `<iframe width="320" height="400" src="https://${req.headers.host}/iframe?slug=${slug}" frameborder="0"></iframe>`,
 				'width': 320,
 				'height': 400
 			})
