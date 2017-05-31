@@ -54,7 +54,7 @@ app.get('/oembed', (req, res, next) => {
 		.catch(next)
 })
 
-app.listen(process.env.port || 3000, function () {
+app.listen(process.env.port || 4003, function () {
 	console.log('[+] Set up app on port 3000');
 })
 
