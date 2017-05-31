@@ -1,4 +1,4 @@
-exports.getOEmbed = (embedApiRoot, {slug, title, body}) => {
+export default function (embedApiRoot, { slug, title, body }) {
 	return ({
 		'version': '1.0',
 		'type': 'rich',

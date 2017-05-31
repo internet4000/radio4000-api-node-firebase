@@ -1,8 +1,8 @@
 const express = require('express')
 const got = require('got')
 const pkg = require('./package.json')
-const { getIframe } = require('./utils/getIframe')
-const { getOEmbed } = require('./utils/getOEmbed')
+const getIframe = require('./utils/getIframe')
+const getOEmbed = require('./utils/getOEmbed')
 
 
 /*

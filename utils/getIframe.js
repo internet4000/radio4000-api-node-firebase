@@ -1,8 +1,8 @@
 const fs = require('fs')
 
-exports.getIframe = (slug, R4PlayerScriptUrl) => {
-
-	var buffer = fs.readFileSync(process.cwd() + '/templates/embed.html')
+export default function (slug, R4PlayerScriptUrl) {
+	const path = process.cwd() + '/templates/embed.html'
+	const buffer = fs.readFileSync()
 
 	return buffer
 		.toString()
