@@ -29,7 +29,7 @@ if(RADIO4000_LOCAL) {
 	console.warn(`[+] api.radio400.com proxied: ${R4ApiRoot}`)
 	R4ApiRoot = 'http://localhost:4001/v1'
 	HTTPPrefix = 'http://'
-} else if (RADIO4000_DEV && !RADIO4000_LOCAL)  {
+} else if (!RADIO4000_LOCAL && RADIO4000_DEV) {
 	R4ApiRoot = 'https://api.radio4000.com/v1'
 	HTTPPrefix = 'http://'
 } else {
@@ -37,6 +37,8 @@ if(RADIO4000_LOCAL) {
 	HTTPPrefix = 'https://'
 }
 
+console.log(R4ApiRoot)
+console.log(HTTPPrefix)
 
 /*
  * Create documentation
@@ -44,7 +46,7 @@ if(RADIO4000_LOCAL) {
  * */
 
 function notEndpointPath(req, res, usage = '') {
-	const path = req.path;
+	const path = req.path || '';
 	const host = req.headers.host;
 
 	const embedApiDynamicUrl = HTTPPrefix + host + path;
@@ -83,18 +85,16 @@ app.get('/iframe', function (req, res) {
 app.get('/oembed', (req, res, next) => {
 	const slug = req.query.slug
 	const embedApiRoot = HTTPPrefix + req.headers.host;
+	const usage = '?slug={radio4000-channel-slug}'
 
 	// show usage if missing param
-	if (!slug) {
-		const usage = '?slug={radio4000-channel-slug}'
-		return notEndpointPath(req, res, usage)
-	}
+	if (!slug) return notEndpointPath(req, res, usage)
 
 	getChannelBySlug(slug).then(response => {
 		const channel = JSON.parse(response.body)[0]
 
 		console.log('channel', channel)
-		if (!channel) return notEndpointPath(req, res)
+		if (!channel) return notEndpointPath(req, res, usage)
 
 		const embedHtml = getOEmbed(embedApiRoot, channel)
 		res.send(embedHtml)
