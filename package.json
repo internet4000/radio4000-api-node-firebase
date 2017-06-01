@@ -15,11 +15,6 @@
     "got": "^6.7.1",
     "nodemon": "^1.11.0"
   },
-  "ava": {
-    "files": [
-      "tests/*.js"
-    ]
-  },
   "now": {
     "alias": "embed.radio4000.com"
   }
