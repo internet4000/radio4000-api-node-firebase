@@ -4,8 +4,8 @@
   "scripts": {
     "start": "nodemon",
     "start-local": "RADIO4000_LOCAL=true npm run-script start",
-    "deploy": "now -e RADIO4000_PROD=true ",
-    "deploy-production": "now -e RADIO4000_PROD=true; now alias"
+    "deploy": "now -e NODE_ENV=production",
+    "deploy-production": "npm run-script deploy; now alias"
   },
   "dependencies": {
     "express": "^4.15.2",

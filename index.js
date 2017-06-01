@@ -25,14 +25,14 @@ let HTTPPrefix,
 let R4PlayerScriptUrl = 'https://rawgit.com/internet4000/radio4000-player-vue/master/dist/radio4000-player.min.js'
 
 const { RADIO4000_LOCAL,
-				RADIO4000_PROD } = process.env;
+				NODE_ENV } = process.env;
 
 if(RADIO4000_LOCAL) {
 	console.warn(`[+] api.radio400.com proxied: ${R4ApiRoot}`)
 	R4ApiRoot = 'http://localhost:4001/v1'
 	HTTPPrefix = 'http://'
 	R4PlayerScriptUrl = 'http://localhost:5000/dist/radio4000-player.js'
-} else if (RADIO4000_PROD) {
+} else if (NODE_ENV === 'production') {
 	R4ApiRoot = 'https://api.radio4000.com/v1'
 	HTTPPrefix = 'https://'
 } else {
