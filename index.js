@@ -95,7 +95,6 @@ app.get('/oembed', (req, res, next) => {
 	getChannelBySlug(slug).then(response => {
 		const channel = JSON.parse(response.body)[0]
 
-		console.log('channel', channel)
 		if (!channel) return notEndpointPath(req, res, usage)
 
 		const embedHtml = getOEmbed(embedApiRoot, channel)
