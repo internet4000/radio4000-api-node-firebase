@@ -112,7 +112,7 @@ function getChannelBySlug(slug) {
 	// request api.radio4000.com
 	const dataApiPath = `${R4ApiRoot}/channels?slug=${slug}`
 	return got(dataApiPath, {
-		timeout: 4000,
+		timeout: 6000,
 		retries: 1
 	})
 }
