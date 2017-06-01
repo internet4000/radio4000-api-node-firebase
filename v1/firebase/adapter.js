@@ -55,6 +55,15 @@ function apiGetChannelTracks(channelId) {
 	});
 }
 
+function apiQueryChannels (query) {
+	console.log("query", query)
+	return apiQuery('channels', )
+	/* return apiQuery('channels', prop, query).then(snapshot => {
+		 var val = snapshot.val();
+		 console.log(val)
+		 });*/
+}
+
 function apiGetChannels() {
 	return apiGet('channels').then(snapshot => {
 		var val = snapshot.val();
@@ -109,6 +118,7 @@ module.exports = {
 	apiGetTrack,
 	apiGetChannel,
 	apiGetChannels,
+	apiQueryChannels,
 	apiGetChannelTracks,
 	apiGetChannelsFiltered
 };

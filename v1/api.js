@@ -6,6 +6,7 @@ var {
 	apiGetChannel,
 	apiGetChannelTracks,
 	apiGetChannels,
+	apiQueryChannels,
 	apiGetChannelsFiltered
 } = require('./firebase/adapter.js');
 
@@ -30,12 +31,19 @@ router.get('/', function (req, res) {
 	res.redirect('/');
 });
 
+/* apiGetChannelsFiltered(query).then(handleSuccess(res)).catch(handleError(res));*/
+
 router.get('/channels', function (req, res) {
 	var query = req.query;
 	if (Object.keys(query).length > 0) {
-		apiGetChannelsFiltered(query).then(handleSuccess(res)).catch(handleError(res));
+		apiQueryChannels(query);
+
+		/* .then(handleSuccess(res))
+			 .catch(handleError(res));*/
 	} else {
-		apiGetChannels().then(handleSuccess(res)).catch(handleError(res));
+		apiGetChannels()
+			.then(handleSuccess(res))
+			.catch(handleError(res));
 	}
 });
 
