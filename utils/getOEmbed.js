@@ -1,4 +1,7 @@
 module.exports = function (embedApiRoot, { slug, title, body }) {
+	if (!body) {
+		body = ''
+	}
 	return ({
 		'version': '1.0',
 		'type': 'rich',
