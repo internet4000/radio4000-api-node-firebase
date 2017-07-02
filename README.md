@@ -12,7 +12,9 @@ The [Firebase documentation](https://firebase.google.com/docs/) explains how you
 We welcome anyone to use the data, and help the improve the echosystem.
 
 
-## Versionning
+## URI and Versionning
+
+The API can be found here: [https://radio4000.firebaseio.com](https://radio4000.firebaseio.com).
 
 There is no versioning for this API as we have to follow and replicate any changes made at the Firebase level.
 
@@ -22,15 +24,33 @@ There is no versioning for this API as we have to follow and replicate any chang
 In Firebase the `id` of a model is the root key of the object containing its properties.
 
 
-### Endpoints
+### Endpoints and realtime
 
-Available endpoints:
+Available REST endpoints:
+
 - `/users` serves the `user` models
+[https://radio4000.firebaseio.com/users/{userId}.json](https://radio4000.firebaseio.com/users/{userId}.json)
+
 - `/userSettings` serves the `userSetting` models
+[https://radio4000.firebaseio.com/userSettings/{userSettingsId}.json](https://radio4000.firebaseio.com/userSettings/{userSettingsId}.json)
+
 - `/channels` serves the `channel` models
+[https://radio4000.firebaseio.com/channels.json](https://radio4000.firebaseio.com/channels.json)
+
+[https://radio4000.firebaseio.com/channels/{channelId}.json](https://radio4000.firebaseio.com/channels/{channelId}.json)
+
 - `/channelPublics` serves the `channelPublic` models
+[https://radio4000.firebaseio.com/channelPublics/{channelPublicsId}.json](https://radio4000.firebaseio.com/channelPublics/{channelPublicsId}.json)
+
 - `/images` serves the `image` models
+[https://radio4000.firebaseio.com/images/{imageId}.json](https://radio4000.firebaseio.com/images/{imageId}.json)
+
 - `/tracks` serves the `track` models
+[https://radio4000.firebaseio.com/tracks.json](https://radio4000.firebaseio.com/tracks.json)
+
+[https://radio4000.firebaseio.com/tracks/{trackId}.json](https://radio4000.firebaseio.com/tracks/{trackId}.json)
+
+For the *realtime* database access, you should refer to the [Firebase sdk](https://firebase.google.com/docs/) available for your platform.
 
 
 ## Models
