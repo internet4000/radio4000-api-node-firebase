@@ -1,24 +1,141 @@
 # Radio4000 API
 
-Public API to [Radio4000.com](https://radio4000.com).
+Public API to [Radio4000.com](https://radio4000.com) using Firebase realtime capabilities.
 
-Documentation and examples can be found here [https://github.com/Internet4000/radio4000-api-docs](https://github.com/Internet4000/radio4000-api-docs).
 
-## How to develop
+## Firebase
 
-- `git clone git@github.com:internet4000/radio4000-api.git`
-- `cd radio4000-api; cp .env-example .env` (and enter the real keys)
-- `yarn`
-- `yarn start`
+Thanks to Firebase the Radio4000 data can be accessed in realtime through this API, as well as classic REST.
 
-## How to deploy
+The [Firebase documentation](https://firebase.google.com/docs/) explains how you can access the data for various platforms, Web, Android, iOS, C++, Unity.
 
-To deploy to staging, run `yarn deploy`.
+We welcome anyone to use the data, and help the improve the echosystem.
 
-To deploy to production, first `yarn deploy` and then `now alias` (you need access to the Internet4000 team on now.sh)
 
-## How to deploy Firebase rules
+## Versionning
 
-To deploy the rules in `database.rules.json`, run `firebase deploy --only database`. It will ask you whether to deploy to `staging` or `production`. See `.firebaserc` for more.
+There is no versioning for this API as we have to follow and replicate any changes made at the Firebase level.
 
-Peace
+
+## Design
+
+In Firebase the `id` of a model is the root key of the object containing its properties.
+
+
+### Endpoints
+
+Available endpoints:
+- `/users` serves the `user` models
+- `/userSettings` serves the `userSetting` models
+- `/channels` serves the `channel` models
+- `/channelPublics` serves the `channelPublic` models
+- `/images` serves the `image` models
+- `/tracks` serves the `track` models
+
+
+## Models
+
+Below are listed all models and their available properties.
+
+
+### user
+
+Requires authentication to read and write
+
+- channels [hasMany, string]: all radio channels a user has. We only allow one, for now.
+example: `"-KYJykyCl6nIJi6YIuBO": true`
+
+- created [integer]: timestamp describing when was this user created
+example: `1481041965335`
+
+- settings [string]: reference to the `userSetting` model id
+example: `-KYJyixLTbITr103hovZ`
+
+
+### userSetting
+
+Requires authentication to read and write
+
+- user [belongsTo, string]: reference to the `user` model id
+example: `"fAE1TRvTctbK4bEra3GnQdBFcqj2"`
+
+
+### channel
+
+Requires authentication to write.
+
+- body: [string]: user description of the radio channel
+example: `"The channel of your wet dreams, an ode to perfu..."`
+
+- channelPublic [belongsTo, string]: reference to the `channelPublic` id of this radio channel
+example: `"-JoJm13j3aGTWCT_Zbir"`
+
+- created [integer]: timestamp describing when was this radio channel created
+example: `"1411213745028"`
+
+- favoriteChannels [hasMany, string]: list of all channels this radio has added as favorites
+example: `"-JXHtCxC9Ew-Ilck6iZ8": true`
+
+- images [hasMany, string]: all images added to a radio
+example: `"-JoJypAujT2z0qcWnYjW": true`
+
+- isFeatured [boolean]: is this radio channel featured on radio4000's homepage 
+example: `false`
+
+- link [string]: URL describing the external homepage for a radio channel
+example: `"https://example:.com"`
+
+- slug [string]: the unique "string id" representing this channel (used for human readable urls radio4000.com/slug)
+example: `"oskar"`
+
+- title [string]: title representing a radio channel
+example: `"Radio Oskar"`
+
+- tracks [hasMany, string]: list of `track` models offered by a radio channel
+example: `"-J_GkkhzfbefhHMqV5qi": true`
+
+- updated [integer]: timestamp describing when was this radio last updated
+example: `1498137205047`
+
+
+### channelPublic
+
+`channelPublic` is a model always associated to a `channel` model. It is used so any authenticated user can associate data to a `channel`, when a `channel` can only be written by its owner. For exemple, adding a radio as follower will be done on the `channelPublic` model.
+
+- channel [belongsTo, string]: `channel` model to which belongs this `channelPublic`
+example: `"-JYEosmvT82Ju0vcSHVP"`
+
+- followers [hasMany, string]: list of `channel` models following this radio
+example: "-JXHtCxC9Ew-Ilck6iZ8": true`
+
+
+### image
+
+- channel [belongsTo, string]: `channel` model to which this image belongs.
+example: `"-JYZtdQfLSl6sUpyIJx6"`
+
+- src [string]: `id` of the `cloudinary` model which stores this image data.
+example: `"czepsdiizx5gx10gnufe"`
+
+todo: explain cloudinary
+
+
+### track
+
+- body [string]: optional user description of a track
+example: `"Post-Punk from USA (NY)"`
+
+- channel [belongsTo, string]: the channel to which a track belongs to
+example: `"-K9RmTg2B3gqldaFnART"`
+
+- created [integer]: timestamp describing when was created a track model
+example: `1478878156138`
+
+- title [string]: title describing a track model
+example: `"Lydia Lunch - This Side of Nowhere (1982)"`
+
+- url [string]: the URL pointing to the provider serving the track media (Youtube only for now)
+example: `"https://www.youtube.com/watch?v=5R5bETC_wvA"`
+
+- ytid [string]: provider id of a track media (Youtube only for now)
+example: `"5R5bETC_wvA"`
