@@ -63,12 +63,15 @@ Below are listed all models and their available properties.
 Requires authentication to read and write
 
 - channels [hasMany, string]: all radio channels a user has. We only allow one, for now.
+
 example: `"-KYJykyCl6nIJi6YIuBO": true`
 
 - created [integer]: timestamp describing when was this user created
+
 example: `1481041965335`
 
 - settings [string]: reference to the `userSetting` model id
+
 example: `-KYJyixLTbITr103hovZ`
 
 
@@ -77,6 +80,7 @@ example: `-KYJyixLTbITr103hovZ`
 Requires authentication to read and write
 
 - user [belongsTo, string]: reference to the `user` model id
+
 example: `"fAE1TRvTctbK4bEra3GnQdBFcqj2"`
 
 
@@ -85,36 +89,47 @@ example: `"fAE1TRvTctbK4bEra3GnQdBFcqj2"`
 Requires authentication to write.
 
 - body: [string]: user description of the radio channel
+
 example: `"The channel of your wet dreams, an ode to perfu..."`
 
 - channelPublic [belongsTo, string]: reference to the `channelPublic` id of this radio channel
+
 example: `"-JoJm13j3aGTWCT_Zbir"`
 
 - created [integer]: timestamp describing when was this radio channel created
+
 example: `"1411213745028"`
 
 - favoriteChannels [hasMany, string]: list of all channels this radio has added as favorites
+
 example: `"-JXHtCxC9Ew-Ilck6iZ8": true`
 
 - images [hasMany, string]: all images added to a radio
+
 example: `"-JoJypAujT2z0qcWnYjW": true`
 
 - isFeatured [boolean]: is this radio channel featured on radio4000's homepage 
+
 example: `false`
 
 - link [string]: URL describing the external homepage for a radio channel
-example: `"https://example:.com"`
+
+example: `"https://example.com"`
 
 - slug [string]: the unique "string id" representing this channel (used for human readable urls radio4000.com/slug)
+
 example: `"oskar"`
 
 - title [string]: title representing a radio channel
+
 example: `"Radio Oskar"`
 
 - tracks [hasMany, string]: list of `track` models offered by a radio channel
+
 example: `"-J_GkkhzfbefhHMqV5qi": true`
 
 - updated [integer]: timestamp describing when was this radio last updated
+
 example: `1498137205047`
 
 
@@ -123,18 +138,22 @@ example: `1498137205047`
 `channelPublic` is a model always associated to a `channel` model. It is used so any authenticated user can associate data to a `channel`, when a `channel` can only be written by its owner. For exemple, adding a radio as follower will be done on the `channelPublic` model.
 
 - channel [belongsTo, string]: `channel` model to which belongs this `channelPublic`
+
 example: `"-JYEosmvT82Ju0vcSHVP"`
 
 - followers [hasMany, string]: list of `channel` models following this radio
+
 example: "-JXHtCxC9Ew-Ilck6iZ8": true`
 
 
 ### image
 
 - channel [belongsTo, string]: `channel` model to which this image belongs.
+
 example: `"-JYZtdQfLSl6sUpyIJx6"`
 
 - src [string]: `id` of the `cloudinary` model which stores this image data.
+
 example: `"czepsdiizx5gx10gnufe"`
 
 todo: explain cloudinary
@@ -143,19 +162,25 @@ todo: explain cloudinary
 ### track
 
 - body [string]: optional user description of a track
+
 example: `"Post-Punk from USA (NY)"`
 
 - channel [belongsTo, string]: the channel to which a track belongs to
+
 example: `"-K9RmTg2B3gqldaFnART"`
 
 - created [integer]: timestamp describing when was created a track model
+
 example: `1478878156138`
 
 - title [string]: title describing a track model
+
 example: `"Lydia Lunch - This Side of Nowhere (1982)"`
 
 - url [string]: the URL pointing to the provider serving the track media (Youtube only for now)
+
 example: `"https://www.youtube.com/watch?v=5R5bETC_wvA"`
 
 - ytid [string]: provider id of a track media (Youtube only for now)
+
 example: `"5R5bETC_wvA"`
