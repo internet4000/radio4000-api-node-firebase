@@ -17,4 +17,8 @@ To deploy to staging, run `yarn deploy`.
 
 To deploy to production, first `yarn deploy` and then `now alias` (you need access to the Internet4000 team on now.sh)
 
+## How to deploy Firebase rules
+
+To deploy the rules in `database.rules.json`, run `firebase deploy --only database`. It will ask you whether to deploy to `staging` or `production`. See `.firebaserc` for more.
+
 Peace

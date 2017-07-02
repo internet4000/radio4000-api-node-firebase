@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "staging": "radio4000-staging",
+    "production": "firebase-radio4000"
+  }
+}
