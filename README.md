@@ -2,11 +2,21 @@
 
 Public API to [Radio4000.com](https://radio4000.com) using Firebase realtime capabilities.
 
+
 ## Introduction
 
-Thanks to Firebase the Radio4000 data can be accessed in realtime through this API, as well as classic REST. The [Firebase documentation](https://firebase.google.com/docs/) explains how you can access the data for various platforms: Web, Android, iOS, C++, Unity.
+Thanks to Firebase the Radio4000 data can be accessed in realtime through this API, as well as classic REST. The [Firebase documentation](https://firebase.google.com/docs/) explains how you can access the data for various platforms: Web, Android, iOS, C++, Unity. This API supports `GET` and `POST` HTTP methods.
 
-We welcome anyone to use the data, and help the improve the echosystem.
+We welcome anyone to use the data, and help to improve the echosystem.
+
+
+## Folder structure
+
+In this git repository you can find:
+
+- `readme.md`: this document, presenting and explaining how to use Radio4000's API
+- `database.rules.json`: Firebase's security rules. Those are the most precise definition of what can/should be done with the API
+
 
 ## URI and Versioning
 
@@ -14,9 +24,11 @@ The API can be found here: [https://radio4000.firebaseio.com](https://radio4000.
 
 There is no versioning for this API as we have to follow and replicate any changes made at the Firebase level.
 
+
 ## Design
 
 In Firebase the `id` of a model is the root key of the object containing its properties.
+
 
 ### Endpoints and realtime
 
@@ -46,6 +58,7 @@ Available REST endpoints:
 
 For *realtime* database access, you should refer to the [Firebase SDK](https://firebase.google.com/docs/) available for your platform.
 
+
 ## Models
 
 Listed below are all available models and their properties.
@@ -56,6 +69,7 @@ Listed below are all available models and their properties.
 - [channelPublic](#channelpublic)
 - [image](#image)
 - [track](#track)
+
 
 ### user
 
@@ -73,6 +87,7 @@ example: `1481041965335`
 
 example: `-KYJyixLTbITr103hovZ`
 
+
 ### userSetting
 
 Requires authentication to read and write.
@@ -80,6 +95,7 @@ Requires authentication to read and write.
 - user [belongsTo, string]: reference to the `user` model id
 
 example: `"fAE1TRvTctbK4bEra3GnQdBFcqj2"`
+
 
 ### channel
 
@@ -129,6 +145,7 @@ example: `"-J_GkkhzfbefhHMqV5qi": true`
 
 example: `1498137205047`
 
+
 ### channelPublic
 
 `channelPublic` is a model always associated to a `channel` model. It is used so any authenticated user can associate data to a `channel`, when a `channel` can only be written by its owner. For exemple, adding a radio as follower will be done on the `channelPublic` model.
@@ -141,6 +158,7 @@ example: `"-JYEosmvT82Ju0vcSHVP"`
 
 example: `"-JXHtCxC9Ew-Ilck6iZ8": true`
 
+
 ### image
 
 - channel [belongsTo, string]: `channel` model to which this image belongs.
@@ -152,6 +170,7 @@ example: `"-JYZtdQfLSl6sUpyIJx6"`
 example: `"czepsdiizx5gx10gnufe"`
 
 todo: explain cloudinary
+
 
 ### track
 
@@ -178,6 +197,16 @@ example: `"https://www.youtube.com/watch?v=5R5bETC_wvA"`
 - ytid [string]: provider id of a track media (Youtube only for now)
 
 example: `"5R5bETC_wvA"`
+
+
+## List of projects using the Radio4000 API.
+
+- [radio4000.com](https://github.com/internet4000/radio4000): the main website use this exact API.
+- [radio4000-player-vue](https://github.com/internet4000/radio4000-player-vue): the media player used by radio4000.com is a vue.js project calling the API directly.
+
+Do you want your project to appear here? Get in touch!
+
+
 
 ## Frequently and not-frequently asked questions (FAQNFAQ)
 
