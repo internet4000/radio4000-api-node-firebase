@@ -51,10 +51,9 @@ For *realtime* database access, you should refer to the [Firebase SDK](https://f
 Listed below are all available models and their properties.
 
 - [user](#user)
-- [userSetting](#userSetting)
-- [userSetting](#user-setting)
+- [userSetting](#usersetting)
 - [channel](#channel)
-- [channelPublic](#channelPublic)
+- [channelPublic](#channelpublic)
 - [image](#image)
 - [track](#track)
 
