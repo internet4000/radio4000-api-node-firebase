@@ -5,7 +5,7 @@ Public API to [Radio4000.com](https://radio4000.com) using Firebase realtime cap
 
 ## Introduction
 
-Thanks to Firebase the Radio4000 data can be accessed in realtime with their SDK or by using classic REST. The [Firebase documentation](https://firebase.google.com/docs/) explains how you can access the data for various platforms: Web, Android, iOS, C++, Unity. 
+Thanks to Firebase the Radio4000 data can be accessed in realtime through this API, as well as classic REST. The [Firebase documentation](https://firebase.google.com/docs/) explains how you can access the data for various platforms: Web, Android, iOS, C++, Unity. This API supports `GET` and `PUT` HTTP methods.
 
 We welcome anyone to use the data, and help to improve the ecosystem.
 
