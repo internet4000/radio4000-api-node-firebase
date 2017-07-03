@@ -52,6 +52,7 @@ Listed below are all available models and their properties.
 
 - [user](#user)
 - [userSetting](#userSetting)
+- [userSetting](#user-setting)
 - [channel](#channel)
 - [channelPublic](#channelPublic)
 - [image](#image)
