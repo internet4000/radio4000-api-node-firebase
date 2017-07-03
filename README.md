@@ -2,8 +2,7 @@
 
 Public API to [Radio4000.com](https://radio4000.com) using Firebase realtime capabilities.
 
-
-## Firebase
+## Introduction
 
 Thanks to Firebase the Radio4000 data can be accessed in realtime through this API, as well as classic REST.
 
@@ -184,3 +183,10 @@ example: `"https://www.youtube.com/watch?v=5R5bETC_wvA"`
 - ytid [string]: provider id of a track media (Youtube only for now)
 
 example: `"5R5bETC_wvA"`
+
+
+## Frequently and not-frequently asked questions (FAQNFAQ)
+
+- Why using Firebase?
+
+Firebase allowed this project to come to life without having the need to spend time building and maintaining backend softwares. It also allows us to be more secure we think we could be on our own, handling the storage and protection of user's sensitive data. In a perfect world we would like to have a backend that we fully control, running only free and open source softwares. The future will be great.
