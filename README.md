@@ -4,24 +4,19 @@ Public API to [Radio4000.com](https://radio4000.com) using Firebase realtime cap
 
 ## Introduction
 
-Thanks to Firebase the Radio4000 data can be accessed in realtime through this API, as well as classic REST.
-
-The [Firebase documentation](https://firebase.google.com/docs/) explains how you can access the data for various platforms, Web, Android, iOS, C++, Unity.
+Thanks to Firebase the Radio4000 data can be accessed in realtime through this API, as well as classic REST. The [Firebase documentation](https://firebase.google.com/docs/) explains how you can access the data for various platforms: Web, Android, iOS, C++, Unity.
 
 We welcome anyone to use the data, and help the improve the echosystem.
 
-
-## URI and Versionning
+## URI and Versioning
 
 The API can be found here: [https://radio4000.firebaseio.com](https://radio4000.firebaseio.com).
 
 There is no versioning for this API as we have to follow and replicate any changes made at the Firebase level.
 
-
 ## Design
 
 In Firebase the `id` of a model is the root key of the object containing its properties.
-
 
 ### Endpoints and realtime
 
@@ -49,17 +44,22 @@ Available REST endpoints:
 
 [https://radio4000.firebaseio.com/tracks/{trackId}.json](https://radio4000.firebaseio.com/tracks/{trackId}.json)
 
-For the *realtime* database access, you should refer to the [Firebase sdk](https://firebase.google.com/docs/) available for your platform.
-
+For *realtime* database access, you should refer to the [Firebase SDK](https://firebase.google.com/docs/) available for your platform.
 
 ## Models
 
-Below are listed all models and their available properties.
+Listed below are all available models and their properties.
 
+- [user](#user)
+- [userSetting](#userSetting)
+- [channel](#channel)
+- [channelPublic](#channelPublic)
+- [image](#image)
+- [track](#track)
 
 ### user
 
-Requires authentication to read and write
+Requires authentication to read and write.
 
 - channels [hasMany, string]: all radio channels a user has. We only allow one, for now.
 
@@ -73,15 +73,13 @@ example: `1481041965335`
 
 example: `-KYJyixLTbITr103hovZ`
 
-
 ### userSetting
 
-Requires authentication to read and write
+Requires authentication to read and write.
 
 - user [belongsTo, string]: reference to the `user` model id
 
 example: `"fAE1TRvTctbK4bEra3GnQdBFcqj2"`
-
 
 ### channel
 
@@ -131,7 +129,6 @@ example: `"-J_GkkhzfbefhHMqV5qi": true`
 
 example: `1498137205047`
 
-
 ### channelPublic
 
 `channelPublic` is a model always associated to a `channel` model. It is used so any authenticated user can associate data to a `channel`, when a `channel` can only be written by its owner. For exemple, adding a radio as follower will be done on the `channelPublic` model.
@@ -142,8 +139,7 @@ example: `"-JYEosmvT82Ju0vcSHVP"`
 
 - followers [hasMany, string]: list of `channel` models following this radio
 
-example: "-JXHtCxC9Ew-Ilck6iZ8": true`
-
+example: `"-JXHtCxC9Ew-Ilck6iZ8": true`
 
 ### image
 
@@ -156,7 +152,6 @@ example: `"-JYZtdQfLSl6sUpyIJx6"`
 example: `"czepsdiizx5gx10gnufe"`
 
 todo: explain cloudinary
-
 
 ### track
 
@@ -183,7 +178,6 @@ example: `"https://www.youtube.com/watch?v=5R5bETC_wvA"`
 - ytid [string]: provider id of a track media (Youtube only for now)
 
 example: `"5R5bETC_wvA"`
-
 
 ## Frequently and not-frequently asked questions (FAQNFAQ)
 
