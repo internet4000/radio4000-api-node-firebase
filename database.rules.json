@@ -115,7 +115,7 @@
 					".validate": "newData.isBoolean() && (data.exists() && newData.val() === data.val() || newData.val() === false)"
 				},
 				"link": {
-					".validate": "newData.isString() && newData.val().length > 2 && newData.val().length < 100"
+					".validate": "newData.isString() && newData.val().length < 150"
 				},
 				// todo: create a separate table to maintain unique slugs otherwise slug can be hijacked
 				"slug": {
