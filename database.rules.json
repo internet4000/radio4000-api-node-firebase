@@ -205,12 +205,7 @@
 			".indexOn": ["channel", "title"],
 
 			"$trackID": {
-				// ".write": "auth !== null",
-				// ".write": "auth !== null && (!newData.exists && data.child('channel').val())",
-				// ".write": "auth !== null && root.child('users/' + auth.uid + '/channels').child('-Ko1h4nyODlOuwfIyQRh').exists()",
-				// ".write": "auth !== null && root.child('users/' + auth.uid + '/channels').child(newData.child('channel').val()).exists()",
 				".write": "auth !== null && newData.exists() && root.child('users/' + auth.uid + '/channels').child(newData.child('channel').val()).exists() || auth !== null && !newData.exists() && root.child('users/' + auth.uid + '/channels').child(data.child('channel').val()).exists()",
-				// ".write": "auth !== null && (root.child('users').child(auth.uid).child('channels').child(data.child('channel').val()).exists() || root.child('users').child(auth.uid).child('channels').child(newData.child('channel').val()).exists())",
 				".validate": "newData.hasChildren(['channel', 'url', 'ytid', 'title', 'created'])",
 
 				"created": {
