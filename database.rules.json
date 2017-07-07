@@ -131,7 +131,7 @@
 				},
 				"favoriteChannels": {
 					"$favoriteChannel": {
-						".validate": "root.child('channels').child($favoriteChannel).exists() && !root.child('users').child(auth.uid).child('channels').child($favoriteChannel).exists()"
+						".validate": "root.child('channels').child($favoriteChannel).exists()"
 					}
 				},
 				"images": {
