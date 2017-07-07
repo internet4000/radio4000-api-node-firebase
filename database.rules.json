@@ -66,12 +66,18 @@
 				// write: only logged-in-user without a user settings can create a new one to himself
 				".read": "auth != null && (data.child('user').val() === auth.uid)",
 				".write": "auth != null && ((data.child('user').val() === auth.uid) || (root.child('users').child(auth.uid).hasChild('settings') === false))",
+        ".validate": "newData.hasChild('user')",
 				"user": {
 					".validate": "newData.val() === auth.uid"
 				},
 				"isRemoteActive": {
 					".validate": "newData.isBoolean()"
 				},
+        "playedChannels": {
+          "$channel": {
+						".validate": "newData.isBoolean() && root.child('channels').child($channel).exists()"
+          }
+        },
 				"$other": {
 					".validate": false
 				}
