@@ -173,6 +173,7 @@
 		"images": {
 			".read": true,
 			".write": false,
+			".indexOn": ["channel"],
 			"$imageID": {
 				// ".write": "auth !== null && root.child('users').child(auth.uid).child('channels').child(newData.child('channel').val()).exists()",
 				".write": "auth !== null && newData.exists() && root.child('users/' + auth.uid + '/channels').child(newData.child('channel').val()).exists() || auth !== null && !newData.exists() && root.child('users/' + auth.uid + '/channels').child(data.child('channel').val()).exists()",
@@ -237,4 +238,3 @@
 		}
 	}
 }
-
