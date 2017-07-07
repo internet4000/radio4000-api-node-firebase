@@ -109,7 +109,7 @@
 				},
 				"updated": {
 					// Ensure type::number and that you can not update it
-					".validate": "data.exists() && data.val() === newData.val() || newData.isNumber() && newData.val() <= now && newData.val() > now - 1000"
+					".validate": "newData.isNumber() && newData.val() <= now"
 				},
 				"isFeatured": {
 					".validate": "newData.isBoolean() && (data.exists() && newData.val() === data.val() || newData.val() === false)"
