@@ -1,11 +1,14 @@
 # Radio4000 API
 
-Public API to [Radio4000.com](https://radio4000.com) using Firebase realtime capabilities.
+Public API to [Radio4000.com](https://radio4000.com) using Firebase
+realtime capabilities.
+
+This API supports `GET` HTTP methods.
 
 
 ## Introduction
 
-Thanks to Firebase the Radio4000 data can be accessed in realtime through this API, as well as classic REST. The [Firebase documentation](https://firebase.google.com/docs/) explains how you can access the data for various platforms: Web, Android, iOS, C++, Unity. This API supports `GET` and `PUT` HTTP methods.
+Thanks to Firebase the Radio4000 data can be accessed in realtime through this API, as well as classic REST. The [Firebase documentation](https://firebase.google.com/docs/) explains how you can access the data for various platforms: Web, Android, iOS, C++, Unity.
 
 We welcome anyone to use the data, and help to improve the ecosystem.
 
@@ -32,7 +35,9 @@ In Firebase, the `id` of a model is the root key of the object containing its pr
 
 ### Endpoints and realtime
 
-Most endpoints can be read without authentication. Writing always requires authentication.
+Most endpoints can be read without authentication.
+
+Reading a user, a userSettings or writting to some models always requires authentication.
 
 Here's a list of available REST endpoints and which model they correspond to:
 
@@ -55,6 +60,7 @@ Here's a list of available REST endpoints and which model they correspond to:
 - `/tracks` serves the `track` models
 	- [https://radio4000.firebaseio.com/tracks.json](https://radio4000.firebaseio.com/tracks.json)
 	- [https://radio4000.firebaseio.com/tracks/{id}.json](https://radio4000.firebaseio.com/tracks/{id}.json)
+
 
 For *realtime* database access, you should refer to the [Firebase SDK](https://firebase.google.com/docs/) available for your platform.
 
