@@ -1,7 +1,8 @@
 {
-  "name": "radio4000-embed",
+  "name": "radio4000-embed-api",
   "homepage": "https://github.com/internet4000/radio4000-embed-api",
   "main": "index.js",
+  "license": "MIT",
   "scripts": {
     "start": "nodemon",
     "start-local": "RADIO4000_LOCAL=true npm run-script start",
