@@ -18,14 +18,16 @@ const app = express()
  * when serving for `production` or `development` (localhost *)
  * */
 
-let HTTPPrefix,
-		R4ApiRoot;
+let HTTPPrefix
+let R4ApiRoot
 
 // default, overriden in RADIO4000_LOCAL
-let R4PlayerScriptUrl = 'https://rawgit.com/internet4000/radio4000-player-vue/master/dist/radio4000-player.min.js'
+let R4PlayerScriptUrl = 'https://unpkg.com/radio4000-player'
 
-const { RADIO4000_LOCAL,
-				NODE_ENV } = process.env;
+const {
+	RADIO4000_LOCAL,
+	NODE_ENV
+} = process.env
 
 if(RADIO4000_LOCAL) {
 	console.warn(`[+] api.radio400.com proxied: ${R4ApiRoot}`)
