@@ -18,6 +18,7 @@ const app = express()
  * when serving for `production` or `development` (localhost *)
  * */
 
+const port = 8080
 let HTTPPrefix
 let R4ApiRoot
 
@@ -124,8 +125,8 @@ function getChannelBySlug(slug) {
  * Run server
  * */
 
-app.listen(process.env.port || 4003, function () {
-	console.log('[+] Set up app on port 4003');
+app.listen(process.env.port || port, function () {
+	console.log(`[+] radio4000-embed-api running on port ${port}`);
 })
 
 module.exports = app
