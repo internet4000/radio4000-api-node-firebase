@@ -124,8 +124,9 @@ function getChannelBySlug(slug) {
  * Run server
  * */
 
-app.listen(process.env.port || 4003, function () {
-	console.log('[+] Set up app on port 4003');
+const port = process.env.PORT || 4003
+app.listen(port, function () {
+	console.log(`[+] Set up app on port ${port}`);
 })
 
 module.exports = app
