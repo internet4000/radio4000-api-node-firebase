@@ -18,30 +18,13 @@ const app = express()
  * when serving for `production` or `development` (localhost *)
  * */
 
-let port = process.env.port || 3000
-let HTTPPrefix
-let R4ApiRoot
+const {NODE_ENV, PORT = 3000} = process.env
 
-// default, overriden in RADIO4000_LOCAL
 let R4PlayerScriptUrl = 'https://unpkg.com/radio4000-player'
-
-const {
-	RADIO4000_LOCAL,
-	NODE_ENV
-} = process.env
-
-if(RADIO4000_LOCAL) {
-	console.warn(`[+] api.radio400.com proxied: ${R4ApiRoot}`)
-	R4ApiRoot = 'http://localhost:4001/v1'
-	HTTPPrefix = 'http://'
-	R4PlayerScriptUrl = 'http://localhost:5000/dist/radio4000-player.js'
-} else if (NODE_ENV === 'production') {
+let R4ApiRoot = 'https://radio4000-staging.firebaseio.com/'
+let HTTPPrefix = 'http://'
+if (NODE_ENV === 'production') {
 	R4ApiRoot = 'https://radio4000.firebaseio.com/'
-	HTTPPrefix = 'https://'
-} else {
-	// defaults to dev, with remote api.r4 (ofc local embed.r4)
-	R4ApiRoot = 'https://radio4000-staging.firebaseio.com/'
-	HTTPPrefix = 'http://'
 }
 
 
@@ -56,7 +39,7 @@ function notEndpointPath(req, res, usage = '') {
 
 	const embedApiDynamicUrl = HTTPPrefix + host + path;
 	res.status(404).json({
-		message: 'CUSTOM NOT FOUND',
+		message: 'NOT FOUND',
 		usage: embedApiDynamicUrl + usage
 	})
 }
@@ -67,9 +50,10 @@ function notEndpointPath(req, res, usage = '') {
  * */
 
 app.get('/', function (req, res) {
-	const host = req.headers.host;
-	const url = HTTPPrefix + host;
-
+	let url = `${HTTPPrefix}${req.headers.host}`;
+	if (NODE_ENV === 'production') {
+		url = 'https://api.radio4000.com'
+	}
 	res.json({
 		message: 'Welcome to the radio4000-embed-api.',
 		documentationUrl: pkg.homepage,
@@ -78,16 +62,10 @@ app.get('/', function (req, res) {
 	})
 })
 
-app.get('/oskar', (req, res) => {
-	return 'hello world'
-})
-
 app.get('/iframe', function (req, res) {
 	const slug = req.query.slug
 	const usage = '?slug={radio4000-channel-slug}'
-
 	if (!slug) return notEndpointPath(req, res, usage)
-
 	res.send(getIframe(slug, R4PlayerScriptUrl))
 })
 
@@ -117,9 +95,8 @@ app.get('/oembed', (req, res, next) => {
 })
 
 function getChannelBySlug(slug) {
-	// request api.radio4000.com
-	const dataApiPath = `${R4ApiRoot}channels.json?orderBy="slug"&equalTo="${slug}"`
-	return got(dataApiPath, {
+	const url = `${R4ApiRoot}channels.json?orderBy="slug"&equalTo="${slug}"`
+	return got(url, {
 		timeout: 6000,
 		retries: 1
 	})
@@ -130,8 +107,8 @@ function getChannelBySlug(slug) {
  * Run server
  * */
 
-app.listen(port, function () {
-	console.log(`[+] radio4000-embed-api running on port ${port}`);
+app.listen(PORT, function () {
+	console.log(`[+] radio4000-embed-api running on port ${PORT}`);
 })
 
 module.exports = app
