@@ -36,11 +36,11 @@ if(RADIO4000_LOCAL) {
 	HTTPPrefix = 'http://'
 	R4PlayerScriptUrl = 'http://localhost:5000/dist/radio4000-player.js'
 } else if (NODE_ENV === 'production') {
-	R4ApiRoot = 'https://api.radio4000.com/v1'
+	R4ApiRoot = 'https://radio4000.firebaseio.com/'
 	HTTPPrefix = 'https://'
 } else {
 	// defaults to dev, with remote api.r4 (ofc local embed.r4)
-	R4ApiRoot = 'https://api.radio4000.com/v1'
+	R4ApiRoot = 'https://radio4000-staging.firebaseio.com/'
 	HTTPPrefix = 'http://'
 }
 
@@ -100,13 +100,16 @@ app.get('/oembed', (req, res, next) => {
 	if (!slug) return notEndpointPath(req, res, usage)
 
 	getChannelBySlug(slug).then(response => {
-		const channel = JSON.parse(response.body)[0]
+		const channels = JSON.parse(response.body)
+		const id = Object.keys(channels)[0]
+		let channel = channels[id]
+		channel.id = id
 		if (!channel) return notEndpointPath(req, res, usage)
 		const embedHtml = getOEmbed(embedApiRoot, channel)
 		res.send(embedHtml)
 	}).catch(error => {
 		res.status(500).send({
-			'message': 'Could not fetch api.radio4000.com',
+			'message': `Could not fetch channel from ${R4ApiRoot}`,
 			'code': 500,
 			'internalError': error
 		})
@@ -115,7 +118,7 @@ app.get('/oembed', (req, res, next) => {
 
 function getChannelBySlug(slug) {
 	// request api.radio4000.com
-	const dataApiPath = `${R4ApiRoot}/channels?slug=${slug}`
+	const dataApiPath = `${R4ApiRoot}channels.json?orderBy="slug"&equalTo="${slug}"`
 	return got(dataApiPath, {
 		timeout: 6000,
 		retries: 1
@@ -127,8 +130,8 @@ function getChannelBySlug(slug) {
  * Run server
  * */
 
-// app.listen(port, function () {
-// 	console.log(`[+] radio4000-embed-api running on port ${port}`);
-// })
+app.listen(port, function () {
+	console.log(`[+] radio4000-embed-api running on port ${port}`);
+})
 
 module.exports = app

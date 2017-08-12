@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon",
+    "start": "nodemon src/index.js",
     "start-local": "RADIO4000_LOCAL=true npm run-script start",
     "test": "ava",
     "deploy": "now -e NODE_ENV=production",
