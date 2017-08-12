@@ -1,5 +1,5 @@
 import test from 'ava';
-import getOEmbed from '../../utils/getOEmbed.js';
+import getOEmbed from '../../src/utils/getOEmbed.js';
 
 test('getOEmbed: it returns an object with 12 keys', t => {
 	const channel = {

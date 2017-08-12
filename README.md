@@ -48,3 +48,20 @@ Here's an example of what is returned:
 ## Developing
 
 Clone the repository, cd into it and install dependencies with `yarn install`. Then do `yarn run` to see which commands are available.
+
+### Firebase
+
+Make sure you have installed the Firebase tools:
+
+1. `yarn global add firebase-tools`
+2. `firebase login`
+
+Then to start a server:
+
+- `firebase serve --only functions,hosting`
+
+This will start two local servers. One for functions, one for hosting.
+
+To deploy it, run:
+
+- `firebase deploy --only functions`
