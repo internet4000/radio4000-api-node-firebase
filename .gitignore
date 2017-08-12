@@ -9,6 +9,7 @@
 
 # dependencies
 /node_modules
+src/node_modules
 
 # misc
 yarn.lock

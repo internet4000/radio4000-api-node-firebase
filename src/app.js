@@ -18,7 +18,7 @@ const app = express()
  * when serving for `production` or `development` (localhost *)
  * */
 
-const port = 8080
+let port = process.env.port || 3000
 let HTTPPrefix
 let R4ApiRoot
 
@@ -56,7 +56,7 @@ function notEndpointPath(req, res, usage = '') {
 
 	const embedApiDynamicUrl = HTTPPrefix + host + path;
 	res.status(404).json({
-		message: 'NOT FOUND',
+		message: 'CUSTOM NOT FOUND',
 		usage: embedApiDynamicUrl + usage
 	})
 }
@@ -78,6 +78,10 @@ app.get('/', function (req, res) {
 	})
 })
 
+app.get('/oskar', (req, res) => {
+	return 'hello world'
+})
+
 app.get('/iframe', function (req, res) {
 	const slug = req.query.slug
 	const usage = '?slug={radio4000-channel-slug}'
@@ -97,9 +101,7 @@ app.get('/oembed', (req, res, next) => {
 
 	getChannelBySlug(slug).then(response => {
 		const channel = JSON.parse(response.body)[0]
-
 		if (!channel) return notEndpointPath(req, res, usage)
-
 		const embedHtml = getOEmbed(embedApiRoot, channel)
 		res.send(embedHtml)
 	}).catch(error => {
@@ -125,8 +127,8 @@ function getChannelBySlug(slug) {
  * Run server
  * */
 
-app.listen(process.env.port || port, function () {
-	console.log(`[+] radio4000-embed-api running on port ${port}`);
-})
+// app.listen(port, function () {
+// 	console.log(`[+] radio4000-embed-api running on port ${port}`);
+// })
 
 module.exports = app
