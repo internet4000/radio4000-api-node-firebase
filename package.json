@@ -7,8 +7,7 @@
     "start": "nodemon src/index.js",
     "start-local": "RADIO4000_LOCAL=true npm run-script start",
     "test": "ava",
-    "deploy": "now -e NODE_ENV=production",
-    "deploy-production": "npm run-script deploy; now alias"
+    "deploy": "firebase deploy"
   },
   "dependencies": {
     "ava": "^0.21.0",
@@ -17,8 +16,5 @@
     "firebase-functions": "^0.6.1",
     "got": "^6.7.1",
     "nodemon": "^1.11.0"
-  },
-  "now": {
-    "alias": "embed.radio4000.com"
   }
 }
