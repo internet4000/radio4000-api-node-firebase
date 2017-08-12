@@ -1,5 +1,17 @@
 {
-  "database": {
-    "rules": "database.rules.json"
-  }
+	"database": {
+		"rules": "database.rules.json"
+	},
+	"hosting": {
+		"public": "src/public",
+		"rewrites": [
+			{
+				"source": "**/**",
+				"function": "api"
+			}
+		]
+	},
+	"functions": {
+		"source": "src"
+	}
 }

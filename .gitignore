@@ -6,21 +6,14 @@
 # compiled output
 /dist
 /tmp
-/build
 
 # dependencies
 /node_modules
+src/node_modules
 
 # misc
-/connect.lock
-/coverage/*
-/libpeerconnection.log
+yarn.lock
 npm-debug.log*
-testem.log
-
-# sublime text
-*.sublime-project
-*.sublime-workspace
 
 # vs studio code
 jsconfig.json

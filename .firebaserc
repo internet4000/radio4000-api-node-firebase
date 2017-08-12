@@ -1,6 +1,7 @@
 {
   "projects": {
+    "production": "firebase-radio4000",
     "staging": "radio4000-staging",
-    "production": "firebase-radio4000"
+    "api": "radio4000-embed-api-4ac07"
   }
 }
