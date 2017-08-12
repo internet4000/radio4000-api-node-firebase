@@ -131,6 +131,12 @@ example: `"-JoJypAujT2z0qcWnYjW": true`
 
 example: `false`
 
+- isPremium [boolean]: has this radio channel been upgraded to premium
+This property cannot be changed by the user. After paying the premium
+fee, the Firebase functions backend will take care of switching it to `true`
+
+example: `true`
+
 - link [string]: URL describing the external homepage for a radio channel
 
 example: `"https://example.com"`
