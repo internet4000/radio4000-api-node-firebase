@@ -7,7 +7,7 @@
     "start": "nodemon src/index.js",
     "test": "ava",
     "deploy-api": "firebase use api; firebase deploy --only functions",
-    "deploy-rules": "firebase use live; firebase deploy --only rules"
+    "deploy-rules": "firebase use production; firebase deploy --only rules"
   },
   "devDependencies": {
     "ava": "^0.21.0",
