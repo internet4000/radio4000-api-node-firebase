@@ -114,6 +114,9 @@
 				"isFeatured": {
 					".validate": "newData.isBoolean() && (data.exists() && newData.val() === data.val() || newData.val() === false)"
 				},
+				"isPremium": {
+					".validate": "newData.isBoolean() && newData.val() === data.val()"
+				},
 				"link": {
 					".validate": "newData.isString() && newData.val().length < 150"
 				},
