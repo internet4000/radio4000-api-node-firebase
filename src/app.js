@@ -34,13 +34,15 @@ if (NODE_ENV === 'production') {
  * */
 
 function notEndpointPath(req, res, usage = '') {
-	const path = req.path || '';
 	const host = req.headers.host;
+	let url = `${HTTPPrefix}${req.headers.host}`;
+	if (NODE_ENV === 'production') {
+		url = 'https://api.radio4000.com'
+	}
 
-	const embedApiDynamicUrl = HTTPPrefix + host + path;
 	res.status(404).json({
 		message: 'NOT FOUND',
-		usage: embedApiDynamicUrl + usage
+		usage: url + usage
 	})
 }
 
@@ -55,7 +57,7 @@ app.get('/', function (req, res) {
 		url = 'https://api.radio4000.com'
 	}
 	res.json({
-		message: 'Welcome to the radio4000-embed-api.',
+		message: 'Welcome to the Radio4000 api',
 		documentationUrl: pkg.homepage,
 		iframeUrl: url + '/iframe',
 		oembedUrl: url + '/oembed'
