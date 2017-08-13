@@ -41,6 +41,8 @@ For *realtime* database access, you should refer to the [Firebase SDK](https://f
 |https://radio4000.firebaseio.com/tracks.json|All tracks from all channels|
 |https://radio4000.firebaseio.com/tracks/{id}.json|Single track|
 
+You can see some example usage here https://github.com/internet4000/radio4000-player/blob/master/src/utils/store.js
+
 **List of endpoints at https://api.radio4000.com**.
 
 These come from the node.js app in this repo.
