@@ -6,6 +6,9 @@ const getIframe = require('./utils/getIframe')
 const getOEmbed = require('./utils/getOEmbed')
 
 
+const keyPublishable = process.env.PUBLISHABLE_KEY;
+const keySecret = process.env.SECRET_KEY;
+
 /*
  * start Express server
  * */
