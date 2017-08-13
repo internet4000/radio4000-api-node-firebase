@@ -1,4 +1,5 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 const got = require('got')
 const pkg = require('./package.json')
 const getIframe = require('./utils/getIframe')
@@ -10,7 +11,7 @@ const getOEmbed = require('./utils/getOEmbed')
  * */
 
 const app = express()
-
+const jsonParser = bodyParser.json()
 
 /*
  * Global variables +
@@ -103,6 +104,11 @@ function getChannelBySlug(slug) {
 		retries: 1
 	})
 }
+
+app.post('/payments', jsonParser, function (req, res) {
+  if (!req.body) return res.sendStatus(400)
+	console.log('payments body', req.body)
+})
 
 
 /*
