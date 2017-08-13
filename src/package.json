@@ -5,10 +5,12 @@
     "start": "node"
   },
   "dependencies": {
+    "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "firebase-admin": "^5.1.0",
     "firebase-functions": "^0.6.1",
-    "got": "^6.7.1"
+    "got": "^6.7.1",
+    "stripe": "^4.24.0"
   },
   "private": true,
   "devDependencies": {}
