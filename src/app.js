@@ -1,4 +1,6 @@
+require('dotenv').config()
 const express = require('express')
+const stripe = require('stripe')
 const bodyParser = require('body-parser')
 const got = require('got')
 const cors = require('cors')
@@ -8,13 +10,18 @@ const getOEmbed = require('./utils/getOEmbed')
 
 
 const keyPublishable = process.env.PUBLISHABLE_KEY;
-const keySecret = process.env.SECRET_KEY;
+/* const keySecret = process.env.SECRET_KEY;*/
+const keySecret = 'sk_test_F2Qx73O5Q4ggCF46ueqhte3c';
+
+
+console.log('keySecret', keySecret)
 
 /*
  * start Express server
  * */
 
 const app = express()
+const stripeApp = stripe(keySecret);
 const jsonParser = bodyParser.json()
 app.use(cors())
 
@@ -110,10 +117,58 @@ function getChannelBySlug(slug) {
 	})
 }
 
+/* Card object received
+	 card: {
+	 id: 'card_1AsEzGCSxcuHyPxSi2JYkGHM',
+	 object: 'card',
+	 address_city: null,
+	 address_country: null,
+	 address_line1: null,
+	 address_line1_check: null,
+	 address_line2: null,
+	 address_state: null,
+	 address_zip: null,
+	 address_zip_check: null,
+	 brand: 'Visa',
+	 country: 'US',
+	 cvc_check: 'pass',
+	 dynamic_last4: null,
+	 exp_month: 2,
+	 exp_year: 2044,
+	 funding: 'credit',
+	 last4: '4242',
+	 metadata: {},
+	 name: 'hu@hu.hu',
+	 tokenization_method: null
+	 }
+ */
+
 app.post('/payments', jsonParser, function (req, res) {
-  if (!req.body) return res.sendStatus(400)
-	console.log('payments body', req.body)
-	res.send('lol');
+	const card = req.body
+  if (!card) return res.sendStatus(400)
+
+	const amount = 1400;
+
+	console.log('card', card)
+
+	const newCustomer = {
+    email: card.name,
+    source:
+  }
+
+  stripeApp.customers.create(newCustomer)
+	/* .then(customer =>{
+		 console.log("customer", customer)
+
+		 const charge = {
+		 amount,
+		 description: "Radio4000 premium channel",
+		 currency: "eur",
+		 customer: card.id
+		 }
+
+		 stripe.charges.create(charge).then(res.send)
+		 })*/
 })
 
 
