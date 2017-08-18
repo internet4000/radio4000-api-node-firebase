@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const got = require('got')
+const cors = require('cors')
 const pkg = require('./package.json')
 const getIframe = require('./utils/getIframe')
 const getOEmbed = require('./utils/getOEmbed')
@@ -15,6 +16,7 @@ const keySecret = process.env.SECRET_KEY;
 
 const app = express()
 const jsonParser = bodyParser.json()
+app.use(cors())
 
 /*
  * Global variables +
@@ -111,6 +113,7 @@ function getChannelBySlug(slug) {
 app.post('/payments', jsonParser, function (req, res) {
   if (!req.body) return res.sendStatus(400)
 	console.log('payments body', req.body)
+	res.send('lol');
 })
 
 

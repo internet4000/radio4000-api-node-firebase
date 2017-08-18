@@ -12,5 +12,8 @@
   "devDependencies": {
     "ava": "^0.21.0",
     "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.4"
   }
 }
