@@ -153,22 +153,23 @@ app.post('/payments', jsonParser, function (req, res) {
 
 	const newCustomer = {
     email: card.name,
-    source:
+    source: card.id
   }
 
-  stripeApp.customers.create(newCustomer)
-	/* .then(customer =>{
-		 console.log("customer", customer)
+  stripeApp.customers.create(newCustomer).then(customer => {
+		console.log('customer', customer);
 
-		 const charge = {
-		 amount,
-		 description: "Radio4000 premium channel",
-		 currency: "eur",
-		 customer: card.id
-		 }
+		const charge = {
+			source: card.id,
+			amount: 1400,
+			currency: "eur",
+			description: "Radio4000 Premium",
+		}
 
-		 stripe.charges.create(charge).then(res.send)
-		 })*/
+		stripeApp.charges.create(charge).then(a => {
+			console.log('answer', a)
+		})
+	})
 })
 
 
