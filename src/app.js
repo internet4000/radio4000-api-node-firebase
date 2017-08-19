@@ -1,6 +1,8 @@
 require('dotenv').config()
 const express = require('express')
 const stripe = require('stripe')
+const admin = require('firebase-admin')
+const serviceAccount = require("./serviceAccountKey.json")
 const bodyParser = require('body-parser')
 const got = require('got')
 const cors = require('cors')
@@ -13,8 +15,8 @@ const keyPublishable = process.env.PUBLISHABLE_KEY;
 /* const keySecret = process.env.SECRET_KEY;*/
 const keySecret = 'sk_test_F2Qx73O5Q4ggCF46ueqhte3c';
 
-
 console.log('keySecret', keySecret)
+
 
 /*
  * start Express server
@@ -24,6 +26,17 @@ const app = express()
 const stripeApp = stripe(keySecret);
 const jsonParser = bodyParser.json()
 app.use(cors())
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://radio4000-staging.firebaseio.com"
+});
+
+/* TODO: Says that can be used instead of serviceAccount and
+	 admin.initalizeApp({credentials, databaseURL...})
+*/
+/* admin.initializeApp(functions.config().firebase);*/
+
 
 /*
  * Global variables +
@@ -144,31 +157,57 @@ function getChannelBySlug(slug) {
  */
 
 app.post('/payments', jsonParser, function (req, res) {
-	const card = req.body
-  if (!card) return res.sendStatus(400)
+	const data = req.body
+  if (!data) return res.sendStatus(400)
 
 	const amount = 1400;
-
-	console.log('card', card)
+	const { stripeCard, radio4000ChannelId } = data;
 
 	const newCustomer = {
-    email: card.name,
-    source: card.id
+    email: stripeCard.name,
+    source: stripeCard.id
   }
 
+	console.log('@payments:data', data)
+	console.log('@payments:newCustomer', newCustomer);
+
   stripeApp.customers.create(newCustomer).then(customer => {
-		console.log('customer', customer);
+		console.log('@customers.create:customer', customer);
 
 		const charge = {
-			source: card.id,
+			customer: customer.id,
+			source: customer.default_source,
 			amount: 1400,
 			currency: "eur",
 			description: "Radio4000 Premium",
 		}
 
-		stripeApp.charges.create(charge).then(a => {
-			console.log('answer', a)
-		})
+		stripeApp.charges.create(charge).then(answer => {
+			console.log('@charges.charge:charge', charge)
+			console.log('@charges.charge:answer', answer)
+
+			if(answer.paid) {
+				var db = admin.database();
+				var ref = db.ref(`channels/${radio4000ChannelId}`);
+
+				console.log('radio4000ChannelId', radio4000ChannelId)
+
+				ref.child('isPremium')
+					 .set(true)
+					 .then(completion => {
+						 console.log('@firebase:isPremium-completion', completion)
+					 }).catch(completionError => {
+						 console.log('@firebase:isPremium-c-error', completionError)
+					 })
+			} else {
+				// send error response
+				console.log('answer.paid', answer.paid)
+			}
+		}).catch(error => {
+			console.log('error charges.create', error);
+		});
+	}).catch(error => {
+		console.log('error customers.create', error);
 	})
 })
 
