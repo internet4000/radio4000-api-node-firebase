@@ -158,13 +158,13 @@ function getChannelBySlug(slug) {
 
 app.post('/payments', jsonParser, function (req, res) {
 	const data = req.body
-  if (!data) return res.sendStatus(400)
+  if (!data || !data.stripeCard) return res.sendStatus(400)
 
 	const amount = 1400;
 	const { stripeCard, radio4000ChannelId } = data;
 
 	const newCustomer = {
-    email: stripeCard.name,
+    email: stripeCard.email,
     source: stripeCard.id
   }
 
@@ -195,19 +195,35 @@ app.post('/payments', jsonParser, function (req, res) {
 				ref.child('isPremium')
 					 .set(true)
 					 .then(completion => {
-						 console.log('@firebase:isPremium-completion', completion)
+
+						 res.status(200).json({
+							 message: 'charge sucess && channel.isPremium = true'
+						 })
+
 					 }).catch(completionError => {
 						 console.log('@firebase:isPremium-c-error', completionError)
+						 res.status(500).json({
+							 message: 'charge error: card charged, but channel not upgraded to premium'
+						 })
 					 })
 			} else {
 				// send error response
 				console.log('answer.paid', answer.paid)
+				res.status(500).json({
+					message: 'charge error, answer.paid = false'
+				})
 			}
 		}).catch(error => {
 			console.log('error charges.create', error);
+			res.status(500).json({
+				message: 'charge error'
+			})
 		});
 	}).catch(error => {
 		console.log('error customers.create', error);
+		res.status(500).json({
+			message: 'customer create error'
+		})
 	})
 })
 
