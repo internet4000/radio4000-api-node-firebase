@@ -23,5 +23,4 @@ test('getOEmbed: it works with !channel.body', t => {
 	const embedToString = JSON.stringify(embed)
 	const noUndefined = embedToString.indexOf('undefined')
 	t.is(noUndefined, -1)
-
 })
