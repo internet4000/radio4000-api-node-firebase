@@ -12,7 +12,6 @@
 src/node_modules
 
 # misc
-yarn.lock
 npm-debug.log*
 
 # vs studio code
