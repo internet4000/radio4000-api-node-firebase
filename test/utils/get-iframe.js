@@ -1,5 +1,5 @@
 import test from 'ava';
-import getIframe from '../../src/utils/getIframe.js';
+import getIframe from '../../src/utils/get-iframe.js';
 
 test('iframe: it fails without 2 params', t => {
 	t.throws(() => getIframe())
