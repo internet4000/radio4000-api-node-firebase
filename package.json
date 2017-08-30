@@ -4,13 +4,16 @@
   "main": "src/index.js",
   "license": "MIT",
   "scripts": {
+    "postinstall": "cd src; $npm_execpath install",
     "start": "nodemon src/index.js",
     "test": "ava",
     "deploy-api": "firebase use api; firebase deploy --only functions",
     "deploy-rules": "firebase use production; firebase deploy --only rules"
   },
-  "devDependencies": {
-    "ava": "^0.21.0",
+  "dependencies": {
     "nodemon": "^1.11.0"
+  },
+  "devDependencies": {
+    "ava": "^0.21.0"
   }
 }
