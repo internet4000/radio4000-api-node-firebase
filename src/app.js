@@ -35,7 +35,8 @@ if (NODE_ENV === 'production') {
 
 function notEndpointPath(req, res, usage = '') {
 	const host = req.headers.host;
-	let url = `${HTTPPrefix}${req.headers.host}`;
+	console.log(req)
+	let url = `${HTTPPrefix}${req.headers.host}${req.url}`;
 	if (NODE_ENV === 'production') {
 		url = 'https://api.radio4000.com'
 	}
