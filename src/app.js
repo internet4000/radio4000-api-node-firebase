@@ -15,9 +15,6 @@ const keyPublishable = process.env.PUBLISHABLE_KEY;
 /* const keySecret = process.env.SECRET_KEY;*/
 const keySecret = 'sk_test_F2Qx73O5Q4ggCF46ueqhte3c';
 
-console.log('keySecret', keySecret)
-
-
 /*
  * start Express server
  * */
