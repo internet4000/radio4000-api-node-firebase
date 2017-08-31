@@ -25,13 +25,25 @@ const jsonParser = bodyParser.json()
 app.use(cors())
 
 
-/* TODO: Says that can be used instead of serviceAccount and
-	 admin.initalizeApp({credentials, databaseURL...})
- */
-/* admin.initializeApp({
- *   credential: admin.credential.cert(serviceAccount),
- *   databaseURL: "https://radio4000-staging.firebaseio.com"
- * });*/
+/*
+	 If we want to run the server outside of firebase's function servers
+	 we'll need a service account, to have the right authorization
+	 to connect as admin to our firebase instance.
+
+	 const serviceAccount = require("./serviceAccountKey.json")
+	 admin.initializeApp({
+     credential: admin.credential.cert(serviceAccount),
+     databaseURL: "https://radio4000-staging.firebaseio.com"
+	 });
+*/
+
+/*
+	 When used on firebase servers, we just need to pull the config
+	 and run the server that way:
+	 $ firebase serve --only functions
+	 source: https://firebase.google.com/docs/functions/local-emulator
+*/
+
 admin.initializeApp(functions.config().firebase);
 
 
