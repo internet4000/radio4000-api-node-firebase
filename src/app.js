@@ -216,7 +216,7 @@ app.post('/payments', jsonParser, function (req, res) {
 		}).catch(error => {
 			console.log('error charges.create', error);
 			res.status(500).json({
-				message: 'charge error'
+				message: 'charge create error'
 			})
 		});
 	}).catch(error => {
