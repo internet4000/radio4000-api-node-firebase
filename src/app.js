@@ -2,7 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const stripe = require('stripe')
 const admin = require('firebase-admin')
-const serviceAccount = require("./serviceAccountKey.json")
+const functions = require('firebase-functions')
 const bodyParser = require('body-parser')
 const got = require('got')
 const cors = require('cors')
@@ -24,15 +24,15 @@ const stripeApp = stripe(keySecret);
 const jsonParser = bodyParser.json()
 app.use(cors())
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://radio4000-staging.firebaseio.com"
-});
 
 /* TODO: Says that can be used instead of serviceAccount and
 	 admin.initalizeApp({credentials, databaseURL...})
-*/
-/* admin.initializeApp(functions.config().firebase);*/
+ */
+/* admin.initializeApp({
+ *   credential: admin.credential.cert(serviceAccount),
+ *   databaseURL: "https://radio4000-staging.firebaseio.com"
+ * });*/
+admin.initializeApp(functions.config().firebase);
 
 
 /*
