@@ -1,4 +1,4 @@
-module.exports = function (embedApiRoot, { slug, title, body }) {
+module.exports = function (host, { slug, title, body }) {
 	if (!body) {
 		body = ''
 	}
@@ -12,7 +12,7 @@ module.exports = function (embedApiRoot, { slug, title, body }) {
 		'title': title,
 		'description': body,
 		'thumbnail_url': `https://assets.radio4000.com/radio4000-icon.png`,
-		'html': `<iframe width="320" height="400" src="${embedApiRoot}/iframe?slug=${slug}" frameborder="0"></iframe>`,
+		'html': `<iframe width="320" height="400" src="${host}/iframe?slug=${slug}" frameborder="0"></iframe>`,
 		'width': 320,
 		'height': 400
 	})

@@ -1,72 +1,67 @@
 # Radio4000 API
 
-Public API to [Radio4000.com](https://radio4000.com) using Firebase realtime capabilities.
+This is the documentation and public API to [Radio4000.com](https://radio4000.com). We welcome anyone to use the data, and to help improve the ecosystem. The Radio4000 API consists of several parts: a Firebase database as well as a node.js API.
 
-This API supports `GET` HTTP methods.
+In this repository you can find:
 
+- [Firebase API](#firebase-api)
+- [Rules & Authentication](#rules--authentication) 
+- [Endpoints](#endpoints) 
+- [Models](#models)  
+- [Node.js API](#nodejs-api) 
+- [Deployment](#deployment)
+- [FAQ](#frequently-and-not-frequently-asked-questions-faqnfaq)
 
-## Introduction
+## Firebase API
 
-Thanks to Firebase the Radio4000 data can be accessed in realtime through this API, as well as classic REST. The [Firebase documentation](https://firebase.google.com/docs/) explains how you can access the data for various platforms: Web, Android, iOS, C++, Unity.
+Thanks to Firebase, the Radio4000 data can be accessed with classic REST as well as realtime through the Firebase SDK. The [Firebase documentation](https://firebase.google.com/docs/) explains how you can access data for various platforms: Web, Android, iOS, C++, Unity. This API supports `GET` HTTP methods. There is no versioning for this API as we have to follow and replicate any changes made at the Firebase level. Note that Firebase stores arrays as objects where the key of each object is the `id` of the model.
 
-We welcome anyone to use the data, and help to improve the ecosystem.
+## Rules & authentication
 
+The Firebase security rules can be found in `database.rules.json`. This is the most precise definition of what can and should be done with the API. Most endpoints can be read without authentication. Reading a user, a userSettings or writing to (some) models always require authentication. For now, think of the API as read-only.
 
-## Folder structure
+To deploy the rules see [deployment](#deployment).
 
-In this git repository you can find:
+## Endpoints
 
-- `readme.md`: this document, presenting and explaining how to use Radio4000's API
-- `database.rules.json`: Firebase's security rules. Those are the most precise definition of what can/should be done with the API
+Here's a list of available REST endpoints. They are all available via normal `GET` HTTP requests.
 
-
-## URI and Versioning
-
-The API can be found here: [https://radio4000.firebaseio.com](https://radio4000.firebaseio.com).
-
-There is no versioning for this API as we have to follow and replicate any changes made at the Firebase level.
-
-
-## Design
-
-In Firebase, the `id` of a model is the root key of the object containing its properties.
-
-
-### Endpoints and realtime
-
-Most endpoints can be read without authentication.
-
-Reading a user, a userSettings or writting to some models always requires authentication.
-
-Here's a list of available REST endpoints and which model they correspond to:
-
-* `/users` serves the `user` models
-	* [https://radio4000.firebaseio.com/users/{id}.json](https://radio4000.firebaseio.com/users/{id}.json)
-
-- `/userSettings` serves the `userSetting` models
-	- [https://radio4000.firebaseio.com/userSettings/{id}.json](https://radio4000.firebaseio.com/userSettings/{id}.json)
-
-- `/channels` serves the `channel` models
-	- [https://radio4000.firebaseio.com/channels.json](https://radio4000.firebaseio.com/channels.json)
-	- [https://radio4000.firebaseio.com/channels/{channelId}.json](https://radio4000.firebaseio.com/channels/{id}.json)
-
-- `/channelPublics` serves the `channelPublic` models
-	- [https://radio4000.firebaseio.com/channelPublics/{id}.json](https://radio4000.firebaseio.com/channelPublics/{id}.json)
-
-- `/images` serves the `image` models
-	- [https://radio4000.firebaseio.com/images/{id}.json](https://radio4000.firebaseio.com/images/{id}.json)
-
-- `/tracks` serves the `track` models
-	- [https://radio4000.firebaseio.com/tracks.json](https://radio4000.firebaseio.com/tracks.json)
-	- [https://radio4000.firebaseio.com/tracks/{id}.json](https://radio4000.firebaseio.com/tracks/{id}.json)
-
+**List of endpoints at https://radio4000.firebaseio.com**.
 
 For *realtime* database access, you should refer to the [Firebase SDK](https://firebase.google.com/docs/) available for your platform.
 
+|URL|Description|
+|--------|-------|
+|https://radio4000.firebaseio.com/users/{id}.json|All users|
+|https://radio4000.firebaseio.com/userSettings/{id}.json|Single user setting|
+|https://radio4000.firebaseio.com/channels.json|All channels|
+|https://radio4000.firebaseio.com/channels/{id}.json|Single channels|
+|https://radio4000.firebaseio.com/channelPublics/{id}.json|All channel publics|
+|https://radio4000.firebaseio.com/images/{id}.json|All images|
+|https://radio4000.firebaseio.com/tracks.json|All tracks from all channels|
+|https://radio4000.firebaseio.com/tracks/{id}.json|Single track|
+
+You can see some example usage here https://github.com/internet4000/radio4000-player/blob/master/src/utils/store.js
+
+**List of endpoints at https://api.radio4000.com**.
+
+These come from the node.js app in this repo.
+
+|URL|Description|
+|--------|-------|
+|https://api.radio4000.com/iframe?slug={channelSlug}|Returns an HTML embed with the [radio4000-player](https://github.com/internet4000/radio4000-player)|
+|https://api.radio4000.com/oembed?slug={channelSlug}|Returns a `JSON` object following the [oEmbed spec](http://oembed.com/) for a Radio4000 channel. With this, we can add a meta tag to each channel to get rich previews when the link is shared.|
+
+The `iframe` endpoint is meant to be used as the `src` of our `<iframe>` embeds. To get the HTML for the iframe embed, visit the `/oembed` endpoint and see the `html` property.
+
+Here's an example of how to use the oembed:
+```html
+<link rel="alternate" type="application/json+oembed" href="https://api.radio4000.com/oembed?slug=200ok" title="200ok">
+```
 
 ## Models
 
-Listed below are all available models and their properties.
+Listed below are all available models and their properties. Also see this folder https://github.com/internet4000/radio4000/tree/master/app/models.
 
 - [user](#user)
 - [userSetting](#usersetting)
@@ -75,214 +70,117 @@ Listed below are all available models and their properties.
 - [image](#image)
 - [track](#track)
 
-
 ### user
 
 Requires authentication to read and write.
 
-- channels [hasMany, string]: all radio channels a user has. We only allow one, for now.
-
-example: `"-KYJykyCl6nIJi6YIuBO": true`
-
-- created [integer]: timestamp describing when was this user created
-
-example: `1481041965335`
-
-- settings [string]: reference to the `userSetting` model id
-
-example: `-KYJyixLTbITr103hovZ`
-
+|name|type|description|
+|----|----|----|
+|channels|`hasMany`|list of radio `channel`s belonging to a user. We only allow one, for now. Example: `{"-KYJykyCl6nIJi6YIuBO": true}`|
+|created|`integer`|timestamp from when the user was created. Example: `1481041965335`|
+|settings|`belongsTo`|relationship to a `userSetting` model. Example: `-KYJyixLTbITr103hovZ`|
 
 ### userSetting
 
 Requires authentication to read and write.
 
-- user [belongsTo, string]: reference to the `user` model id
-
-example: `"fAE1TRvTctbK4bEra3GnQdBFcqj2"`
-
+|name|type|description|
+|----|----|----|
+|user|`belongsTo`|Relationship to a single `user` model. Example: `"fAE1TRvTctbK4bEra3GnQdBFcqj2"`|
 
 ### channel
 
 Requires authentication to write.
 
-- body: [string]: user description of the radio channel
-
-example: `"The channel of your wet dreams, an ode to perfu..."`
-
-- channelPublic [belongsTo, string]: reference to the `channelPublic` id of this radio channel
-
-example: `"-JoJm13j3aGTWCT_Zbir"`
-
-- created [integer]: timestamp describing when was this radio channel created
-
-example: `"1411213745028"`
-
-- favoriteChannels [hasMany, string]: list of all channels this radio has added as favorites
-
-example: `"-JXHtCxC9Ew-Ilck6iZ8": true`
-
-- images [hasMany, string]: all images added to a radio
-
-example: `"-JoJypAujT2z0qcWnYjW": true`
-
-- isFeatured [boolean]: is this radio channel featured on radio4000's homepage 
-
-example: `false`
-
-- link [string]: URL describing the external homepage for a radio channel
-
-example: `"https://example.com"`
-
-- slug [string]: the unique "string id" representing this channel (used for human readable urls radio4000.com/slug)
-
-example: `"oskar"`
-
-- title [string]: title representing a radio channel
-
-example: `"Radio Oskar"`
-
-- tracks [hasMany, string]: list of `track` models offered by a radio channel
-
-example: `"-J_GkkhzfbefhHMqV5qi": true`
-
-- updated [integer]: timestamp describing when was this radio last updated
-
-example: `1498137205047`
-
+|name|type|description|
+|----|----|----|
+|body|`string`|description of the radio channel. Example: `"The channel of your wet dreams..."`|
+|channelPublic|`belongsTo`|relationship to a `channelPublic`. Example: `"-JoJm13j3aGTWCT_Zbir"`|
+|created|`integer`|timestamp describing when was this radio channel created. Example: `"1411213745028"`|
+|favoriteChannels|`hasMany`|list of channels this radio has added as favorite. Example: `"-JXHtCxC9Ew-Ilck6iZ8": true`|
+|images|`hasMany`|list of `image` models. Example: `"-JoJypAujT2z0qcWnYjW": true`|
+|isFeatured|`boolean`|whether this channel is featured on Radio4000's homepage. Example: `false`|
+|link|`string`|Custom URL describing the external homepage for a radio channel. Example: `"https://example.com"`|
+|slug|`string`|the unique URL representing this channel. Used for human readable urls radio4000.com/pirate-radio). Example: `"pirate-radio"`|
+|title|`string`|title representing a radio channel. Example: `"Radio Oskar"`|
+|tracks|`hasMany`|list of `track` models. Example: `{"-J_GkkhzfbefhHMqV5qi": true, ...}`|
+|updated|`integer`|timestamp when the radio was last updated. Example: `1498137205047`|
 
 ### channelPublic
 
 `channelPublic` is a model always associated to a `channel` model. It is used so any authenticated user can associate data to a `channel`, when a `channel` can only be written by its owner. For exemple, adding a radio as follower will be done on the `channelPublic` model.
 
-- channel [belongsTo, string]: `channel` model to which belongs this `channelPublic`
+|name|type|description|
+|-|-|-|
+|channel|`belongsTo`|relationship to a `channel` model. Example: `"-JYEosmvT82Ju0vcSHVP"`|
+|followers|`hasMany`|list of `channel` models following this radio. Example: `{"-JXHtCxC9Ew-Ilck6iZ8": true, ...}`|
 
-example: `"-JYEosmvT82Ju0vcSHVP"`
+### Image
 
-- followers [hasMany, string]: list of `channel` models following this radio
+|name|type|description|
+|-|-|-|
+|channels|`belongsTo`|relationship to the `channel` model|
+|src|string|`id` of the `cloudinary` model which stores this image data.|
 
-example: `"-JXHtCxC9Ew-Ilck6iZ8": true`
+todo: explain our integration of the Cloudinary service.
 
+### Track
 
-### image
+|name|type|description|
+|-|-|-|
+|body|`string`|optional description to the track. Example: `"Post-Punk from USA (NY)"`|
+|channel|`belongsTo`|relationship to `channel` model|
+|created|`integer`|date timestamp from when the model is created|
+|title|`string`|required title of the track. Example: `"Lydia Lunch - This Side of Nowhere (1982)"`|
+|url|`string`|the URL pointing to the provider serving the track media (YouTube only). Example: `"https://www.youtube.com/watch?v=5R5bETC_wvA"`|
+|ytid|`string`|provider id of a track media (YouTube only). Example: `"5R5bETC_wvA"`|
 
-- channel [belongsTo, string]: `channel` model to which this image belongs.
+## Node.js API
 
-example: `"-JYZtdQfLSl6sUpyIJx6"`
+In addition to the Firebase API, this repository contains a node.js API in the `src` folder. This is what runs at https://api.radio4000.com. It is configured as a Firebase function. Remember to review the `.firebaserc` and `firebase.json` files.
 
-- src [string]: `id` of the `cloudinary` model which stores this image data.
+To install, you'll need node.js and git. Then run:
 
-example: `"czepsdiizx5gx10gnufe"`
-
-todo: explain cloudinary
-
-
-### track
-
-- body [string]: optional user description of a track
-
-example: `"Post-Punk from USA (NY)"`
-
-- channel [belongsTo, string]: the channel to which a track belongs to
-
-example: `"-K9RmTg2B3gqldaFnART"`
-
-- created [integer]: timestamp describing when was created a track model
-
-example: `1478878156138`
-
-- title [string]: title describing a track model
-
-example: `"Lydia Lunch - This Side of Nowhere (1982)"`
-
-- url [string]: the URL pointing to the provider serving the track media (Youtube only for now)
-
-example: `"https://www.youtube.com/watch?v=5R5bETC_wvA"`
-
-- ytid [string]: provider id of a track media (Youtube only for now)
-
-example: `"5R5bETC_wvA"`
-
-
-## List of projects using the Radio4000 API.
-
-- [radio4000.com](https://github.com/internet4000/radio4000): the main website use this exact API via the JavaScript SDK.
-- [radio4000-player-vue](https://github.com/internet4000/radio4000-player-vue): the media player used by radio4000.com is a vue.js project communicating with this API via REST.
-
-Do you want your project to appear here? Send a pull request or get in touch!
-
-
-## Frequently and not-frequently asked questions (FAQNFAQ)
-
-- Why Firebase?
-
-Firebase allowed this project to come to life without having the need to spend time building and maintaining backend software. It also allows us to be more secure we think we could be on our own, handling the storage and protection of user's sensitive data. In a perfect world we would like to have a backend that we fully control, running only free and open source softwares. The future will be great.
-
-# Radio4000 Embed API
-
-This is the API for creating iframe and oEmbeds for Radio4000 channels. It uses Node.js and Express.js.
-
-## Endpoints
-
-List of all available endpoints on https://embed.radio4000.com.
-
-### /iframe
-
-- `/iframe?slug={radio4000-channel-slug}`
-
-Returns an `HTML` document with an instance of the [radio4000-vue-player](https://github.com/internet4000/radio4000-player-vue).
-
-This endpoint is meant to be used as the `src` of our `<iframe>` embeds. To get the HTML for the iframe embed, visit the `/oembed` endpoint and see the `html` property. The HTML template returned is here: `/templates/embed.html`.
-
-## /oembed
-
-- `/oembed?slug={radio4000-channel-slug}`
-
-Returns a `JSON` object following the [oEmbed spec](http://oembed.com/) for a Radio4000 channel.
-
-With this, we can add a meta tag to each channel to get rich previews when the link is shared. Like this:
-
-```html
-<link rel="alternate" type="application/json+oembed" href="https://embed.radio4000.com/oembed?slug=200ok" title="200ok">
+```
+git clone git@github.com:internet4000/radio4000-api.git
+cd radio4000-api
+yarn; cd src; yarn; cd ..
 ```
 
-Here's an example of what is returned:
+To start a local development server, run
 
-```json
-{
-  "version": "1.0",
-  "type": "rich",
-  "provider_name": "Radio4000",
-  "provider_url": "https://radio4000.com/",
-  "author_name": "200ok",
-  "author_url": "https://radio4000.com/200ok/",
-  "title": "200ok",
-  "description": "Textures, drums, breaks and grooves #am to #pm",
-  "thumbnail_url": "https://assets.radio4000.com/radio4000-icon.png",
-  "html": "<iframe width=\"320\" height=\"400\" src=\"https://embed.radio4000.com/iframe?slug=200ok\" frameborder=\"0\"></iframe>",
-  "width": 320,
-  "height": 400
-}
-```
+- `yarn start`  
+- `firebase serve --only hosting,functions`
 
-## Developing
+You can test it using `yarn test` which runs `ava` on the `test` folder.
 
-Clone the repository, cd into it and install dependencies with `yarn install`. Then do `yarn run` to see which commands are available.
+## Deployment
 
-### Firebase
-
-Make sure you have installed the Firebase tools:
+Before you can deploy either the Firebase security rules or the Node.js API, make sure you have the Firebase tools installed:
 
 1. `yarn global add firebase-tools`
 2. `firebase login`
 
-Then to start a server:
+**Deploying rules**
 
-- `firebase serve --only functions,hosting`
+1. Get permissions to the Firebase project `firebase-radio4000`
+2. Run `yarn deploy-rules`
+3. Now live at https://radio4000.firebaseio.com
 
-This will start two local servers. One for functions, one for hosting.
+**Deploying the Node.js API**
 
-To deploy it, run:
+1. Get permission to the Firebase project `radio4000-api`
+2. Run `yarn deploy-api`
+3. Now live at https://api.radio4000.com
 
-- `firebase deploy --only functions`
->>>>>>> embed/master
+## Frequently and not-frequently asked questions (FAQNFAQ)
+
+**Why Firebase?**
+Firebase allowed this project to come to life without having the need to spend time building and maintaining backend software. It also allows us to be more secure we think we could be on our own, handling the storage and protection of user's sensitive data. In a perfect world we would like to have a backend that we fully control, running only free and open source softwares. The future will be great.
+
+**Which projects use the Radio4000 API?**
+
+- [radio4000.com](https://github.com/internet4000/radio4000): the main website use this exact API via the JavaScript SDK.  
+- [radio4000-player](https://github.com/internet4000/radio4000-player): the media player used by radio4000.com is a vue.js project communicating with this API via REST.
+
+Do you want your project to appear here? Send a pull request or get in touch!

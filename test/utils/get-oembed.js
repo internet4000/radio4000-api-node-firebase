@@ -1,5 +1,5 @@
 import test from 'ava';
-import getOEmbed from '../../src/utils/getOEmbed.js';
+import getOEmbed from '../../src/utils/get-oembed.js';
 
 test('getOEmbed: it returns an object with 12 keys', t => {
 	const channel = {
@@ -23,5 +23,4 @@ test('getOEmbed: it works with !channel.body', t => {
 	const embedToString = JSON.stringify(embed)
 	const noUndefined = embedToString.indexOf('undefined')
 	t.is(noUndefined, -1)
-
 })

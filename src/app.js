@@ -7,8 +7,8 @@ const bodyParser = require('body-parser')
 const got = require('got')
 const cors = require('cors')
 const pkg = require('./package.json')
-const getIframe = require('./utils/getIframe')
-const getOEmbed = require('./utils/getOEmbed')
+const getIframe = require('./utils/get-iframe')
+const getOEmbed = require('./utils/get-oembed')
 
 
 const keyPublishable = process.env.PUBLISHABLE_KEY;
@@ -56,9 +56,11 @@ admin.initializeApp(functions.config().firebase);
 const {NODE_ENV, PORT = 3000} = process.env
 
 let R4PlayerScriptUrl = 'https://unpkg.com/radio4000-player'
+let host = `http://localhost:${PORT}`
 let R4ApiRoot = 'https://radio4000-staging.firebaseio.com/'
-let HTTPPrefix = 'http://'
+
 if (NODE_ENV === 'production') {
+	host = `https://api.radio4000.com`
 	R4ApiRoot = 'https://radio4000.firebaseio.com/'
 }
 
@@ -69,15 +71,9 @@ if (NODE_ENV === 'production') {
  * */
 
 function notEndpointPath(req, res, usage = '') {
-	const host = req.headers.host;
-	let url = `${HTTPPrefix}${req.headers.host}`;
-	if (NODE_ENV === 'production') {
-		url = 'https://api.radio4000.com'
-	}
-
 	res.status(404).json({
 		message: 'NOT FOUND',
-		usage: url + usage
+		usage: host + req.path + usage
 	})
 }
 
@@ -87,31 +83,24 @@ function notEndpointPath(req, res, usage = '') {
  * */
 
 app.get('/', function (req, res) {
-	let url = `${HTTPPrefix}${req.headers.host}`;
-	if (NODE_ENV === 'production') {
-		url = 'https://api.radio4000.com'
-	}
 	res.json({
 		message: 'Welcome to the Radio4000 api',
 		documentationUrl: pkg.homepage,
-		iframeUrl: url + '/iframe',
-		oembedUrl: url + '/oembed'
+		iframeUrl: host + '/iframe',
+		oembedUrl: host + '/oembed'
 	})
 })
 
 app.get('/iframe', function (req, res) {
 	const slug = req.query.slug
-	const usage = '?slug={radio4000-channel-slug}'
+	const usage = `?slug={radio4000-channel-slug}`
 	if (!slug) return notEndpointPath(req, res, usage)
 	res.send(getIframe(slug, R4PlayerScriptUrl))
 })
 
 app.get('/oembed', (req, res, next) => {
 	const slug = req.query.slug
-	const embedApiRoot = HTTPPrefix + req.headers.host;
 	const usage = '?slug={radio4000-channel-slug}'
-
-	// show usage if missing param
 	if (!slug) return notEndpointPath(req, res, usage)
 
 	getChannelBySlug(slug).then(response => {
@@ -120,7 +109,7 @@ app.get('/oembed', (req, res, next) => {
 		let channel = channels[id]
 		channel.id = id
 		if (!channel) return notEndpointPath(req, res, usage)
-		const embedHtml = getOEmbed(embedApiRoot, channel)
+		const embedHtml = getOEmbed(host, channel)
 		res.send(embedHtml)
 	}).catch(error => {
 		res.status(500).send({

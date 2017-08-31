@@ -13,7 +13,6 @@ src/node_modules
 src/serviceAccountKey.json
 
 # misc
-yarn.lock
 npm-debug.log*
 firebase-debug.log
 
