@@ -48,7 +48,6 @@ function notEndpointPath(req, res, usage = '') {
  * */
 
 app.get('/', function (req, res) {
-	console.log('pkg.homepage', pkg.homepage)
 	res.json({
 		message: 'Welcome to the Radio4000 api',
 		documentationUrl: pkg.homepage,
