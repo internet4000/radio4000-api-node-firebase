@@ -1,6 +1,6 @@
 const express = require('express')
 const got = require('got')
-const pkg = require('./package.json')
+const pkg = require('../package.json')
 const getIframe = require('./utils/get-iframe')
 const getOEmbed = require('./utils/get-oembed')
 
@@ -48,6 +48,7 @@ function notEndpointPath(req, res, usage = '') {
  * */
 
 app.get('/', function (req, res) {
+	console.log('pkg.homepage', pkg.homepage)
 	res.json({
 		message: 'Welcome to the Radio4000 api',
 		documentationUrl: pkg.homepage,
