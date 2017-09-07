@@ -170,7 +170,7 @@ Before you can deploy either the Firebase security rules or the Node.js API, mak
 **Deploying the Node.js API**
 
 1. Get permission to the Firebase project `radio4000-api`
-2. Run `yarn deploy-api`
+2. Run `yarn deploy-api-production`
 3. Now live at https://api.radio4000.com
 
 ## Frequently and not-frequently asked questions (FAQNFAQ)
