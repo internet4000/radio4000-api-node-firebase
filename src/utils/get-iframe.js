@@ -2,10 +2,11 @@ const fs = require('fs')
 
 const html = `
 	<!doctype html>
-  <head>
-  <meta name="viewport" content="width=device-width">
-  </head>
+	<meta name="viewport" content="width=device-width">
 	<body style="margin: 0">
+	<style>
+		html, body, radio4000-player {height: 100%;}
+	</style>
 	<radio4000-player slug="##CHANNEL_SLUG##" channel-slug="##CHANNEL_SLUG##"></radio4000-player>
 	<script src="##PLAYER_SCRIPT_URL##" async></script>
 `
