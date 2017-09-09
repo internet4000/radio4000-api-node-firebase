@@ -2,6 +2,7 @@ const fs = require('fs')
 
 const html = `
 	<!doctype html>
+	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
 	<body style="margin: 0">
 	<style>
