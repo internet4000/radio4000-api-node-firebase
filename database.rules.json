@@ -31,8 +31,8 @@
 				".validate": "newData.hasChildren(['created'])",
 
 				"created": {
-					// ensure that you can not change an existing value and that is it not in the future
-					".validate": "data.exists() && data.val() === newData.val() || newData.isNumber() && newData.val() <= now && newData.val() > now - 1000"
+					// Ensure type::timestamp and that you can not update it
+					".validate": "data.exists() && data.val() === newData.val() || newData.val() === now"
 				},
 				"settings": {
 					".validate": "!newData.exists() || newData.isString() && root.child('userSettings').child(newData.val()).child('user').val() === $userID"
@@ -104,12 +104,12 @@
 					".validate": "newData.isString() && root.child('channelPublics').child(newData.val()).child('channel').val() == $channelID"
 				},
 				"created": {
-					// Ensure type::number and that you can not update it
-					".validate": "data.exists() && data.val() === newData.val() || newData.isNumber() && newData.val() <= now && newData.val() > now - 1000"
+					// Ensure type::timestamp and that you can not update it
+					".validate": "data.exists() && data.val() === newData.val() || newData.val() == now"
 				},
 				"updated": {
 					// Ensure type::number and that you can not update it
-					".validate": "newData.isNumber() && newData.val() <= now"
+					".validate": "newData.val() == now"
 				},
 				"isFeatured": {
 					".validate": "newData.isBoolean() && (data.exists() && newData.val() === data.val() || newData.val() === false)"
@@ -194,7 +194,8 @@
 					".validate": "newData.isString()"
 				},
 				"created": {
-					".validate": "data.exists() && data.val() === newData.val() || newData.isNumber() && newData.val() <= now && newData.val() > now - 1000"
+					// Ensure type::timestamp and that you can not update it
+					".validate": "data.exists() && data.val() === newData.val() || newData.val() === now"
 				},
 				"$other": {
 					".validate": false
@@ -212,8 +213,8 @@
 				".validate": "newData.hasChildren(['channel', 'url', 'ytid', 'title', 'created'])",
 
 				"created": {
-					// ".validate": "data.exists() && data.val() === newData.val() || newData.isNumber() && newData.val() <= now && newData.val() > now - 1000"
-					".validate": "data.exists() && data.val() === newData.val() || newData.isNumber() && newData.val() <= now"
+					// Ensure type::timestamp and that you can not update it
+					".validate": "data.exists() && data.val() === newData.val() || newData.val() === now"
 				},
 				"url": {
 					".validate": "newData.isString() && newData.val().length > 3"
