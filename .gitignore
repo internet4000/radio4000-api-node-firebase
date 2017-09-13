@@ -10,11 +10,12 @@
 # dependencies
 /node_modules
 src/node_modules
+src/serviceAccountKey.json
 
 # misc
 npm-debug.log*
+firebase-debug.log
 
 # vs studio code
 jsconfig.json
 typings/
-
