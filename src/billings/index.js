@@ -2,12 +2,12 @@ const express = require('express')
 const stripe = require('stripe')
 const admin = require('firebase-admin')
 const functions = require('firebase-functions')
+const config = require('../utils/config')
 
 const billings = express.Router()
 
-const keyPublishable = process.env.PUBLISHABLE_KEY
-/* const keySecret = process.env.SECRET_KEY;*/
-const keySecret = 'sk_test_F2Qx73O5Q4ggCF46ueqhte3c'
+const keyPublishable = config.stripePublicKey;
+const keySecret = config.stripeSecretKey;
 
 const stripeApp = stripe(keySecret)
 
