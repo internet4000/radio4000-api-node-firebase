@@ -13,7 +13,7 @@ const html = `
 	<script src="##PLAYER_SCRIPT_URL##" async></script>
 `
 
-module.exports = function (slug) {
+module.exports = function(slug) {
 	if (!slug || !config.playerScriptURL) {
 		throw Error('missing slug or playerScriptURL')
 	}

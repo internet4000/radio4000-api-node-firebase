@@ -1,15 +1,15 @@
-const express = require('express');
+const express = require('express')
 const stripe = require('stripe')
 const admin = require('firebase-admin')
 const functions = require('firebase-functions')
 
-const billings = express.Router();
+const billings = express.Router()
 
-const keyPublishable = process.env.PUBLISHABLE_KEY;
+const keyPublishable = process.env.PUBLISHABLE_KEY
 /* const keySecret = process.env.SECRET_KEY;*/
-const keySecret = 'sk_test_F2Qx73O5Q4ggCF46ueqhte3c';
+const keySecret = 'sk_test_F2Qx73O5Q4ggCF46ueqhte3c'
 
-const stripeApp = stripe(keySecret);
+const stripeApp = stripe(keySecret)
 
 billings.get('/', function(req, res) {
 	res.json({
@@ -114,4 +114,4 @@ billings.post('/', function (req, res) {
 	 }
  */
 
-module.exports = billings;
+module.exports = billings

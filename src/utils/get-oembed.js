@@ -1,6 +1,6 @@
 const config = require('./config')
 
-module.exports = function ({ slug, title, body }) {
+module.exports = function({ slug, title, body }) {
 	if (!body) {
 		body = ''
 	}

@@ -9,7 +9,7 @@ test('iframe: slug & script placeholder replaced in template', t => {
 	const html = getIframe('200ok')
 	const replacedSlug = html.indexOf('##CHANNEL_SLUG##')
 	const replacedScript = html.indexOf('##PLAYER_SCRIPT_URL##')
-	
+
 	t.is(replacedSlug, -1)
 	t.is(replacedScript, -1)
 })

@@ -4,7 +4,7 @@ const config = require('../utils/config')
 const noEndpoint = require('../utils/no-endpoint')
 const getOEmbed = require('../utils/get-oembed')
 
-const route = express.Router();
+const route = express.Router()
 
 function getChannelBySlug(slug) {
 	const url = `${config.databaseURL}/channels.json?orderBy="slug"&equalTo="${slug}"`
@@ -14,7 +14,7 @@ function getChannelBySlug(slug) {
 	})
 }
 
-route.get('/', function (req, res) {
+route.get('/', function(req, res) {
 	const slug = req.query.slug
 	const usage = '?slug={radio4000-channel-slug}'
 
