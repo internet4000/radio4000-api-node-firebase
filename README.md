@@ -49,10 +49,10 @@ These come from the node.js app in this repo.
 
 |URL|Description|
 |--------|-------|
-|https://api.radio4000.com/iframe?slug={channelSlug}|Returns an HTML embed with the [radio4000-player](https://github.com/internet4000/radio4000-player)|
+|https://api.radio4000.com/embed?slug={channelSlug}|Returns an HTML embed with the [radio4000-player](https://github.com/internet4000/radio4000-player)|
 |https://api.radio4000.com/oembed?slug={channelSlug}|Returns a `JSON` object following the [oEmbed spec](http://oembed.com/) for a Radio4000 channel. With this, we can add a meta tag to each channel to get rich previews when the link is shared.|
 
-The `iframe` endpoint is meant to be used as the `src` of our `<iframe>` embeds. To get the HTML for the iframe embed, visit the `/oembed` endpoint and see the `html` property.
+The `/embed` endpoint is meant to be used as the `src` of our `<iframe>` embeds. To get the HTML for the iframe embed, visit the `/oembed` endpoint and see the `html` property.
 
 Here's an example of how to use the oembed:
 ```html
@@ -180,7 +180,11 @@ Firebase allowed this project to come to life without having the need to spend t
 
 **Which projects use the Radio4000 API?**
 
-- [radio4000.com](https://github.com/internet4000/radio4000): the main website use this exact API via the JavaScript SDK.  
-- [radio4000-player](https://github.com/internet4000/radio4000-player): the media player used by radio4000.com is a vue.js project communicating with this API via REST.
+- [radio4000.com](https://github.com/internet4000/radio4000): the main website use this exact API via the JavaScript SDK.
+- [radio4000-player](https://github.com/internet4000/radio4000-player):
+  the media player used by radio4000.com is a vue.js project
+  communicating with this API via REST. 
+- [mix.radio4000.com](https://github.com/internet4000/radio4000-mix):
+  mix radio4000 channels together
 
 Do you want your project to appear here? Send a pull request or get in touch!

@@ -1,4 +1,5 @@
 const fs = require('fs')
+const config = require('./config')
 
 const html = `
 	<!doctype html>
@@ -12,12 +13,12 @@ const html = `
 	<script src="##PLAYER_SCRIPT_URL##" async></script>
 `
 
-module.exports = function (slug, R4PlayerScriptUrl) {
-	if (!slug || !R4PlayerScriptUrl) {
-		throw Error('missing slug or R4PlayerScriptUrl')
+module.exports = function (slug) {
+	if (!slug || !config.playerScriptURL) {
+		throw Error('missing slug or playerScriptURL')
 	}
 
 	return html
 		.replace(new RegExp('##CHANNEL_SLUG##', 'g'), slug)
-		.replace('##PLAYER_SCRIPT_URL##', R4PlayerScriptUrl)
+		.replace('##PLAYER_SCRIPT_URL##', config.playerScriptURL)
 }

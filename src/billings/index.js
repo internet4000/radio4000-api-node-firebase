@@ -3,7 +3,7 @@ const stripe = require('stripe')
 const admin = require('firebase-admin')
 const functions = require('firebase-functions')
 
-const payments = express.Router();
+const billings = express.Router();
 
 const keyPublishable = process.env.PUBLISHABLE_KEY;
 /* const keySecret = process.env.SECRET_KEY;*/
@@ -11,7 +11,13 @@ const keySecret = 'sk_test_F2Qx73O5Q4ggCF46ueqhte3c';
 
 const stripeApp = stripe(keySecret);
 
-payments.post('/', function (req, res) {
+billings.get('/', function(req, res) {
+	res.json({
+		error: 'this endpoint does not exist, check usage on the documentation'
+	})
+});
+
+billings.post('/', function (req, res) {
 	const data = req.body
   if (!data || !data.stripeCard) return res.sendStatus(400)
 
@@ -23,8 +29,8 @@ payments.post('/', function (req, res) {
     source: stripeCard.id
   }
 
-	console.log('@payments:data', data)
-	console.log('@payments:newCustomer', newCustomer);
+	console.log('@billings:data', data)
+	console.log('@billings:newCustomer', newCustomer);
 
   stripeApp.customers.create(newCustomer).then(customer => {
 		console.log('@customers.create:customer', customer);
@@ -108,4 +114,4 @@ payments.post('/', function (req, res) {
 	 }
  */
 
-module.exports = payments;
+module.exports = billings;
