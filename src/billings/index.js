@@ -7,7 +7,7 @@ const config = require('../utils/config')
 const billings = express.Router()
 
 const keyPublishable = config.stripePublicKey;
-const keySecret = config.stripeSecretKey;
+const keySecret = config.stripePrivateKey;
 
 const stripeApp = stripe(keySecret)
 

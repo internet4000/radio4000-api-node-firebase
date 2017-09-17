@@ -1,26 +1,27 @@
 // Global config that respects the node environment
 const functions = require('firebase-functions');
 
-const {NODE_ENV, PORT = 3000} = process.env
+const {NODE_ENV,
+			 PORT = 3000} = process.env
 
-// The URL of this application
-let apiURL = `http://localhost:${PORT}`
+let apiURL, // URL of this application
+		databaseURL, // Firebase database URL
+		stripePrivateKey,
+		stripePublicKey;
 
-// The Firebase database URL
-let databaseURL = 'https://radio4000-staging.firebaseio.com/'
+// CDN URL to the radio4000-player script
+const playerScriptURL = 'https://unpkg.com/radio4000-player';
 
-// The CDN URL to the radio4000-player script
-const playerScriptURL = 'https://unpkg.com/radio4000-player'
-
-// stripe
-let stripeSecretKey = functions.config().stripe.secret_key;
-let stripePublicKey = functions.config().stripe.public_key;
+apiURL = `http://localhost:${PORT}`;
+databaseURL = 'https://radio4000-staging.firebaseio.com/';
+stripePrivateKey = functions.config().stripe.private_key;
+stripePublicKey = functions.config().stripe.public_key;
 
 if (NODE_ENV === 'production') {
-	apiURL = `https://api.radio4000.com`
-	databaseURL = 'https://radio4000.firebaseio.com/'
-	stripeSecretKey = functions.config().stripe_production.secret_key;
-	stripePublicKey = functions.config().stripe_production.public_key;
+	apiURL = 'https://api.radio4000.com';
+	databaseURL = 'https://radio4000.firebaseio.com/';
+	stripePrivateKey = functions.config().stripe.production_private_key;
+	stripePublicKey = functions.config().stripe.production_public_key;
 }
 
 module.exports = {
@@ -28,6 +29,6 @@ module.exports = {
 	databaseURL,
 	playerScriptURL,
 	port: PORT,
-	stripeSecretKey,
+	stripePrivateKey,
 	stripePublicKey
 }
