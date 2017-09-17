@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "postinstall": "cd src; $npm_execpath install",
-    "start": "nodemon src/index.js",
+    "start": "firebase serve -p 4001",
     "test": "ava",
     "deploy-api": "firebase use staging; firebase deploy --only functions",
     "deploy-api-production": "firebase use production; firebase deploy --only functions",
