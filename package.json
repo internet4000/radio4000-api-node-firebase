@@ -1,10 +1,9 @@
 {
   "name": "radio4000-embed-api",
   "homepage": "https://github.com/internet4000/radio4000-api",
-  "main": "src/index.js",
+  "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "postinstall": "cd src; $npm_execpath install",
     "start": "firebase serve -p 4001",
     "test": "ava",
     "deploy-api": "firebase use staging; firebase deploy --only functions",
@@ -13,7 +12,15 @@
     "deploy-rules-production": "firebase use production; firebase deploy --only database"
   },
   "dependencies": {
-    "nodemon": "^1.11.0"
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.4",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.3",
+    "firebase-admin": "^5.1.0",
+    "firebase-functions": "^0.6.3",
+    "got": "^6.7.1",
+    "nodemon": "^1.11.0",
+    "stripe": "^4.24.0"
   },
   "devDependencies": {
     "ava": "^0.21.0"

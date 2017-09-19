@@ -1,6 +1,6 @@
 const express = require('express')
 const got = require('got')
-const config = require('../utils/config')
+const config = require('../config')
 const noEndpoint = require('../utils/no-endpoint')
 const getOEmbed = require('../utils/get-oembed')
 
@@ -26,7 +26,7 @@ route.get('/', function(req, res) {
 		const channel = channels[id]
 
 		if (!channel) return noEndpoint(req, res, usage)
-			
+
 		channel.id = id
 		const embedHtml = getOEmbed(channel)
 		res.send(embedHtml)

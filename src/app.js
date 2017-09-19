@@ -1,11 +1,11 @@
 require('dotenv').config()
 
+const config = require('./config')
 const express = require('express')
 const admin = require('firebase-admin')
 const functions = require('firebase-functions')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const config = require('./utils/config')
 const billings = require('./billings')
 const embed = require('./embed')
 const oembed = require('./oembed')
@@ -42,13 +42,12 @@ admin.initializeApp(functions.config().firebase);
 // Routes
 app.get('/', function (req, res) {
 	res.json({
-		message: 'Welcome to the Radio4000 api',
+		message: 'Welcome to the Radio4000 api tt',
 		documentationUrl: 'https://github.com/internet4000/radio4000-api',
 		databaseUrl: config.databaseURL,
-		apiUrl: config.apiURL,
-		billingsUrl: config.apiURL + '/billings',
 		embedUrl: config.apiURL + '/embed',
-		oembedUrl: config.apiURL + '/oembed'
+		oembedUrl: config.apiURL + '/oembed',
+		billingsUrl: config.apiURL + '/billings'
 	})
 })
 app.use('/billings', billings)

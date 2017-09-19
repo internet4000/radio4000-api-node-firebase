@@ -1,5 +1,5 @@
 const express = require('express')
-const config = require('../utils/config')
+const config = require('../config')
 const noEndpoint = require('../utils/no-endpoint')
 const getIframe = require('../utils/get-iframe')
 

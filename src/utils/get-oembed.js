@@ -1,4 +1,4 @@
-const config = require('./config')
+const config = require('../config')
 
 module.exports = function({ slug, title, body }) {
 	if (!body) {

@@ -3,7 +3,6 @@
 		"rules": "database.rules.json"
 	},
 	"hosting": {
-		"public": "src/public",
 		"rewrites": [
 			{
 				"source": "**/**",
@@ -12,6 +11,6 @@
 		]
 	},
 	"functions": {
-		"source": "src"
+		"source": "."
 	}
 }
