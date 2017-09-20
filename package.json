@@ -12,14 +12,12 @@
     "deploy-rules-production": "firebase use production; firebase deploy --only database"
   },
   "dependencies": {
-    "body-parser": "^1.17.2",
-    "cors": "^2.8.4",
-    "dotenv": "^4.0.0",
+    "got": "^6.7.1",
     "express": "^4.15.3",
+    "cors": "^2.8.4",
+    "body-parser": "^1.17.2",
     "firebase-admin": "^5.1.0",
     "firebase-functions": "^0.6.3",
-    "got": "^6.7.1",
-    "nodemon": "^1.11.0",
     "stripe": "^4.24.0"
   },
   "devDependencies": {

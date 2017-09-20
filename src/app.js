@@ -1,17 +1,17 @@
-require('dotenv').config()
-
 const config = require('./config')
 const express = require('express')
-const admin = require('firebase-admin')
-const functions = require('firebase-functions')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+
+const admin = require('firebase-admin')
+const functions = require('firebase-functions')
+
 const billings = require('./billings')
 const embed = require('./embed')
 const oembed = require('./oembed')
 
 
-// Start Express server
+/* Start Express server */
 const app = express()
 app.use(cors())
 app.use(bodyParser.json())
@@ -39,7 +39,7 @@ app.use(bodyParser.json())
 admin.initializeApp(functions.config().firebase);
 
 
-// Routes
+/* Routes */
 app.get('/', function (req, res) {
 	res.json({
 		message: 'Welcome to the Radio4000 api',
@@ -55,7 +55,7 @@ app.use('/embed', embed)
 app.use('/oembed', oembed)
 
 
-// Run server
+/* Run server */
 app.listen(config.port, function () {
 	console.log(`Radio4000 API running on port ${config.port}`);
 })
