@@ -42,7 +42,7 @@ admin.initializeApp(functions.config().firebase);
 // Routes
 app.get('/', function (req, res) {
 	res.json({
-		message: 'Welcome to the Radio4000 api tt',
+		message: 'Welcome to the Radio4000 api',
 		documentationUrl: 'https://github.com/internet4000/radio4000-api',
 		databaseUrl: config.databaseURL,
 		embedUrl: config.apiURL + '/embed',
