@@ -1,5 +1,4 @@
-const fs = require('fs')
-const config = require('../config')
+const config = require('../../src/config')
 
 const html = `
 	<!doctype html>

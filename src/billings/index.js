@@ -1,7 +1,6 @@
 const express = require('express')
 const stripe = require('stripe')
 const admin = require('firebase-admin')
-const functions = require('firebase-functions')
 const config = require('../config')
 
 const billings = express.Router()
