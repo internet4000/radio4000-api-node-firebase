@@ -1,8 +1,7 @@
 // Global config that respects the node environment
 const functions = require('firebase-functions');
 
-const {NODE_ENV,
-			 PORT = 3000} = process.env
+const {NODE_ENV} = process.env
 
 let apiURL, // URL of this application
 		databaseURL, // Firebase database URL
@@ -28,7 +27,6 @@ module.exports = {
 	apiURL,
 	databaseURL,
 	playerScriptURL,
-	port: PORT,
 	stripePrivateKey,
 	stripePublicKey
 }

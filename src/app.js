@@ -2,7 +2,6 @@ const config = require('./config')
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-
 const admin = require('firebase-admin')
 const functions = require('firebase-functions')
 
@@ -53,11 +52,5 @@ app.get('/', function (req, res) {
 app.use('/billings', billings)
 app.use('/embed', embed)
 app.use('/oembed', oembed)
-
-
-/* Run server */
-app.listen(config.port, function () {
-	console.log(`Radio4000 API running on port ${config.port}`);
-})
 
 module.exports = app

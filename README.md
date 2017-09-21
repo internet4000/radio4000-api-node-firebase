@@ -145,14 +145,9 @@ To install, you'll need node.js and git. Then run:
 git clone git@github.com:internet4000/radio4000-api.git
 cd radio4000-api
 yarn
+yarn start
+open http://localhost:4001/radio4000-staging/us-central1/api
 ```
-
-Then run `yarn start`. Two servers will start the same app:
-
-- Express server: http://localhost:3000 
-- Firebase server: http://localhost:4001/radio4000-staging/us-central1/api 
-
-It might be necessary to use the Firebase server to get access to the Firebase config.
 
 You can test it using `yarn test` which runs `ava` on the `test` folder.
 
