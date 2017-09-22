@@ -11,7 +11,7 @@ let apiURL, // URL of this application
 // CDN URL to the radio4000-player script
 const playerScriptURL = 'https://unpkg.com/radio4000-player'
 
-apiURL = 'http://localhost:4001/radio4000-staging/us-central1/api'
+apiURL = 'http://localhost:4001'
 databaseURL = 'https://radio4000-staging.firebaseio.com/'
 stripePrivateKey = functions.config().stripe.private_key
 stripePublicKey = functions.config().stripe.public_key

@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "firebase serve --only functions --port 4001",
+    "start": "firebase serve --only hosting,functions --port 4001",
     "test": "ava",
     "deploy-api": "firebase use staging; firebase deploy --only functions",
     "deploy-api-production": "firebase use production; firebase deploy --only functions",

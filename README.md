@@ -146,7 +146,7 @@ git clone git@github.com:internet4000/radio4000-api.git
 cd radio4000-api
 yarn
 yarn start
-open http://localhost:4001/radio4000-staging/us-central1/api
+open http://localhost:4001
 ```
 
 You can test it using `yarn test` which runs `ava` on the `test` folder.
@@ -163,7 +163,6 @@ Before you can deploy either the Firebase security rules or the Node.js API, mak
 -. Get permissions to the Firebase project `firebase-radio4000`
 - `yarn deploy-rules` (staging)
 - `yarn deploy-rules-production` (production)
-
 
 **Deploying the Node.js API**
 
