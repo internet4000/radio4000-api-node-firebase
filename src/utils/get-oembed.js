@@ -4,7 +4,7 @@ module.exports = function({ slug, title, body }) {
 	if (!body) {
 		body = ''
 	}
-	return ({
+	return {
 		'version': '1.0',
 		'type': 'rich',
 		'provider_name': 'Radio4000',
@@ -17,5 +17,5 @@ module.exports = function({ slug, title, body }) {
 		'html': `<iframe width="320" height="500" src="${config.apiURL}/embed?slug=${slug}" frameborder="0"></iframe>`,
 		'width': 320,
 		'height': 500
-	})
+	}
 }

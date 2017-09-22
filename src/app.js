@@ -1,10 +1,10 @@
-const config = require('./config')
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const admin = require('firebase-admin')
 const functions = require('firebase-functions')
 
+const config = require('./config')
 const billings = require('./billings')
 const embed = require('./embed')
 const oembed = require('./oembed')
@@ -35,7 +35,7 @@ app.use(bodyParser.json())
 	 source: https://firebase.google.com/docs/functions/local-emulator
 */
 
-admin.initializeApp(functions.config().firebase);
+admin.initializeApp(functions.config().firebase)
 
 
 /* Routes */

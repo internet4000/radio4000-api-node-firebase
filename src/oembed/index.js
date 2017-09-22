@@ -14,7 +14,7 @@ function getChannelBySlug(slug) {
 	})
 }
 
-route.get('/', function(req, res) {
+route.get('/', (req, res) => {
 	const slug = req.query.slug
 	const usage = '?slug={radio4000-channel-slug}'
 
@@ -32,7 +32,7 @@ route.get('/', function(req, res) {
 		res.send(embedHtml)
 	}).catch(err => {
 		res.status(500).send({
-			message: `Could not fetch channel from ${url}`,
+			message: `Could not fetch channel "${slug}"`,
 			code: 500,
 			internalError: err
 		})

@@ -14,7 +14,7 @@ const html = `
 
 module.exports = function(slug) {
 	if (!slug || !config.playerScriptURL) {
-		throw Error('missing slug or playerScriptURL')
+		throw new Error('missing slug or playerScriptURL')
 	}
 
 	return html
