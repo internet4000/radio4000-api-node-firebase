@@ -125,7 +125,7 @@
 					".validate": "newData.isString() && newData.val().length > 2 && newData.val().length < 100"
 				},
 				"title": {
-					".validate": "newData.isString() && newData.val().length > 2 && newData.val().length < 32"
+					".validate": "newData.isString() && newData.val().length > 2 && newData.val().length < 33"
 				},
 				"tracks": {
 					"$track": {
