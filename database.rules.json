@@ -87,7 +87,7 @@
 		"channels": {
 			".read": true,
 			".write": false,
-			".indexOn": ["slug", "isFeatured"],
+			".indexOn": ["slug", "isFeatured", "title"],
 
 			"$channelID": {
 				".read": true,
