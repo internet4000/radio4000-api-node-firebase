@@ -104,8 +104,8 @@
 					".validate": "newData.isString() && root.child('channelPublics').child(newData.val()).child('channel').val() == $channelID"
 				},
 				"created": {
-					// Ensure type::timestamp and that you can not update it
-					".validate": "data.exists() && data.val() === newData.val() || newData.val() == now"
+					// Ensure type::number and that you can not update it
+          ".validate": "data.exists() && data.val() === newData.val() || newData.val() > now - 1000"
 				},
 				"updated": {
 					// Ensure type::number and that you can not update it
@@ -125,7 +125,7 @@
 					".validate": "newData.isString() && newData.val().length > 2 && newData.val().length < 100"
 				},
 				"title": {
-					".validate": "newData.isString() && newData.val().length > 2 && newData.val().length < 33"
+					".validate": "newData.isString() && newData.val().length > 2 && newData.val().length < 32"
 				},
 				"tracks": {
 					"$track": {
