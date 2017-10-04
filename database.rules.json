@@ -48,7 +48,7 @@
 							// so instead we just prevent a user to add to himself a radio that already
 							// has tracks in -> so no radio hijack
 							".validate": "root.child('channels').child($channelID).exists() && !root.child('users').child(auth.uid).child('channels').child($channelID).exists() && !root.child('channels').child($channelID).child('tracks').exists()"
-					}
+						}
 				}/*,
 				"$other": {
 					".validate": false
@@ -66,18 +66,18 @@
 				// write: only logged-in-user without a user settings can create a new one to himself
 				".read": "auth != null && (data.child('user').val() === auth.uid)",
 				".write": "auth != null && ((data.child('user').val() === auth.uid) || (root.child('users').child(auth.uid).hasChild('settings') === false))",
-        ".validate": "newData.hasChild('user')",
+				".validate": "newData.hasChild('user')",
 				"user": {
 					".validate": "newData.val() === auth.uid"
 				},
 				"isRemoteActive": {
 					".validate": "newData.isBoolean()"
 				},
-        "playedChannels": {
-          "$channel": {
+				"playedChannels": {
+					"$channel": {
 						".validate": "newData.isBoolean() && root.child('channels').child($channel).exists()"
-          }
-        },
+					}
+				},
 				"$other": {
 					".validate": false
 				}
@@ -104,8 +104,9 @@
 					".validate": "newData.isString() && root.child('channelPublics').child(newData.val()).child('channel').val() == $channelID"
 				},
 				"created": {
-					// Ensure type::timestamp and that you can not update it
-					".validate": "data.exists() && data.val() === newData.val() || newData.val() == now"
+					// Ensure type::number and that you can not update it
+					// OR allow a timestamp within the last second
+					".validate": "data.exists() && data.val() === newData.val() || (newData.val() >= now -1000 && newData.val() <= now)"
 				},
 				"updated": {
 					// Ensure type::number and that you can not update it
@@ -125,7 +126,7 @@
 					".validate": "newData.isString() && newData.val().length > 2 && newData.val().length < 100"
 				},
 				"title": {
-					".validate": "newData.isString() && newData.val().length > 2 && newData.val().length < 33"
+					".validate": "newData.isString() && newData.val().length > 2 && newData.val().length < 32"
 				},
 				"tracks": {
 					"$track": {
