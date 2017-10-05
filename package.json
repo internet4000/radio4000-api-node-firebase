@@ -1,7 +1,8 @@
 {
-  "name": "radio4000-embed-api",
+  "name": "radio4000-api",
   "homepage": "https://github.com/internet4000/radio4000-api",
   "main": "index.js",
+  "private": true,
   "license": "MIT",
   "scripts": {
     "start": "firebase serve --only hosting,functions --port 4001",
