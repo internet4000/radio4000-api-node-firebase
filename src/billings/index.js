@@ -1,12 +1,20 @@
 const express = require('express')
-const stripe = require('stripe')
 const admin = require('firebase-admin')
+const functions = require('firebase-functions')
+const stripe = require('stripe')
 const config = require('../config')
 
 const billings = express.Router()
 
-// const keyPublishable = config.stripePublicKey
-const keySecret = config.stripePrivateKey
+let stripePrivateKey = functions.config().stripe.private_key
+let stripePublicKey = functions.config().stripe.public_key
+if (process.env.NODE_ENV === 'production') {
+	stripePrivateKey = functions.config().stripe.production_private_key
+	stripePublicKey = functions.config().stripe.production_public_key
+}
+
+const keySecret = stripePrivateKey
+// const keyPublishable = stripePublicKey
 
 const stripeApp = stripe(keySecret)
 
@@ -109,6 +117,6 @@ billings.post('/', function (req, res) {
 	 name: 'hu@hu.hu',
 	 tokenization_method: null
 	 }
- */
+	 */
 
 module.exports = billings
