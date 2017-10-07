@@ -13,7 +13,7 @@ module.exports = function({ slug, title, body }) {
 		'author_url': `https://radio4000.com/${slug}/`,
 		'title': title,
 		'description': body,
-		'thumbnail_url': `https://assets.radio4000.com/radio4000-icon.png`,
+		'thumbnail_url': `https://assets.radio4000.com/icon.png`,
 		'html': `<iframe width="320" height="500" src="${config.apiURL}/embed?slug=${slug}" frameborder="0"></iframe>`,
 		'width': 320,
 		'height': 500
