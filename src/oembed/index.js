@@ -16,16 +16,15 @@ function getChannelBySlug(slug) {
 
 route.get('/', (req, res) => {
 	const slug = req.query.slug
-	const usage = '?slug={radio4000-channel-slug}'
 
-	if (!slug) return noEndpoint(req, res, usage)
+	if (!slug) return noEndpoint()
 
 	getChannelBySlug(slug).then(response => {
 		const channels = JSON.parse(response.body)
 		const id = Object.keys(channels)[0]
 		const channel = channels[id]
 
-		if (!channel) return noEndpoint(req, res, usage)
+		if (!channel) return noEndpoint()
 
 		channel.id = id
 		const embedHtml = getOEmbed(channel)

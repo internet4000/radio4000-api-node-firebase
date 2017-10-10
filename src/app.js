@@ -43,10 +43,7 @@ app.get('/', function (req, res) {
 	res.json({
 		message: 'Welcome to the Radio4000 api',
 		documentationUrl: 'https://github.com/internet4000/radio4000-api',
-		databaseUrl: config.databaseURL,
-		embedUrl: config.apiURL + '/embed',
-		oembedUrl: config.apiURL + '/oembed',
-		billingsUrl: config.apiURL + '/billings'
+		databaseUrl: config.databaseURL
 	})
 })
 app.use('/billings', billings)

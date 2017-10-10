@@ -7,9 +7,8 @@ const route = express.Router()
 
 route.get('/', function(req, res) {
 	const slug = req.query.slug
-	const usage = `?slug={radio4000-channel-slug}`
 
-	if (!slug) return noEndpoint(req, res, usage)
+	if (!slug) return noEndpoint()
 
 	res.send(getIframe(slug, config.playerScriptURL))
 })

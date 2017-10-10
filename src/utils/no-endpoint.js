@@ -3,10 +3,10 @@
 
 const config = require('../config')
 
-function noEndpoint(req, res, usage = '') {
+function noEndpoint() {
 	res.status(404).json({
 		message: 'NOT FOUND',
-		usage: config.apiURL + req.path + usage
+		documentationUrl: 'https://github.com/internet4000/radio4000-api'
 	})
 }
 
