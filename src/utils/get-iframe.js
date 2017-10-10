@@ -1,5 +1,4 @@
-const fs = require('fs')
-const config = require('./config')
+const config = require('../config')
 
 const html = `
 	<!doctype html>
@@ -15,7 +14,7 @@ const html = `
 
 module.exports = function(slug) {
 	if (!slug || !config.playerScriptURL) {
-		throw Error('missing slug or playerScriptURL')
+		throw new Error('missing slug or playerScriptURL')
 	}
 
 	return html

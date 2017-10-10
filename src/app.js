@@ -1,17 +1,16 @@
-require('dotenv').config()
-
 const express = require('express')
-const admin = require('firebase-admin')
-const functions = require('firebase-functions')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const config = require('./utils/config')
+const admin = require('firebase-admin')
+const functions = require('firebase-functions')
+
+const config = require('./config')
 const billings = require('./billings')
 const embed = require('./embed')
 const oembed = require('./oembed')
 
 
-// Start Express server
+/* Start Express server */
 const app = express()
 app.use(cors())
 app.use(bodyParser.json())
@@ -36,29 +35,19 @@ app.use(bodyParser.json())
 	 source: https://firebase.google.com/docs/functions/local-emulator
 */
 
-admin.initializeApp(functions.config().firebase);
+admin.initializeApp(functions.config().firebase)
 
 
-// Routes
+/* Routes */
 app.get('/', function (req, res) {
 	res.json({
 		message: 'Welcome to the Radio4000 api',
 		documentationUrl: 'https://github.com/internet4000/radio4000-api',
-		databaseUrl: config.databaseURL,
-		apiUrl: config.apiURL,
-		billingsUrl: config.apiURL + '/billings',
-		embedUrl: config.apiURL + '/embed',
-		oembedUrl: config.apiURL + '/oembed'
+		databaseUrl: config.databaseURL
 	})
 })
 app.use('/billings', billings)
 app.use('/embed', embed)
 app.use('/oembed', oembed)
-
-
-// Run server
-app.listen(config.port, function () {
-	console.log(`Radio4000 API running on port ${config.port}`);
-})
 
 module.exports = app

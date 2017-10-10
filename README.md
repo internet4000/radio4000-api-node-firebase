@@ -144,13 +144,10 @@ To install, you'll need node.js and git. Then run:
 ```
 git clone git@github.com:internet4000/radio4000-api.git
 cd radio4000-api
-yarn; cd src; yarn; cd ..
+yarn
+yarn start
+open http://localhost:4001
 ```
-
-To start a local development server, run
-
-- `yarn start`  
-- `firebase serve --only hosting,functions`
 
 You can test it using `yarn test` which runs `ava` on the `test` folder.
 
@@ -163,9 +160,9 @@ Before you can deploy either the Firebase security rules or the Node.js API, mak
 
 **Deploying rules**
 
-1. Get permissions to the Firebase project `firebase-radio4000`
-2. Run `yarn deploy-rules`
-3. Now live at https://radio4000.firebaseio.com
+-. Get permissions to the Firebase project `firebase-radio4000`
+- `yarn deploy-rules` (staging)
+- `yarn deploy-rules-production` (production)
 
 **Deploying the Node.js API**
 

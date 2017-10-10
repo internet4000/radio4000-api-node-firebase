@@ -1,72 +1,76 @@
 const express = require('express')
-const stripe = require('stripe')
 const admin = require('firebase-admin')
 const functions = require('firebase-functions')
-const config = require('../utils/config')
+const stripe = require('stripe')
+const config = require('../config')
+const noEndpoint = require('../utils/no-endpoint')
 
 const billings = express.Router()
 
-const keyPublishable = config.stripePublicKey;
-const keySecret = config.stripePrivateKey;
+let stripePrivateKey = functions.config().stripe.private_key
+let stripePublicKey = functions.config().stripe.public_key
+if (process.env.NODE_ENV === 'production') {
+	stripePrivateKey = functions.config().stripe.production_private_key
+	stripePublicKey = functions.config().stripe.production_public_key
+}
+
+const keySecret = stripePrivateKey
+// const keyPublishable = stripePublicKey
 
 const stripeApp = stripe(keySecret)
 
-billings.get('/', function(req, res) {
-	res.json({
-		error: 'this endpoint does not exist, check usage on the documentation'
-	})
-});
+billings.get('/', function (req, res) {
+	return noEndpoint(res)
+})
 
 billings.post('/', function (req, res) {
 	const data = req.body
-  if (!data || !data.stripeCard) return res.sendStatus(400)
+	if (!data || !data.stripeCard) return res.sendStatus(400)
 
-	const amount = 1400;
-	const { stripeCard, radio4000ChannelId } = data;
+	const amount = 1400
+	const { stripeCard, radio4000ChannelId } = data
 
 	const newCustomer = {
-    email: stripeCard.email,
-    source: stripeCard.id
-  }
+		email: stripeCard.email,
+		source: stripeCard.id
+	}
 
 	console.log('@billings:data', data)
-	console.log('@billings:newCustomer', newCustomer);
+	console.log('@billings:newCustomer', newCustomer)
 
-  stripeApp.customers.create(newCustomer).then(customer => {
-		console.log('@customers.create:customer', customer);
+	stripeApp.customers.create(newCustomer).then(customer => {
+		console.log('@customers.create:customer', customer)
 
 		const charge = {
 			customer: customer.id,
 			source: customer.default_source,
 			amount: 1400,
-			currency: "eur",
-			description: "Radio4000 Premium",
+			currency: 'eur',
+			description: 'Radio4000 Premium'
 		}
 
 		stripeApp.charges.create(charge).then(answer => {
 			console.log('@charges.charge:charge', charge)
 			console.log('@charges.charge:answer', answer)
 
-			if(answer.paid) {
-				var db = admin.database();
-				var ref = db.ref(`channels/${radio4000ChannelId}`);
+			if (answer.paid) {
+				const db = admin.database()
+				const ref = db.ref(`channels/${radio4000ChannelId}`)
 
 				console.log('radio4000ChannelId', radio4000ChannelId)
 
 				ref.child('isPremium')
-							 .set(true)
-							 .then(completion => {
-
-								 res.status(200).json({
-									 message: 'charge sucess && channel.isPremium = true'
-								 })
-
-							 }).catch(completionError => {
-								 console.log('@firebase:isPremium-c-error', completionError)
-								 res.status(500).json({
-									 message: 'charge error: card charged, but channel not upgraded to premium'
-								 })
-							 })
+					.set(true)
+					.then(() => {
+						res.status(200).json({
+							message: 'charge sucess && channel.isPremium = true'
+						})
+					}).catch(completionError => {
+						console.log('@firebase:isPremium-c-error', completionError)
+						res.status(500).json({
+							message: 'charge error: card charged, but channel not upgraded to premium'
+						})
+					})
 			} else {
 				// send error response
 				console.log('answer.paid', answer.paid)
@@ -75,13 +79,13 @@ billings.post('/', function (req, res) {
 				})
 			}
 		}).catch(error => {
-			console.log('error charges.create', error);
+			console.log('error charges.create', error)
 			res.status(500).json({
 				message: 'charge create error'
 			})
-		});
+		})
 	}).catch(error => {
-		console.log('error customers.create', error);
+		console.log('error customers.create', error)
 		res.status(500).json({
 			message: 'customer create error'
 		})
@@ -112,6 +116,6 @@ billings.post('/', function (req, res) {
 	 name: 'hu@hu.hu',
 	 tokenization_method: null
 	 }
- */
+	 */
 
 module.exports = billings
