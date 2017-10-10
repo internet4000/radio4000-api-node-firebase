@@ -17,14 +17,14 @@ function getChannelBySlug(slug) {
 route.get('/', (req, res) => {
 	const slug = req.query.slug
 
-	if (!slug) return noEndpoint()
+	if (!slug) return noEndpoint(res)
 
 	getChannelBySlug(slug).then(response => {
 		const channels = JSON.parse(response.body)
 		const id = Object.keys(channels)[0]
 		const channel = channels[id]
 
-		if (!channel) return noEndpoint()
+		if (!channel) return noEndpoint(res)
 
 		channel.id = id
 		const embedHtml = getOEmbed(channel)

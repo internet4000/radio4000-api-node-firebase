@@ -3,6 +3,7 @@ const admin = require('firebase-admin')
 const functions = require('firebase-functions')
 const stripe = require('stripe')
 const config = require('../config')
+const noEndpoint = require('../utils/no-endpoint')
 
 const billings = express.Router()
 
@@ -19,9 +20,7 @@ const keySecret = stripePrivateKey
 const stripeApp = stripe(keySecret)
 
 billings.get('/', function (req, res) {
-	res.json({
-		error: 'this endpoint does not exist, check usage on the documentation'
-	})
+	return noEndpoint(res)
 })
 
 billings.post('/', function (req, res) {
