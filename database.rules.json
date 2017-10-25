@@ -143,12 +143,12 @@
 						".validate": "root.child('images').hasChild($image) && root.child('images').child($image).child('channel').val() === $channelID"
 					}
 				},
-				"coordinatesLongitude": {
-					".validate": "newData.isNumber()"
-				},
 				"coordinatesLatitude": {
-					".validate": "newData.isNumber()"
-				},
+          ".validate": "newData.isNumber() && newData.val() >= -90 && newData.val() <= 90"
+        },
+        "coordinatesLongitude": {
+          ".validate": "newData.isNumber() && newData.val() >= -180 && newData.val() <= 180"
+        },
 				"$other": {
 					".validate": false
 				}
