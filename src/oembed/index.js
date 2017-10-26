@@ -19,23 +19,25 @@ route.get('/', (req, res) => {
 
 	if (!slug) return noEndpoint(res)
 
-	getChannelBySlug(slug).then(response => {
-		const channels = JSON.parse(response.body)
-		const id = Object.keys(channels)[0]
-		const channel = channels[id]
+	getChannelBySlug(slug)
+		.then(response => {
+			const channels = JSON.parse(response.body)
+			const id = Object.keys(channels)[0]
+			const channel = channels[id]
 
-		if (!channel) return noEndpoint(res)
+			if (!channel) return noEndpoint(res)
 
-		channel.id = id
-		const embedHtml = getOEmbed(channel)
-		res.send(embedHtml)
-	}).catch(err => {
-		res.status(500).send({
-			message: `Could not fetch channel "${slug}"`,
-			code: 500,
-			internalError: err
+			channel.id = id
+			const embedHtml = getOEmbed(channel)
+			res.send(embedHtml)
 		})
-	})
+		.catch(err => {
+			res.status(500).send({
+				message: `Could not fetch channel "${slug}"`,
+				code: 500,
+				internalError: err
+			})
+		})
 })
 
 module.exports = route
