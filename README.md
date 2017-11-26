@@ -1,6 +1,12 @@
 # Radio4000 API
 
-This is the documentation and public API to [Radio4000.com](https://radio4000.com). We welcome anyone to use the data, and to help improve the ecosystem. The Radio4000 API consists of several parts: a Firebase database as well as a node.js API.
+This is the documentation and public API to
+[Radio4000.com](https://radio4000.com). The Radio4000 API consists of
+several parts: a Firebase database as well as a node.js API.
+
+Disclaimer: we welcome anyone to use the available data, and to help improve the
+ecosystem. Only use this API in ways that respect users' privacy, does
+not harm the systems or steps out legality.
 
 In this repository you can find:
 
