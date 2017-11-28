@@ -8,7 +8,7 @@ const html = `
 	<style>
 		html, body, radio4000-player {height: 100%;}
 	</style>
-	<radio4000-player slug="##CHANNEL_SLUG##" channel-slug="##CHANNEL_SLUG##"></radio4000-player>
+	<radio4000-player channel-slug="##CHANNEL_SLUG##"></radio4000-player>
 	<script src="##PLAYER_SCRIPT_URL##" async></script>
 `
 
