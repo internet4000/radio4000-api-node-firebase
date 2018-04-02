@@ -11,10 +11,10 @@ not harm the systems or steps out legality.
 In this repository you can find:
 
 - [Firebase API](#firebase-api)
-- [Rules & Authentication](#rules--authentication) 
-- [Endpoints](#endpoints) 
-- [Models](#models)  
-- [Node.js API](#nodejs-api) 
+- [Rules & Authentication](#rules--authentication)
+- [Endpoints](#endpoints)
+- [Models](#models)
+- [Node.js API](#nodejs-api)
 - [Deployment](#deployment)
 - [FAQ](#frequently-and-not-frequently-asked-questions-faqnfaq)
 
@@ -159,22 +159,24 @@ You can test it using `yarn test` which runs `ava` on the `test` folder.
 
 ## Deployment
 
-Before you can deploy either the Firebase security rules or the Node.js API, make sure you have the Firebase tools installed:
+The `master` branch will automatically deploy to staging. And `production` branch to production.
+
+Also see the `.travis.yml` file.
+
+To deploy manually, do this:
 
 1. `yarn global add firebase-tools`
 2. `firebase login`
 
-**Deploying rules**
+**Deploying to staging**
 
--. Get permissions to the Firebase project `firebase-radio4000`
-- `yarn deploy-rules` (staging)
-- `yarn deploy-rules-production` (production)
+1. `yarn deploy-rules && yarn deploy-api`
+2. Visit https://us-central1-radio4000-staging.cloudfunctions.net/api/
 
-**Deploying the Node.js API**
+**Deploying to production**
 
-1. Get permission to the Firebase project `radio4000-api`
-2. Run `yarn deploy-api-production`
-3. Now live at https://api.radio4000.com
+1. `yarn deploy-rules-production && yarn deploy-api-production`
+2. Visit https://api.radio4000.com/
 
 ## Frequently and not-frequently asked questions (FAQNFAQ)
 
@@ -186,8 +188,9 @@ Firebase allowed this project to come to life without having the need to spend t
 - [radio4000.com](https://github.com/internet4000/radio4000): the main website use this exact API via the JavaScript SDK.
 - [radio4000-player](https://github.com/internet4000/radio4000-player):
   the media player used by radio4000.com is a vue.js project
-  communicating with this API via REST. 
+  communicating with this API via REST.
 - [mix.radio4000.com](https://github.com/internet4000/radio4000-mix):
   mix radio4000 channels together
 
-Do you want your project to appear here? Send a pull request or get in touch!
+Do you want your project to appear here? Send a pull request or get in touch.
+

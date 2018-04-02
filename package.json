@@ -16,12 +16,13 @@
     "body-parser": "^1.17.2",
     "cors": "^2.8.4",
     "express": "^4.15.3",
-    "firebase-admin": "^5.2.1",
-    "firebase-functions": "^0.6.3",
+    "firebase-admin": "^5.10.0",
+    "firebase-functions": "^0.8.2",
     "got": "^6.7.1",
     "stripe": "^4.24.0"
   },
   "devDependencies": {
-    "ava": "^0.21.0"
+    "ava": "^0.21.0",
+    "firebase-tools": "^3.17.7"
   }
 }
