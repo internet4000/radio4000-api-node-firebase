@@ -1,28 +1,28 @@
 {
   "name": "radio4000-api",
-  "version": "0.0.1",
-  "description": "Public API for Radio4000",
+  "homepage": "https://github.com/internet4000/radio4000-api",
   "main": "index.js",
+  "private": true,
+  "license": "MIT",
   "scripts": {
-    "start": "nodemon index.js",
-    "test": "xo && ava",
-    "deploy": "now --dotenv"
+    "start": "firebase serve --only hosting,functions --port 4001",
+    "test": "ava",
+    "deploy-api": "firebase use staging; firebase deploy --only functions",
+    "deploy-api-production": "firebase use production; firebase deploy --only functions",
+    "deploy-rules": "firebase use staging; firebase deploy --only database",
+    "deploy-rules-production": "firebase use production; firebase deploy --only database"
   },
-  "author": "Internet4000",
-  "license": "ISC",
   "dependencies": {
-    "cors": "^2.8.1",
-    "dotenv": "^4.0.0",
-    "express": "^4.14.1",
-    "firebase": "^3.6.10",
-    "nodemon": "^1.11.0"
-  },
-  "now": {
-    "alias": "api.radio4000.com"
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.4",
+    "express": "^4.15.3",
+    "firebase-admin": "^5.10.0",
+    "firebase-functions": "^0.8.2",
+    "got": "^6.7.1",
+    "stripe": "^4.24.0"
   },
   "devDependencies": {
-    "ava": "^0.18.2",
-    "supertest": "^3.0.0",
-    "xo": "^0.17.1"
+    "ava": "^0.21.0",
+    "firebase-tools": "^3.17.7"
   }
 }

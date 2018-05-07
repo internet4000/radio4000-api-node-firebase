@@ -6,23 +6,16 @@
 # compiled output
 /dist
 /tmp
-/build
 
 # dependencies
 /node_modules
+src/node_modules
+src/serviceAccountKey.json
 
 # misc
-/connect.lock
-/coverage/*
-/libpeerconnection.log
 npm-debug.log*
-testem.log
-
-# sublime text
-*.sublime-project
-*.sublime-workspace
+firebase-debug.log
 
 # vs studio code
 jsconfig.json
 typings/
-

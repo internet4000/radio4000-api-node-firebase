@@ -1,0 +1,252 @@
+{
+	"rules": {
+		// disallow both read and write by default
+		// nested rules can not change rules above
+		".read": false,
+		".write": false,
+
+		"users": {
+			// read, nobody can (the global user list)
+			// write, only create new user if not logged in
+			".read": false,
+			".write": "(auth !== null) && !data.exists()",
+
+			// Currently commented out to allow deletes.
+			// Make sure the the authenticated user id exists after a write
+			// ".validate": "newData.hasChild(auth.uid)",
+
+			"$userID": {
+				// read: only auth user can read themselves
+				// write: only authed user can write a single new user, his uid, that's all
+				// write: only user-owner can edit himself
+				// write: can not delete (newData value can't be null)
+				// note: first the "user" is authenticated against Firebase,
+				// then we independently create a user model in our Firebase DB
+				// the authentication and our USER concept are two different things
+				".read": "$userID === auth.uid",
+
+				// You can write yourself only. But not delete.
+				//".write": "($userID === auth.uid) && (newData.val() != null)",
+				".write": "$userID === auth.uid",
+				".validate": "newData.hasChildren(['created'])",
+
+				"created": {
+					// Ensure type::timestamp and that you can not update it
+					".validate": "data.exists() && data.val() === newData.val() || newData.val() === now"
+				},
+				"settings": {
+					".validate": "!newData.exists() || newData.isString() && root.child('userSettings').child(newData.val()).child('user').val() === $userID"
+				},
+				"channels": {
+					// trick to limit to one radio
+					".validate": "!data.exists()",
+					"$channelID": {
+						// we would like to prevent a user to had a channel he does no own
+						// but we don't store on the channel@model the user who owns it
+						// (because, historically, firebase stores the userId as provider:provider-id,
+							// so it is extremely easy to find the user on social networks)
+							// so instead we just prevent a user to add to himself a radio that already
+							// has tracks in -> so no radio hijack
+							".validate": "root.child('channels').child($channelID).exists() && !root.child('users').child(auth.uid).child('channels').child($channelID).exists() && !root.child('channels').child($channelID).child('tracks').exists()"
+						}
+				}/*,
+				"$other": {
+					".validate": false
+				}*/
+			}
+		},
+
+		"userSettings": {
+			".read": false,
+			".write": false,
+
+			"$userSettingsID": {
+				// read: only auth user can read its settings
+				// write: only user-owner can edit his settings
+				// write: only logged-in-user without a user settings can create a new one to himself
+				".read": "auth != null && (data.child('user').val() === auth.uid)",
+				".write": "auth != null && ((data.child('user').val() === auth.uid) || (root.child('users').child(auth.uid).hasChild('settings') === false))",
+				".validate": "newData.hasChild('user')",
+				"user": {
+					".validate": "newData.val() === auth.uid"
+				},
+				"isRemoteActive": {
+					".validate": "newData.isBoolean()"
+				},
+				"playedChannels": {
+					"$channel": {
+						".validate": "newData.isBoolean() && root.child('channels').child($channel).exists()"
+					}
+				},
+				"$other": {
+					".validate": false
+				}
+			}
+		},
+
+		"channels": {
+			".read": true,
+			".write": false,
+			".indexOn": ["created", "slug", "isFeatured", "title"],
+
+			"$channelID": {
+				".read": true,
+
+				// write: only the user owner can write a channel
+				// write: only a user with no channel can write a new one to himself
+				".write": "auth != null && (root.child('users').child(auth.uid).child('channels').child($channelID).exists() || (!data.exists() && !root.child('users').child(auth.uid).child('channels').exists()))",
+				".validate": "newData.hasChildren(['slug', 'title', 'created']) || !newData.exists()",
+
+				"body": {
+					".validate": "newData.isString() && newData.val().length < 300"
+				},
+				"channelPublic": {
+					".validate": "newData.isString() && root.child('channelPublics').child(newData.val()).child('channel').val() == $channelID"
+				},
+				"created": {
+					// Ensure type::number and that you can not update it
+					// OR allow a timestamp within the last second
+					".validate": "data.exists() && data.val() === newData.val() || (newData.val() >= now -1000 && newData.val() <= now)"
+				},
+				"updated": {
+					// Ensure type::number and that you can not update it
+					".validate": "newData.val() == now"
+				},
+				"isFeatured": {
+					".validate": "newData.isBoolean() && (data.exists() && newData.val() === data.val() || newData.val() === false)"
+				},
+				"isPremium": {
+					".validate": "newData.isBoolean() && (data.exists() && newData.val() === data.val() || newData.val() === false)"
+				},
+				"link": {
+					".validate": "newData.isString() && newData.val().length < 150"
+				},
+				// todo: create a separate table to maintain unique slugs otherwise slug can be hijacked
+				"slug": {
+					".validate": "newData.isString() && newData.val().length > 2 && newData.val().length < 100"
+				},
+				"title": {
+					".validate": "newData.isString() && newData.val().length > 2 && newData.val().length < 32"
+				},
+				"tracks": {
+					"$track": {
+						".validate": "root.child('tracks').hasChild($track) && root.child('tracks').child($track).child('channel').val() === $channelID"
+					}
+				},
+				"favoriteChannels": {
+					"$favoriteChannel": {
+						".validate": "root.child('channels').child($favoriteChannel).exists()"
+					}
+				},
+				"images": {
+					"$image": {
+						".validate": "root.child('images').hasChild($image) && root.child('images').child($image).child('channel').val() === $channelID"
+					}
+				},
+				"coordinatesLatitude": {
+          ".validate": "newData.isNumber() && newData.val() >= -90 && newData.val() <= 90"
+        },
+        "coordinatesLongitude": {
+          ".validate": "newData.isNumber() && newData.val() >= -180 && newData.val() <= 180"
+        },
+				"$other": {
+					".validate": false
+				}
+			}
+		},
+
+		"channelPublics": {
+			// read: no one can read the full list of the channelPublics
+			// write: no one can write the list
+			".read": false,
+			".write": false,
+			".indexOn": ["followers"],
+			"$channelPublic": {
+				".read": true,
+				// write: user is logged in && has one channel
+				".write": "auth !== null && root.child('users').child(auth.uid).child('channels').exists()",
+				".validate": "newData.hasChild('channel')",
+
+				// there is no existing data
+				// && user has the channel newData in is channels
+				// && this channel has no publicChannel
+				"channel": {
+					".validate": "data.exists() && data.val() === newData.val() || !data.exists() && root.child('users').child(auth.uid).child('channels').child(newData.val()).exists() && !root.child('channels').child(newData.val()).child('channelPublic').exists()"
+				},
+				"followers": {
+					// validate: user can only add a radio he owns
+					// validate: owner can't add himself
+					"$follower": {
+						".validate": "root.child('users').child(auth.uid).child('channels').hasChild($follower) && root.child('channels').child($follower).child('channelPublic').val() !== $channelPublic"
+					}
+				},
+				"$other": {
+					".validate": false
+				}
+			}
+		},
+
+		"images": {
+			".read": true,
+			".write": false,
+			".indexOn": ["channel"],
+			"$imageID": {
+				// ".write": "auth !== null && root.child('users').child(auth.uid).child('channels').child(newData.child('channel').val()).exists()",
+				".write": "auth !== null && newData.exists() && root.child('users/' + auth.uid + '/channels').child(newData.child('channel').val()).exists() || auth !== null && !newData.exists() && root.child('users/' + auth.uid + '/channels').child(data.child('channel').val()).exists()",
+				".validate": "newData.hasChildren(['channel', 'src'])",
+				"channel": {
+					".validate": "root.child('users').child(auth.uid).child('channels').child(newData.val()).exists()"
+				},
+				"src": {
+					".validate": "newData.isString()"
+				},
+				"created": {
+					// Ensure type::timestamp and that you can not update it
+					".validate": "data.exists() && data.val() === newData.val() || newData.val() === now"
+				},
+				"$other": {
+					".validate": false
+				}
+			}
+		},
+
+		"tracks": {
+			".read": true,
+			".write": false,
+			".indexOn": ["channel", "title"],
+
+			"$trackID": {
+				".write": "auth !== null && newData.exists() && root.child('users/' + auth.uid + '/channels').child(newData.child('channel').val()).exists() || auth !== null && !newData.exists() && root.child('users/' + auth.uid + '/channels').child(data.child('channel').val()).exists()",
+				".validate": "newData.hasChildren(['channel', 'url', 'ytid', 'title', 'created'])",
+
+				"created": {
+					// Ensure type::timestamp and that you can not update it
+					".validate": "data.exists() && data.val() === newData.val() || newData.val() === now"
+				},
+				"url": {
+					".validate": "newData.isString() && newData.val().length > 3"
+				},
+				"title": {
+					".validate": "newData.isString() && newData.val().length > 0"
+				},
+				"body": {
+					".validate": "newData.isString()"
+				},
+				"ytid": {
+					".validate": "newData.isString()"
+				},
+				"channel": {
+					// can only be updated if the value matches the authenticated users channel id
+					".validate": "newData.isString() && root.child('users').child(auth.uid).child('channels').child(newData.val()).exists()"
+				},
+				"$other": {
+					".validate": false
+				}
+			}
+		},
+
+		"$others": {
+			".validate": false
+		}
+	}
+}

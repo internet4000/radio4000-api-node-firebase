@@ -1,11 +1,22 @@
 language: node_js
-node_js:
-  - '7'
-cache:
-  yarn: true
+node_js: 9
+dist: trusty
+cache: yarn
 
-deploy:
-  provider: script
-  script: npm run deploy
-  on:
-    branch: production
+# Define stages and their scripts
+jobs:
+  include:
+    - stage: test
+      script: yarn test
+
+    - stage: deploy-staging
+      if: branch IN (master)
+      script:
+        - yarn deploy-rules
+        - yarn deploy-api
+
+    - stage: deploy-production
+      if: branch = production
+      script:
+        - yarn deploy-rules-production
+        - yarn deploy-api-production
