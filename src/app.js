@@ -7,6 +7,7 @@ const config = require('./config')
 const billings = require('./billings')
 const embed = require('./embed')
 const oembed = require('./oembed')
+const backup = require('./backup')
 
 /* Start Express server */
 const app = express()
@@ -24,5 +25,6 @@ app.get('/', function (req, res) {
 app.use('/billings', billings)
 app.use('/embed', embed)
 app.use('/oembed', oembed)
+app.use('/backup', backup)
 
 module.exports = app
