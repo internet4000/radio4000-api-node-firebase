@@ -195,3 +195,16 @@ Firebase allowed this project to come to life without having the need to spend t
 
 Do you want your project to appear here? Send a pull request or get in touch.
 
+## Developement
+
+`nvm use` will tell nvm to use the right `nodejs` version for this
+Firebase Function project. It reads it from the `.nvmrc` file.
+
+`firebase functions:config:get > .runtimeconfig.json` will download
+locally the secret keys saved in the project environment. You will
+need them to run the API.
+
+`yarn start` will run the API.
+
+`yarn firebase:shell` will run the Firebase shell, with which can
+locally be testes the non-https functions. See the [documentation](https://firebase.google.com/docs/functions/local-emulator).

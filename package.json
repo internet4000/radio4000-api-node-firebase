@@ -7,6 +7,7 @@
   "scripts": {
     "start": "firebase serve --only hosting,functions --port 4001",
     "test": "ava",
+    "firebase:shell": "firebase functions:shell",
     "deploy-api": "firebase use staging; firebase deploy --only functions",
     "deploy-api-production": "firebase use production; firebase deploy --only functions",
     "deploy-rules": "firebase use staging; firebase deploy --only database",
@@ -16,14 +17,16 @@
     "body-parser": "^1.17.2",
     "cors": "^2.8.4",
     "express": "^4.15.3",
-    "firebase-admin": "^5.10.0",
-    "firebase-functions": "^0.8.2",
+    "firebase-admin": "^5.12.1",
+    "firebase-functions": "^1.1.0",
     "got": "^6.7.1",
     "radio4000-sdk": "^0.0.5",
-    "stripe": "^4.24.0"
+    "stripe": "^4.24.0",
+    "youtube-regex": "^1.0.5"
   },
   "devDependencies": {
     "ava": "^0.21.0",
-    "firebase-tools": "^3.17.7"
+    "firebase-tools": "^3.17.7",
+    "@google-cloud/functions-emulator": "^1.0.0-beta.4"
   }
 }

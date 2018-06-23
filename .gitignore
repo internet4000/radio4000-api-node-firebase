@@ -3,6 +3,9 @@
 # config
 .env
 
+# secrets
+.runtimeconfig.json
+
 # compiled output
 /dist
 /tmp
