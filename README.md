@@ -141,6 +141,7 @@ todo: explain our integration of the Cloudinary service.
 |title|`string`|required title of the track. Example: `"Lydia Lunch - This Side of Nowhere (1982)"`|
 |url|`string`|the URL pointing to the provider serving the track media (YouTube only). Example: `"https://www.youtube.com/watch?v=5R5bETC_wvA"`|
 |ytid|`string`|provider id of a track media (YouTube only). Example: `"5R5bETC_wvA"`|
+|mediaNotAvailable|`boolean`|is the current track media available, accessible to be consumed|
 
 ## Node.js API
 

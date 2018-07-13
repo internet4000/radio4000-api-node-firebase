@@ -239,6 +239,9 @@
 					// can only be updated if the value matches the authenticated users channel id
 					".validate": "newData.isString() && root.child('users').child(auth.uid).child('channels').child(newData.val()).exists()"
 				},
+				"mediaNotAvailable": {
+					".validate": "newData.isBoolean()"
+				},
 				"$other": {
 					".validate": false
 				}
