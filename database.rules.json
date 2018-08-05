@@ -226,6 +226,9 @@
 				"url": {
 					".validate": "newData.isString() && newData.val().length > 3"
 				},
+				"discogsUrl": {
+					".validate": "newData.isString() && newData.val().length > 3"
+				},
 				"title": {
 					".validate": "newData.isString() && newData.val().length > 0"
 				},
