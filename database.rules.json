@@ -97,9 +97,6 @@
 				".write": "auth != null && (root.child('users').child(auth.uid).child('channels').child($channelID).exists() || (!data.exists() && !root.child('users').child(auth.uid).child('channels').exists()))",
 				".validate": "newData.hasChildren(['slug', 'title', 'created']) || !newData.exists()",
 
-				"body": {
-					".validate": "newData.isString() && newData.val().length < 300"
-				},
 				"channelPublic": {
 					".validate": "newData.isString() && root.child('channelPublics').child(newData.val()).child('channel').val() == $channelID"
 				},
@@ -128,6 +125,9 @@
 				"title": {
 					".validate": "newData.isString() && newData.val().length > 2 && newData.val().length < 32"
 				},
+				"body": {
+					".validate": "newData.isString() && newData.val().length < 300"
+				},
 				"tracks": {
 					"$track": {
 						".validate": "root.child('tracks').hasChild($track) && root.child('tracks').child($track).child('channel').val() === $channelID"
@@ -137,6 +137,9 @@
 					"$favoriteChannel": {
 						".validate": "root.child('channels').child($favoriteChannel).exists()"
 					}
+				},
+				"image": {
+					".validate": "newData.isString()"
 				},
 				"images": {
 					"$image": {
