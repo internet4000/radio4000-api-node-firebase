@@ -230,7 +230,7 @@
 					".validate": "newData.isString() && newData.val().length > 3"
 				},
 				"discogsUrl": {
-					".validate": "newData.isString() && newData.val().length > 3 && newData.val().length < 150|| newData.val().length === 0"
+					".validate": "newData.isString() && newData.val().length > 3 && newData.val().length < 300 || newData.val().length === 0"
 				},
 				"title": {
 					".validate": "newData.isString() && newData.val().length > 0"
