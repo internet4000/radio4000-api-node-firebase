@@ -23,7 +23,7 @@ app.get('/', function (req, res) {
 		channelsUrl: `${config.databaseURL}channels.json`,
 		channelUrl: `${config.databaseURL}channels/{id}.json`,
 		tracksUrl: `${config.databaseURL}tracks.json`,
-		TrackUrl: `${config.databaseURL}tracks/{id}.json`
+		trackUrl: `${config.databaseURL}tracks/{id}.json`
 	})
 })
 app.use('/billings', billings)
