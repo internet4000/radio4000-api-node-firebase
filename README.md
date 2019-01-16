@@ -43,7 +43,6 @@ For *realtime* database access, you should refer to the [Firebase SDK](https://f
 |https://radio4000.firebaseio.com/channels.json|All channels|
 |https://radio4000.firebaseio.com/channels/{id}.json|Single channels|
 |https://radio4000.firebaseio.com/channelPublics/{id}.json|All channel publics|
-|https://radio4000.firebaseio.com/images/{id}.json|All images|
 |https://radio4000.firebaseio.com/tracks.json|All tracks from all channels|
 |https://radio4000.firebaseio.com/tracks/{id}.json|Single track|
 
@@ -74,7 +73,6 @@ Listed below are all available models and their properties. Also see this folder
 - [userSetting](#usersetting)
 - [channel](#channel)
 - [channelPublic](#channelpublic)
-- [image](#image)
 - [track](#track)
 
 ### user
@@ -138,16 +136,14 @@ Requires authentication to write.
 
 ### Image
 
-For simplicity reasons, and focus of usages, there is only one image
-for a radio channel.
-
+For simplicity and focus of usages, a radio can only have one image.  
 In attent of a better solution, images are hosted at Cloudinary.
 
 ``` javascript
 let width = 500,
-		height = 500,
-		quality = 100,
-		id = 'drz0qs9lgscyfdztr17t';
+height = 500,
+quality = 100,
+id = 'drz0qs9lgscyfdztr17t';
 
 let base = `https://res.cloudinary.com/radio4000/image/upload/w_${width},h_${height},c_thumb,q_${quality}`;
 let image = `${base},fl_awebp/${id}.webp`;
@@ -157,7 +153,6 @@ The whole API is described in details on the [Cloudinary
 documentation](https://cloudinary.com/documentation).
 
 You can check how [Radio4000 uses it](https://github.com/internet4000/radio4000/blob/master/app/helpers/cover-img.js).
-
 
 ## Node.js API
 
@@ -211,4 +206,3 @@ Firebase allowed this project to come to life without having the need to spend t
   mix radio4000 channels together
 
 Do you want your project to appear here? Send a pull request or get in touch.
-
