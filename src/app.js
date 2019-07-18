@@ -23,7 +23,9 @@ app.get('/', function (req, res) {
 		channelsUrl: `${config.databaseURL}channels.json`,
 		channelUrl: `${config.databaseURL}channels/{id}.json`,
 		tracksUrl: `${config.databaseURL}tracks.json`,
-		trackUrl: `${config.databaseURL}tracks/{id}.json`
+		trackUrl: `${config.databaseURL}tracks/{id}.json`,
+		channelEmbedUrl: `${config.apiURL}/embed?slug={slug}.json`,
+		channelOEmbedUrl: `${config.apiURL}/oembed?slug={slug}.json`
 	})
 })
 app.use('/billings', billings)
