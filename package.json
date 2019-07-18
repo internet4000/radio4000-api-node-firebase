@@ -4,6 +4,9 @@
   "main": "index.js",
   "private": true,
   "license": "MIT",
+  "engines": {
+    "node": "8"
+  },
   "scripts": {
     "start": "firebase serve --only hosting,functions --port 4001",
     "test": "ava",
