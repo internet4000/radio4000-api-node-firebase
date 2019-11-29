@@ -16,17 +16,17 @@
     "deploy-rules-production": "firebase use production; firebase deploy --only database"
   },
   "dependencies": {
-    "body-parser": "^1.17.2",
-    "cors": "^2.8.4",
-    "express": "^4.15.3",
-    "firebase-admin": "^7.0.0",
-    "firebase-functions": "^2.2.0",
-    "got": "^6.7.1",
-    "radio4000-sdk": "^0.1.1",
-    "stripe": "^4.24.0"
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "firebase-admin": "^8.8.0",
+    "firebase-functions": "^3.3.0",
+    "got": "^9.6.0",
+    "radio4000-sdk": "^0.1.2",
+    "stripe": "^7.14.0"
   },
   "devDependencies": {
-    "ava": "^0.21.0",
-    "firebase-tools": "^6.1.1"
+    "ava": "^2.4.0",
+    "firebase-tools": "^7.8.1"
   }
 }
