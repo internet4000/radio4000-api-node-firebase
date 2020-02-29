@@ -43,7 +43,6 @@ For *realtime* database access, you should refer to the [Firebase SDK](https://f
 |https://radio4000.firebaseio.com/channels.json|All channels|
 |https://radio4000.firebaseio.com/channels/{id}.json|Single channels|
 |https://radio4000.firebaseio.com/channelPublics/{id}.json|All channel publics|
-|https://radio4000.firebaseio.com/images/{id}.json|All images|
 |https://radio4000.firebaseio.com/tracks.json|All tracks from all channels|
 |https://radio4000.firebaseio.com/tracks/{id}.json|Single track|
 
@@ -74,7 +73,6 @@ Listed below are all available models and their properties. Also see this folder
 - [userSetting](#usersetting)
 - [channel](#channel)
 - [channelPublic](#channelpublic)
-- [image](#image)
 - [track](#track)
 
 ### user
@@ -105,7 +103,7 @@ Requires authentication to write.
 |channelPublic|`belongsTo`|relationship to a `channelPublic`. Example: `"-JoJm13j3aGTWCT_Zbir"`|
 |created|`integer`|timestamp describing when was this radio channel created. Example: `"1411213745028"`|
 |favoriteChannels|`hasMany`|list of channels this radio has added as favorite. Example: `"-JXHtCxC9Ew-Ilck6iZ8": true`|
-|images|`hasMany`|list of `image` models. Example: `"-JoJypAujT2z0qcWnYjW": true`|
+|image|`string`|the id for the cloudinary `image` model. Example: `"image": "drz0qs9lgscyfdztr17t". See Image section for more info`|
 |isFeatured|`boolean`|whether this channel is featured on Radio4000's homepage. Example: `false`|
 |link|`string`|Custom URL describing the external homepage for a radio channel. Example: `"https://example.com"`|
 |slug|`string`|the unique URL representing this channel. Used for human readable urls radio4000.com/pirate-radio). Example: `"pirate-radio"`|
@@ -122,14 +120,6 @@ Requires authentication to write.
 |channel|`belongsTo`|relationship to a `channel` model. Example: `"-JYEosmvT82Ju0vcSHVP"`|
 |followers|`hasMany`|list of `channel` models following this radio. Example: `{"-JXHtCxC9Ew-Ilck6iZ8": true, ...}`|
 
-### Image
-
-|name|type|description|
-|-|-|-|
-|channels|`belongsTo`|relationship to the `channel` model|
-|src|string|`id` of the `cloudinary` model which stores this image data.|
-
-todo: explain our integration of the Cloudinary service.
 
 ### Track
 
@@ -143,6 +133,26 @@ todo: explain our integration of the Cloudinary service.
 |ytid|`string`|provider id of a track media (YouTube only). Example: `"5R5bETC_wvA"`|
 |mediaNotAvailable|`boolean`|is the current track media available, accessible to be consumed|
 |discogsUrl|`string`|the URL pointing to the Discogs release (or master) corresponding to this track media. Example: `"https://www.discogs.com/Nu-Guinea-Nuova-Napoli/master/1334042"`|
+
+### Image
+
+For simplicity and focus of usages, a radio can only have one image.  
+In attent of a better solution, images are hosted at Cloudinary.
+
+``` javascript
+let width = 500,
+height = 500,
+quality = 100,
+id = 'drz0qs9lgscyfdztr17t';
+
+let base = `https://res.cloudinary.com/radio4000/image/upload/w_${width},h_${height},c_thumb,q_${quality}`;
+let image = `${base},fl_awebp/${id}.webp`;
+```
+
+The whole API is described in details on the [Cloudinary
+documentation](https://cloudinary.com/documentation).
+
+You can check how [Radio4000 uses it](https://github.com/internet4000/radio4000/blob/master/app/helpers/cover-img.js).
 
 ## Node.js API
 
@@ -196,4 +206,3 @@ Firebase allowed this project to come to life without having the need to spend t
   mix radio4000 channels together
 
 Do you want your project to appear here? Send a pull request or get in touch.
-
