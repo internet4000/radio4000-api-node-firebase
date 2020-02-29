@@ -73,6 +73,9 @@
 				"isRemoteActive": {
 					".validate": "newData.isBoolean()"
 				},
+				"signedUserAgreement": {
+					".validate": "newData.isBoolean() && newData.val() === true"
+				},
 				"playedChannels": {
 					"$channel": {
 						".validate": "newData.isBoolean() && root.child('channels').child($channel).exists()"
