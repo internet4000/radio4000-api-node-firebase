@@ -9,14 +9,8 @@ jobs:
     - stage: test
       script: yarn test
 
-    - stage: deploy-staging
-      if: branch IN (master)
-      script:
-        - yarn deploy-rules
-        - yarn deploy-api
-
-    - stage: deploy-production
-      if: branch = production
-      script:
-        - yarn deploy-rules-production
-        - yarn deploy-api-production
+deploy:
+  provider: script
+  script: bash scripts/deploy.sh production
+  on:
+    branch: production
