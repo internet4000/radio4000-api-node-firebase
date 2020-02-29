@@ -12,12 +12,14 @@ exports.handleChannelDelete = database.ref('/channels/{channelId}')
 		const {channelId} = context.params
 
 		return snapshot.ref.parent.parent.child(`/channelPublics/${channel.channelPublic}/followers`)
-			.once('value')
-			.then(followersSnap => {
-				let updates = {}
-				Object.keys(followersSnap.val()).forEach(followerId => {
-					updates[`/channels/${followerId}/favoriteChannels/${channelId}`] = null
-				})
-				return snapshot.ref.parent.parent.update(updates)
-			})
+									 .once('value')
+									 .then(followersSnap => {
+										 const followers = followersSnap.val()
+										 if (!followers) return
+										 let updates = {}
+										 Object.keys(followers).forEach(followerId => {
+											 updates[`/channels/${followerId}/favoriteChannels/${channelId}`] = null
+										 })
+										 return snapshot.ref.parent.parent.update(updates)
+									 })
 	})
