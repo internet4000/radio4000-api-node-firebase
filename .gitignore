@@ -15,6 +15,7 @@ src/serviceAccountKey.json
 # misc
 npm-debug.log*
 firebase-debug.log
+yarn-error.log
 
 # vs studio code
 jsconfig.json

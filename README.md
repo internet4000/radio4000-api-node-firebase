@@ -158,13 +158,16 @@ You can check how [Radio4000 uses it](https://github.com/internet4000/radio4000/
 
 In addition to the Firebase API, this repository contains a node.js API in the `src` folder. This is what runs at https://api.radio4000.com. It is configured as a Firebase function. Remember to review the `.firebaserc` and `firebase.json` files.
 
-To install, you'll need node.js and git. Then run:
+To install, you'll need node.js (installed with nvm) and git. Then run:
 
 ```
 git clone git@github.com:internet4000/radio4000-api.git
 cd radio4000-api
-yarn
-yarn start
+nvm install 8.0.0 // install node 8
+nvm use 8.0.0 // use node 8
+yarn // install npm dependencies with yarn
+yarn login // login firebase
+yarn start // start the server
 open http://localhost:4001
 ```
 
