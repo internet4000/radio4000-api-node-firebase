@@ -173,6 +173,10 @@ open http://localhost:4001
 
 You can test it using `yarn test` which runs `ava` on the `test` folder.
 
+```
+yarn functions-shell // interactively call your firebase functions in a shell
+```
+
 ## Deployment
 
 The `master` branch will automatically deploy to staging. And `production` branch to production.
