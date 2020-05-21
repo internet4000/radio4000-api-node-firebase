@@ -19,11 +19,11 @@ const {database} = functions
 exports.api = functions.https.onRequest(app)
 
 exports.handleChannelCreate = database
-	.ref('/channels/{channelId}')
+	.ref('/channels/{id}')
 	.onCreate(handleChannelCreate)
 
 exports.handleChannelDelete = database
-	.ref('/channels/{channelId}')
+	.ref('/channels/{id}')
 	.onDelete(handleChannelDelete)
 
 exports.handleUserCreate = functions

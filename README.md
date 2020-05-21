@@ -179,6 +179,14 @@ gcloud auth login // required login with gcloud, again!
 npm run functions-shell // interactively call your firebase functions in a shell
 ```
 
+```
+# to mock unauthenticated user
+myDatabaseFunction('data', {authMode: 'USER'})
+# to mock end user
+myDatabaseFunction('data', {auth: {uid: 'abcd'}})
+
+```
+
 Docs:
 - gcloud auth: https://github.com/firebase/firebase-tools/issues/1708#issuecomment-581714542
 - https://firebase.google.com/docs/functions/local-shell
