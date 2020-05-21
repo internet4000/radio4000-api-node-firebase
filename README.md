@@ -163,19 +163,25 @@ To install, you'll need node.js (installed with nvm) and git. Then run:
 ```
 git clone git@github.com:internet4000/radio4000-api.git
 cd radio4000-api
-nvm install 8.0.0 // install node 8
-nvm use 8.0.0 // use node 8
-yarn // install npm dependencies with yarn
-yarn login // login firebase
-yarn start // start the server
+nvm install 10.10.0 // install node 10
+nvm use 10.10.0 // use node 10
+npm // install npm dependencies with yarn
+npm run login // login firebase
+npm start // start the server
 open http://localhost:4001
 ```
 
-You can test it using `yarn test` which runs `ava` on the `test` folder.
+You can test it using `npm test` which runs `ava` on the `test` folder.
+
 
 ```
-yarn functions-shell // interactively call your firebase functions in a shell
+gcloud auth login // required login with gcloud, again!
+npm run functions-shell // interactively call your firebase functions in a shell
 ```
+
+Docs:
+- gcloud auth: https://github.com/firebase/firebase-tools/issues/1708#issuecomment-581714542
+- https://firebase.google.com/docs/functions/local-shell
 
 ## Deployment
 
@@ -185,17 +191,17 @@ Also see the `.travis.yml` file.
 
 To deploy manually, do this:
 
-1. `yarn global add firebase-tools`
+1. `npm global add firebase-tools`
 2. `firebase login`
 
 **Deploying to staging**
 
-1. `yarn deploy-rules && yarn deploy-api`
+1. `npm run deploy-rules && run npm deploy-api`
 2. Visit https://us-central1-radio4000-staging.cloudfunctions.net/api/
 
 **Deploying to production**
 
-1. `yarn deploy-rules-production && yarn deploy-api-production`
+1. `npm run deploy-rules-production && npm run deploy-api-production`
 2. Visit https://api.radio4000.com/
 
 ## Frequently and not-frequently asked questions (FAQNFAQ)

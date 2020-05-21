@@ -5,8 +5,6 @@ const stripe = require('stripe')
 const config = require('../config')
 const noEndpoint = require('../utils/no-endpoint')
 
-admin.initializeApp(functions.config().firebase)
-
 const billings = express.Router()
 
 let stripePrivateKey = functions.config().stripe.private_key
