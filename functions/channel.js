@@ -27,9 +27,13 @@ const deleteChannelFollowersReferences = async (dbRootRef, channelPublic) => {
 
 const handleChannelDelete = async (snapshot, context) => {
 	const channel = snapshot.val()
-	const {channelPublic} = channel
 	const {id: channelId} = context.params
 	const {auth} = context
+
+	let channelPublic
+	if (channel) {
+		channelPublic = channel.channelPublic
+	}
 
 	if (!auth) {
 		console.error('Channel delete called without auth')
