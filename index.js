@@ -5,8 +5,9 @@ const app = require('./src/app')
 admin.initializeApp()
 
 const {
-	handleChannelDelete,
-	handleChannelCreate
+	handleChannelCreate,
+	handleChannelUpdate,
+	handleChannelDelete
 } = require('./functions/channel')
 const {
 	handleUserCreate,
@@ -21,6 +22,10 @@ exports.api = functions.https.onRequest(app)
 exports.handleChannelCreate = database
 	.ref('/channels/{id}')
 	.onCreate(handleChannelCreate)
+
+exports.handleChannelUpdate = database
+	.ref('/channels/{id}')
+	.onUpdate(handleChannelUpdate)
 
 exports.handleChannelDelete = database
 	.ref('/channels/{id}')

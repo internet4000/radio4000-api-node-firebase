@@ -13,9 +13,11 @@
     "firebase-login": "firebase login",
     "functions-shell": "firebase functions:shell",
     "test": "ava",
-    "deploy-api": "firebase use staging; firebase deploy --only functions",
+    "deploy-api": "firebase use dev; firebase deploy --only functions",
+    "deploy-api-staging": "firebase use staging; firebase deploy --only functions",
     "deploy-api-production": "firebase use production; firebase deploy --only functions",
-    "deploy-rules": "firebase use staging; firebase deploy --only database",
+    "deploy-rules": "firebase use dev; firebase deploy --only database",
+    "deploy-rules-staging": "firebase use staging; firebase deploy --only database",
     "deploy-rules-production": "firebase use production; firebase deploy --only database"
   },
   "dependencies": {

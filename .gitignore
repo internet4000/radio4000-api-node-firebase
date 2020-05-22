@@ -6,6 +6,8 @@
 # compiled output
 /dist
 /tmp
+.firebase/hosting*
+database-debug.log
 
 # dependencies
 /node_modules

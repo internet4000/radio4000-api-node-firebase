@@ -98,7 +98,7 @@
 				// write: only the user owner can write a channel
 				// write: only a user with no channel can write a new one to himself
 				".write": "auth != null && (root.child('users').child(auth.uid).child('channels').child($channelID).exists() || (!data.exists() && !root.child('users').child(auth.uid).child('channels').exists()))",
-				".validate": "newData.hasChildren(['slug', 'title', 'created']) || !newData.exists()",
+				".validate": "newData.hasChildren(['title']) || !newData.exists()",
 
 				"channelPublic": {
 					".validate": "newData.isString() && root.child('channelPublics').child(newData.val()).child('channel').val() == $channelID"
