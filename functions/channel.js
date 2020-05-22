@@ -100,8 +100,6 @@ const handleChannelCreate = async (snapshot, context) => {
 	let userChannelRef = snapshot.ref
 	let dbRootRef = userChannelRef.parent.parent
 
-	console.log('title', title, slugify(title))
-
 	// validate slug, or generate it
 	try {
 		await userChannelRef.update({
@@ -162,8 +160,8 @@ const handleChannelUpdate = async (change, context) => {
 	}
 
 	let userChannelRef = change.after.ref
-	const newValue = change.after.data()
-  const previousValue = change.before.data()
+	const newValue = change.after.val()
+	const previousValue = change.before.val()
 
 	if (!newValue.slug) {
 		try {

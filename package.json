@@ -3,7 +3,7 @@
   "homepage": "https://github.com/internet4000/radio4000-api",
   "main": "index.js",
   "private": true,
-  "license": "MIT",
+  "license": "aGPLv3",
   "engines": {
     "node": "10"
   },
