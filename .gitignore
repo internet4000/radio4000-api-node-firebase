@@ -22,3 +22,4 @@ yarn-error.log
 # vs studio code
 jsconfig.json
 typings/
+pnpm-lock.yaml

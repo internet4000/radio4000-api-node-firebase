@@ -166,7 +166,7 @@ cd radio4000-api
 nvm install 10.10.0 // install node 10
 nvm use 10.10.0 // use node 10
 npm // install npm dependencies with yarn
-npm run login // login firebase
+npm run firebase-login 
 npm start // start the server
 open http://localhost:4001
 ```
