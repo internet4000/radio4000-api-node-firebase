@@ -1,8 +1,7 @@
 {
-  "projects": {
-    "production": "firebase-radio4000",
-    "staging": "radio4000-staging",
-		"dev": "radio4000-hugurp",
-    "default": "radio4000-hugurp"
-  }
+	"projects": {
+		"production": "firebase-radio4000",
+		"staging": "radio4000-staging",
+		"dev": "radio4000-hugurp"
+	}
 }
