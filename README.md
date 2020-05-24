@@ -204,7 +204,7 @@ To deploy manually, do this:
 
 **Deploying to staging**
 
-1. `npm run deploy-rules && run npm deploy-api`
+1. `npm run deploy-rules && npm run deploy-api`
 2. Visit https://us-central1-radio4000-staging.cloudfunctions.net/api/
 
 **Deploying to production**
