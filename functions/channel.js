@@ -1,7 +1,9 @@
 const admin = require('firebase-admin')
 const slugify = require('@sindresorhus/slugify')
 
-const deleteChannelFollowersReferences = async (dbRootRef, channelPublic) => {
+const deleteChannelFollowersReferences = async (dbRootRef, channelId, channelPublic) => {
+	if (!channelId || !channelPublic) return
+
 	let channelFollowersRef = dbRootRef.child(`/channelPublics/${channelPublic}/followers`)
 	let channelFollowersSnap
 	try {
@@ -55,7 +57,7 @@ const handleChannelDelete = async (change, context) => {
 
 	if (channelPublic) {
 		try {
-			await deleteChannelFollowersReferences(dbRootRef, channelPublic)
+			await deleteChannelFollowersReferences(dbRootRef, channelId, channelPublic)
 		} catch (error) {
 			console.error('Error deleting channel\'s followers.favorite[channelId] refs')
 		}
