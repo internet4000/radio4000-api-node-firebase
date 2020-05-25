@@ -1,3 +1,4 @@
+const admin = require('firebase-admin')
 const slugify = require('@sindresorhus/slugify')
 
 const deleteChannelFollowersReferences = async (dbRootRef, channelPublic) => {
@@ -103,7 +104,9 @@ const handleChannelCreate = async (snapshot, context) => {
 	// validate slug, or generate it
 	try {
 		await userChannelRef.update({
-			slug: slugify(title)
+			slug: slugify(title),
+			created: admin.database.ServerValue.TIMESTAMP,
+			updated: admin.database.ServerValue.TIMESTAMP
 		})
 	} catch (error) {
 		console.error('Error setting slug')

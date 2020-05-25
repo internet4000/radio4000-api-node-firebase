@@ -9,7 +9,8 @@ const createUserSetting = async (userId) => {
 	let userSettingRef = await userSettingsRef.push()
 	userSettingRef.set({
 		user: userId,
-		signedUserAgreement: false
+		signedUserAgreement: false,
+		created: admin.database.ServerValue.TIMESTAMP
 	})
 	return userSettingRef
 }
