@@ -8,6 +8,7 @@
 /tmp
 
 # dependencies
+package-lock.json
 /node_modules
 src/node_modules
 src/serviceAccountKey.json
