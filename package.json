@@ -5,7 +5,7 @@
   "private": true,
   "license": "MIT",
   "engines": {
-    "node": "8"
+    "node": ">=10"
   },
   "scripts": {
     "start": "firebase use staging && firebase serve --only hosting,functions --port 4001",
