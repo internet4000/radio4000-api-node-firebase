@@ -163,8 +163,8 @@ To install, you'll need node.js (installed with nvm) and git. Then run:
 ```
 git clone git@github.com:internet4000/radio4000-api.git
 cd radio4000-api
-nvm install 8.0.0 // install node 8
-nvm use 8.0.0 // use node 8
+nvm install 10.0.0 // install node 10
+nvm use 10.0.0 // use node 10
 yarn // install npm dependencies with yarn
 yarn login // login firebase
 yarn start // start the server
