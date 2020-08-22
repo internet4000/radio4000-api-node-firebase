@@ -8,6 +8,7 @@
 /tmp
 
 # dependencies
+package-lock.json
 /node_modules
 src/node_modules
 src/serviceAccountKey.json
@@ -15,6 +16,7 @@ src/serviceAccountKey.json
 # misc
 npm-debug.log*
 firebase-debug.log
+yarn-error.log
 
 # vs studio code
 jsconfig.json
