@@ -4,7 +4,7 @@ const cors = require('cors')
 const functions = require('firebase-functions')
 
 const config = require('./config')
-const billings = require('./billings')
+/* const billings = require('./billings') */
 const embed = require('./embed')
 const oembed = require('./oembed')
 const backup = require('./backup')
@@ -28,7 +28,7 @@ app.get('/', function (req, res) {
 		channelOEmbedUrl: `${config.apiURL}/oembed?slug={slug}`
 	})
 })
-app.use('/billings', billings)
+/* app.use('/billings', billings) */
 app.use('/embed', embed)
 app.use('/oembed', oembed)
 app.use('/backup', backup)
