@@ -213,3 +213,32 @@ Firebase allowed this project to come to life without having the need to spend t
   mix radio4000 channels together
 
 Do you want your project to appear here? Send a pull request or get in touch.
+
+## Database operations
+
+You will need to have `firebase-tools` installed globally with npm; look at the help for all commands with `--help`.
+
+### Export
+
+- `firebase projects:list`
+- `firebase use <project-name>`
+- `firease database:get /`, where `/` is the path in the database, to base the export.
+
+
+### Import
+
+- `firebase projects:list`
+- `firebase use <project-name>`
+- `firease database:set / <datafile>`, where `/` is the path in the database, to import to.
+
+## User operations
+
+### Export
+
+- `firebase use <project-name>`
+- `firebase auth:export users.json`
+
+### Import
+
+- `firebase use <project-name>`
+- `firebase auth:import  --hash-algo <> --hash-key <> --salt-separator <> --rounds <> --mem-cost <> --parallelization <> --block-size <> --dk-len<> --hash-input-order <> <datafile>`
