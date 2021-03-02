@@ -1,8 +1,0 @@
-{
-  "stripe": {
-    "public_key": "pk_test_McG33qKTvlMHHSRz8kVkwo2R",
-    "private_key": "sk_test_u5iqxnRWtbL7ZcMslcgbA1XY",
-    "production_public_key": "pk_test_McG33qKTvlMHHSRz8kVkwo2R",
-    "production_private_key": "sk_test_u5iqxnRWtbL7ZcMslcgbA1XY"
-  }
-}
